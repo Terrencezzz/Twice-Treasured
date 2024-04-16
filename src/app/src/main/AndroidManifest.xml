@@ -13,16 +13,16 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".TradePlatform"
+            android:name=".Activities.TradePlatform"
             android:exported="false" />
         <activity
-            android:name=".PrivateChat"
+            android:name=".Activities.PrivateChat"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
+            android:name=".Activities.HomePage"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".Activities.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
