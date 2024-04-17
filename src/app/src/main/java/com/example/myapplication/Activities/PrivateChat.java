@@ -6,6 +6,10 @@ import android.os.Bundle;
 
 import com.example.myapplication.R;
 
+/**
+ * In this page user can chat with other privately.
+ * There is not four button at bottom but a exist button on the top left.
+ */
 public class PrivateChat extends AppCompatActivity {
 
     @Override

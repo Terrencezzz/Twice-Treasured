@@ -1,15 +1,16 @@
 package com.example.myapplication.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.Activities.HomePage;
 
+
+/**
+ * In this page user can check his information.
+ */
 public class UserPage extends Page {
 
     @Override

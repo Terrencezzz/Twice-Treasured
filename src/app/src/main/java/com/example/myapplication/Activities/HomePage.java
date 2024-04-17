@@ -1,16 +1,19 @@
 package com.example.myapplication.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.basicClass.User;
 
+
+/**
+ * This is a home page, after you login you come to this page.
+ * This page will contain the search and some advertisements.
+ */
 public class HomePage extends Page {
 
     @Override

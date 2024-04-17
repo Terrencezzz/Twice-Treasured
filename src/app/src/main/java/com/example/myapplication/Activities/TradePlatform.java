@@ -1,14 +1,16 @@
 package com.example.myapplication.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
 
+
+/**
+ * This activity is the the trade platform, people can post their products here.
+ */
 public class TradePlatform extends Page {
 
     @Override

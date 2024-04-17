@@ -1,6 +1,5 @@
 package com.example.myapplication.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +7,10 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 
+
+/**
+ * In this page people can check their favorite products.
+ */
 public class Favorite extends Page {
 
     @Override
