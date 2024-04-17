@@ -11,31 +11,7 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.User;
 
-public class HomePage extends AppCompatActivity {
-
-    public void goHomePage() {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void goUserPage() {
-        Intent intent = new Intent(this, UserPage.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void goTradePage() {
-        Intent intent = new Intent(this, TradePlatform.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void goFavorite() {
-        Intent intent = new Intent(this, Favorite.class);
-        startActivity(intent);
-        finish();
-    }
+public class HomePage extends Page {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
