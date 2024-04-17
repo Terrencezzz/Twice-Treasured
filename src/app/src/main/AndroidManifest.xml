@@ -13,13 +13,19 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.Favorite"
+            android:exported="true" />
+        <activity
             android:name=".Activities.TradePlatform"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activities.PrivateChat"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activities.HomePage"
+            android:exported="true" />
+        <activity
+            android:name=".Activities.UserPage"
             android:exported="true" />
         <activity
             android:name=".Activities.Login"

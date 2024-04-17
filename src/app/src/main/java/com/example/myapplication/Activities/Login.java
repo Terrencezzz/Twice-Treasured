@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.myapplication.Activities.HomePage;
 import com.example.myapplication.R;
-
-import java.util.function.ToDoubleBiFunction;
 
 public class Login extends AppCompatActivity {
 

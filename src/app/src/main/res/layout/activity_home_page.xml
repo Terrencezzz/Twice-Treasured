@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/search_button"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
@@ -26,5 +26,44 @@
         android:text="Search"
         app:layout_constraintStart_toEndOf="@+id/editTextText"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/HomePage"
+        android:layout_width="100dp"
+        android:layout_height="61dp"
+        android:text="Home Page"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/Favorite"
+        android:layout_width="100dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="1dp"
+        android:text="Favorite"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TradePage" />
+
+    <TextView
+        android:id="@+id/TradePage"
+        android:layout_width="105dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="1dp"
+        android:text="Trade"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/UserPage" />
+
+    <TextView
+        android:id="@+id/UserPage"
+        android:layout_width="100dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="1dp"
+        android:text="User Page"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/HomePage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
