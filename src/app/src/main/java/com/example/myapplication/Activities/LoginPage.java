@@ -23,16 +23,6 @@ public class LoginPage extends AppCompatActivity {
     private FirebaseAuth auth;
 
     /**
-     * This app will start from login page, if the user successfully login, use this function
-     * to move to next activity.
-     */
-    private void onLoginSuccess() {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
-        finish();
-    }
-
-    /**
      * This function check the user account
      * @return correctness of the Account
      */
