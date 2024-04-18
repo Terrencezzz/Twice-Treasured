@@ -9,7 +9,10 @@ import android.widget.Button;
 
 import com.example.myapplication.R;
 
-public class Login extends AppCompatActivity {
+public class LoginPage extends AppCompatActivity {
+
+    private Button register;
+    private Button login;
 
     /**
      * This app will start from login page, if the user successfully login, use this function
@@ -42,8 +45,20 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button button = findViewById(R.id.login);
-        button.setOnClickListener(new View.OnClickListener() {
+        register = findViewById(R.id.register);
+        login = findViewById(R.id.login);
+
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginPage.this, RegisterActivity.class));
+                finish();
+            }
+        });
+
+
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkAccount()&&checkPassword()) onLoginSuccess();
