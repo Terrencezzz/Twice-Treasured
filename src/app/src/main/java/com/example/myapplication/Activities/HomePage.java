@@ -2,6 +2,7 @@ package com.example.myapplication.Activities;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ public class HomePage extends Page {
         setContentView(R.layout.activity_home_page);
 
         Button button = findViewById(R.id.button);
+        Button goPrivate = findViewById(R.id.goPrivate);
         TextView homePage = findViewById(R.id.HomePage);
         TextView userPage = findViewById(R.id.UserPage);
         TextView tradePage = findViewById(R.id.TradePage);
@@ -52,6 +54,13 @@ public class HomePage extends Page {
             @Override
             public void onClick(View v) {
                 goFavorite();
+            }
+        });
+
+        goPrivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomePage.this, PrivateChat.class));
             }
         });
     }
