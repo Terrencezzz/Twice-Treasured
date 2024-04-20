@@ -66,4 +66,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/HomePage" />
 
+    <Button
+        android:id="@+id/goPrivate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="504dp"
+        android:text="private"
+        app:layout_constraintBottom_toTopOf="@+id/Favorite"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
