@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private final int UID;
-    private String name;
-    private List<String> products;
+    public final String UID;
+    public String name;
+    public String email;
+    public String password;
+    public String location;
 
-    User(int UID, String name) {
+    User(String UID, String name,String email, String password, String location) {
         this.UID = UID;
         this.name = name;
-        products = new ArrayList<>();
+        this.password = password;
+        this.location = location;
     }
 
 }

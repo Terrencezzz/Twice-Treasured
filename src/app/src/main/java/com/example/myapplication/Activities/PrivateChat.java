@@ -2,11 +2,8 @@ package com.example.myapplication.Activities;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +12,11 @@ import java.util.List;
 
 import com.example.myapplication.Adapters.UserAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.basicClass.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 /**
  * This activity provides a private chat interface where users
@@ -32,7 +33,8 @@ public class PrivateChat extends AppCompatActivity {
     private List<String> messagesList = new ArrayList<>(); // List to hold messages
     private UserAdapter adapter; // Adapter for RecyclerView
     FirebaseAuth auth;
-    RecyclerView mainUserRecyclerView;
+    FirebaseDatabase database;
+    ArrayList<User> userArrayList;
 
 
     @Override
@@ -45,6 +47,13 @@ public class PrivateChat extends AppCompatActivity {
         buttonSend = findViewById(R.id.buttonSend);
         buttonBack = findViewById(R.id.buttonBack); // Initialize the back button
         recyclerViewMessages = findViewById(R.id.recyclerViewMessages);
+        auth = FirebaseAuth.getInstance();
+        recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
+
+
+        database = FirebaseDatabase.getInstance();
+
+        DatabaseReference reference = database.getReference().child("user");
 
         // Setup the adapter and layout manager for RecyclerView
         adapter = new UserAdapter(messagesList);
@@ -73,7 +82,4 @@ public class PrivateChat extends AppCompatActivity {
             }
         });
     }
-
-    // Adapter class for the RecyclerView
-
 }
