@@ -7,14 +7,58 @@
     tools:context=".Activities.TradePlatform">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/TradeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="241dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="64dp"
         android:text="Trade"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/headerProductId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Product ID"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/TradeTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/headerPrice"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.33"/>
+
+    <TextView
+        android:id="@+id/headerPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/TradeTitle"
+        app:layout_constraintStart_toEndOf="@+id/headerProductId"
+        app:layout_constraintEnd_toStartOf="@+id/headerCategory"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.34"/>
+
+    <TextView
+        android:id="@+id/headerCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/TradeTitle"
+        app:layout_constraintStart_toEndOf="@+id/headerPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.33"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/headerCategory"
+        app:layout_constraintBottom_toTopOf="@+id/HomePage"
+        app:layout_constraintVertical_weight="1"/>
 
     <TextView
         android:id="@+id/HomePage"

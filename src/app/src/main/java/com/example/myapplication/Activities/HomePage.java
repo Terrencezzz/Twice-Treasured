@@ -46,7 +46,7 @@ public class HomePage extends Page {
         tradePage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goTradePage();
+                startActivity(new Intent(HomePage.this, TradePlatform.class));
             }
         });
 

@@ -1,13 +1,92 @@
 package com.example.myapplication.basicClass;
 
-public class Product {
-    private final int productID;
-    private String productName;
-    private int price;
 
-    Product(int productID, String productName, int price) {
+public class Product {
+    private String productID;
+    private String category;
+    private String description;
+    private String price;
+    private String condition;
+    private String uploadDate;
+    private String status;
+    private String imgLink;
+
+    // Constructor to initialize the Product object with all attributes
+    public Product(String productID, String category, String description, String price,
+                   String condition, String uploadDate, String status, String imgLink) {
         this.productID = productID;
-        this.productName = productName;
+        this.category = category;
+        this.description = description;
+        this.price = price;
+        this.condition = condition;
+        this.uploadDate = uploadDate;
+        this.status = status;
+        this.imgLink = imgLink;
+    }
+
+    // Getter and setter methods for all properties
+    public String getProductID() {
+        return productID;
+    }
+
+    public void setProductID(String productID) {
+        this.productID = productID;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
         this.price = price;
     }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public String getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(String uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getImgLink() {
+        return imgLink;
+    }
+
+    public void setImgLink(String imgLink) {
+        this.imgLink = imgLink;
+    }
 }
+
