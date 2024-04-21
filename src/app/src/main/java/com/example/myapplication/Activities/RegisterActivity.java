@@ -16,6 +16,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -24,6 +32,9 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerButton;
     private Button loginButton;
     private FirebaseAuth auth;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference reference = database.getReference();
+    FirebaseStorage storage;
 
 
     @Override
@@ -66,11 +77,23 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(String txtEmail, String txtPassword) {
-        auth.createUserWithEmailAndPassword(txtEmail,txtPassword).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword(txtEmail,txtPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+
+                    String id = task.getResult().getUser().getUid();
+                    String name = email.getText().toString();
+
+                    HashMap<String, String> userMap = new HashMap<>();
+                    userMap.put("id", id);
+                    userMap.put("name" , name);
+                    userMap.put("email", txtEmail);
+                    userMap.put("password", txtPassword);
+
+                    reference.child("user").setValue(userMap);
+
                     Intent intent = new Intent(RegisterActivity.this, HomePage.class);
                     startActivity(intent);
                     finish();

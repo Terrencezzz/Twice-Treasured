@@ -27,6 +27,7 @@ public class IntroPage extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(IntroPage.this,RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -36,6 +37,7 @@ public class IntroPage extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(IntroPage.this, LoginPage.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
