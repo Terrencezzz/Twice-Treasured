@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
@@ -17,47 +18,58 @@ import com.example.myapplication.R;
  */
 public class HomePage extends Page {
 
+    private  ImageView btnSearch;
+    private TextView btnPrivate;
+    private TextView btnHome;
+    private TextView btnMe;
+    private TextView btnFavorite;
+    private Button btnTradePlatform;
+    private  TextView btnViewmore;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        Button button = findViewById(R.id.button);
-        Button goPrivate = findViewById(R.id.goPrivate);
-        TextView homePage = findViewById(R.id.HomePage);
-        TextView userPage = findViewById(R.id.UserPage);
-        TextView tradePage = findViewById(R.id.TradePage);
-        TextView favorite = findViewById(R.id.Favorite);
-
-        homePage.setOnClickListener(new View.OnClickListener() {
+        btnSearch = findViewById(R.id.btnSearch);
+        btnPrivate = findViewById(R.id.btnPrivate);
+        btnHome = findViewById(R.id.btnHome);
+        btnMe = findViewById(R.id.btnMe);
+        btnTradePlatform = findViewById(R.id.btnTradePlatform);
+        btnFavorite= findViewById(R.id.btnFavorite);
+        btnViewmore = findViewById(R.id.btnViewmore);
+        btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goHomePage();
             }
         });
 
-        userPage.setOnClickListener(new View.OnClickListener() {
+        btnMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goUserPage();
             }
         });
 
-        tradePage.setOnClickListener(new View.OnClickListener() {
+        btnTradePlatform.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomePage.this, TradePlatform.class));
             }
         });
 
-        favorite.setOnClickListener(new View.OnClickListener() {
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goFavorite();
             }
         });
 
-        goPrivate.setOnClickListener(new View.OnClickListener() {
+        btnPrivate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomePage.this, PrivateChat.class));
