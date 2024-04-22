@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapters.CategoryAdapter;
+import com.example.myapplication.Adapters.RecommendAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Category;
+import com.example.myapplication.basicClass.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +50,7 @@ public class HomePage extends Page {
         setContentView(R.layout.activity_home_page);
 
         initCategory();
+        initRecommend();
 
         btnSearch = findViewById(R.id.btnSearch);
         btnPrivate = findViewById(R.id.btnPrivate);
@@ -90,6 +93,42 @@ public class HomePage extends Page {
                 startActivity(new Intent(HomePage.this, PrivateChat.class));
             }
         });
+    }
+
+    private void initRecommend() {
+        DatabaseReference  db =database.getReference("Product");
+        ProgressBar pbRecommend = findViewById(R.id.pbRecommend);
+        pbRecommend.setVisibility(View.VISIBLE);
+        ArrayList<Product> products = new ArrayList<>();
+        /*
+        * Need Add Query Condition
+        * */
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()){
+                    for (DataSnapshot issue:snapshot.getChildren()){
+                        products.add(issue.getValue(Product.class));
+                    }
+
+                    if(products.size()>0){
+                        RecyclerView rvRecommend = findViewById(R.id.rvRecommend);
+                        rvRecommend.setLayoutManager(new LinearLayoutManager(HomePage.this,LinearLayoutManager.HORIZONTAL,false));
+                        RecyclerView.Adapter<RecommendAdapter.ViewHolder> adapter  = new RecommendAdapter(products);
+                        rvRecommend.setAdapter(adapter);
+                    }
+
+                    pbRecommend.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void initCategory() {

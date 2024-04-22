@@ -10,6 +10,12 @@ public class Product {
     private String uploadDate;
     private String status;
     private String imgLink;
+    private String name;
+    private int categoryId;
+
+    private int Id;
+
+
 
     // Constructor to initialize the Product object with all attributes
     public Product(String productID, String category, String description, String price,
@@ -22,6 +28,10 @@ public class Product {
         this.uploadDate = uploadDate;
         this.status = status;
         this.imgLink = imgLink;
+    }
+
+    public Product() {
+
     }
 
     // Getter and setter methods for all properties
@@ -88,5 +98,29 @@ public class Product {
     public void setImgLink(String imgLink) {
         this.imgLink = imgLink;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
 }
 
