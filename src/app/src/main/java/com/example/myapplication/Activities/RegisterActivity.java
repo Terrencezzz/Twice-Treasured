@@ -92,7 +92,8 @@ public class RegisterActivity extends AppCompatActivity {
                     userMap.put("email", txtEmail);
                     userMap.put("password", txtPassword);
 
-                    reference.child("user").setValue(userMap);
+                    DatabaseReference userReference = reference.child("user").child(id);
+                    userReference.setValue(userMap);
 
                     Intent intent = new Intent(RegisterActivity.this, HomePage.class);
                     startActivity(intent);
