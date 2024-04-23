@@ -76,7 +76,7 @@ public class HomePage extends Page {
         btnTradePlatform.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomePage.this, TradePlatform.class));
+                startActivity(new Intent(HomePage.this, Post.class));
             }
         });
 

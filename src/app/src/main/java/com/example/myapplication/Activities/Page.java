@@ -42,7 +42,7 @@ public abstract class Page extends AppCompatActivity {
      * You can move to TradePlatform with this function.
      */
     public void goTradePage() {
-        goToActivity(TradePlatform.class);
+        goToActivity(Post.class);
     }
 
     /**
