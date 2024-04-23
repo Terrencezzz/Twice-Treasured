@@ -89,9 +89,7 @@ public class HomePage extends Page {
 
         btnPrivate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomePage.this, PrivateChat.class));
-            }
+            public void onClick(View v) { goPrivateMenu();}
         });
     }
 

@@ -34,6 +34,9 @@
             android:name=".Activities.TradePlatform"
             android:exported="true" />
         <activity
+            android:name=".Activities.PrivateMenuActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activities.PrivateChat"
             android:exported="true" />
         <activity
