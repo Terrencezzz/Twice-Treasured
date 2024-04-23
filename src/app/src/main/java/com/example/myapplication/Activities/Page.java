@@ -52,4 +52,9 @@ public abstract class Page extends AppCompatActivity {
         goToActivity(Favorite.class);
     }
 
+    /**
+     * You can move to Private Message Menu with this function
+     */
+    public void goPrivateMenu() { goToActivity(PrivateMenuActivity.class);}
+
 }

@@ -330,8 +330,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Private"
                     android:clickable="true"
+                    android:text="@string/btn_private"
                     android:textAlignment="center"
                     android:textColor="@color/gray"
                     android:textSize="20dp" />
