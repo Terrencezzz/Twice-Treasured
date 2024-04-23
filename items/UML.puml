@@ -1,0 +1,491 @@
+@startuml
+
+title
+**UML of Twice Treasured APP**
+end title
+
+package Services{
+interface IProductFactory
+class ConcreteProductFactory
+class ConcreteProduct
+interface IProduct
+interface Observable
+interface Observer
+class QueryProcessor
+class SearchService
+class FavoriteProduct
+}
+
+package Activities{
+class Favorite
+class Page
+class HomePage
+class IntroPage
+class  LoginPage
+class Post_Product
+class  PrivateChat
+class  RegisterActivity
+class  TradePlatform
+class   UserPage
+}
+
+package Adapters{
+class CategoryAdapter
+class ProductAdapter
+class UserAdapter
+class RecommendAdapter
+}
+
+package basicClass {
+class Category
+class messageModel
+class Parser
+class Product
+class Token
+class Tokenizer
+class AVLTree
+class User
+class DatabaseManager
+}
+
+CategoryAdapter --> Category
+ProductAdapter --> Product
+UserAdapter --> User
+RecommendAdapter --> Product
+
+
+Page  <|--  HomePage
+Page  <|--   Favorite
+UserPage --|> Page
+Page <|--  TradePlatform
+
+IntroPage ..> RegisterActivity
+IntroPage ..> LoginPage
+TradePlatform o-- Product
+Post_Product --> Product
+PrivateChat --o messageModel
+RegisterActivity ..> User
+LoginPage ..> User
+HomePage ..> SearchService
+
+
+messageModel --> User
+messageModel  ..> DatabaseManager
+Parser <.. SearchService
+Parser --> Tokenizer
+Parser ..> AVLTree
+Parser --o QueryProcessor
+Product <-- AVLTree
+Product --|> IProduct
+Product --|> Observable
+Product -->DatabaseManager
+Token <.. Tokenizer
+Tokenizer <..  SearchService
+Tokenizer --o QueryProcessor
+User --|> Observer
+User -->  DatabaseManager
+DatabaseManager <..  QueryProcessor
+DatabaseManager <.. SearchService
+DatabaseManager <-- Favorite
+DatabaseManager <-- messageModel
+
+IProductFactory <|-- ConcreteProductFactory
+Favorite o-- FavoriteProduct
+QueryProcessor  <-- SearchService
+Product <|-- ConcreteProduct
+
+
+Product <-- FavoriteProduct
+
+package Activities{
+class Favorite {
+    + homePage: TextView
+    + userPage: TextView
+    + tradePage: TextView
+    + favorite: TextView
+
+    + onCreate(savedInstanceState: Bundle): void
+}
+
+class HomePage {
+    + btnSearch: ImageView
+    + btnPrivate: TextView
+    + btnHome: TextView
+    + btnMe: TextView
+    + btnFavorite: TextView
+    + btnTradePlatform: Button
+    + btnViewmore: TextView
+
+    - onCreate(savedInstanceState: Bundle): void
+    - initCategory(): void
+}
+
+class IntroPage {
+    + btnRegister: TextView
+    + btnLogin: TextView
+
+    - onCreate(savedInstanceState: Bundle): void
+    - setButton(): void
+}
+
+
+class LoginPage {
+    - register: Button
+    - login: Button
+    - account: EditText
+    - password: EditText
+    - auth: FirebaseAuth
+
+    - checkAccount(): boolean
+    - checkPassword(): boolean
+    + onCreate(savedInstanceState: Bundle): void
+    - loginUser(txtAccount: String, txtPassword: String): void
+}
+
+class Page {
+    - database: FirebaseDatabase
+    - reference: DatabaseReference
+    - storage: FirebaseStorage
+
+    + goToActivity(cls: Class<?>): void
+    + goHomePage(): void
+    + goUserPage(): void
+    + goTradePage(): void
+    + goFavorite(): void
+}
+
+class Post_Product {
+    - productName: EditText
+    - productDescription: EditText
+    - productPrice: EditText
+    - productCategory: Spinner
+    - productImage: ImageView
+    - submitButton: Button
+
+    + initUI(): void
+    + submitProduct(): void
+    + uploadImage(): void
+    + validateInput(): void
+}
+
+class PrivateChat {
+    - editTextMessage: EditText
+    - buttonSend: Button
+    - buttonBack: Button
+    - recyclerViewMessages: RecyclerView
+    - messagesList: List<String>
+    - adapter: UserAdapter
+    - auth: FirebaseAuth
+    - database: FirebaseDatabase
+    - userArrayList: ArrayList<User>
+
+    + onCreate(savedInstanceState: Bundle): void
+}
+
+class RegisterActivity {
+    - email: EditText
+    - password: EditText
+    - registerButton: Button
+    - loginButton: Button
+    - auth: FirebaseAuth
+    - database: FirebaseDatabase
+    - reference: DatabaseReference
+    - storage: FirebaseStorage
+
+    + onCreate(savedInstanceState: Bundle): void
+    - registerUser(txtEmail: String, txtPassword: String): void
+}
+
+class Post_Product {
+}
+
+class TradePlatform {
+    - recyclerView: RecyclerView
+    - adapter: ProductAdapter
+    - productList: List<Product>
+
+    + onCreate(savedInstanceState: Bundle): void
+    - loadProducts(): void
+}
+
+class UserPage {
+    + onCreate(savedInstanceState: Bundle): void
+}
+
+}
+
+
+package Adapters{
+class CategoryAdapter {
+    - categories: ArrayList<Category>
+    - context: Context
+
+    + CategoryAdapter(categories: ArrayList<Category>): void
+    + onCreateViewHolder(parent: ViewGroup, viewType: int): ViewHolder
+    + onBindViewHolder(holder: ViewHolder, position: int): void
+    + getItemCount(): int
+}
+
+class ProductAdapter {
+    - productList: List<Product>
+
+    + ProductAdapter(dataSet: List<Product>): void
+    + onCreateViewHolder(viewGroup: ViewGroup, viewType: int): ViewHolder
+    + onBindViewHolder(viewHolder: ViewHolder, position: int): void
+    + getItemCount(): int
+}
+
+class UserAdapter {
+    - localDataSet: List<String>
+
+    + UserAdapter(dataSet: List<String>): void
+    + onCreateViewHolder(viewGroup: ViewGroup, viewType: int): ViewHolder
+    + onBindViewHolder(viewHolder: ViewHolder, position: int): void
+    + getItemCount(): int
+}
+
+class RecommendAdapter {
+    - products: ArrayList<Product>
+    - context: Context
+
+    + RecommendAdapter(products: ArrayList<Product>): void
+    + onCreateViewHolder(parent: ViewGroup, viewType: int): ViewHolder
+    + onBindViewHolder(holder: ViewHolder, position: int): void
+    + getItemCount(): int
+    + setProducts(products: List<Product>): void
+}
+}
+
+
+package basicClass {
+class Category {
+    - Id: int
+    - CategoryName: String
+    - ImagePath: String
+
+    + Category(): void
+    + getId(): int
+    + setId(id: int): void
+    + getCategoryName(): String
+    + setCategoryName(categoryName: String): void
+    + getImagePath(): String
+    + setImagePath(imagePath: String): void
+}
+
+class messageModel {
+    String message
+    String senderId
+    long timeStamp
+
+    public messageModel(String message, String senderId, long timeStamp)
+}
+
+
+class Parser {
+    - tokenizer: Tokenizer
+
+    + Parser(tokenizer: Tokenizer): void
+    + parse(tokens: List<String>): SearchQuery
+}
+
+class Product {
+    - productID: String
+    - category: String
+    - description: String
+    - price: String
+    - condition: String
+    - uploadDate: String
+    - status: String
+    - imgLink: String
+    - name: String
+    - categoryId: int
+    - Id: int
+
+    + Product(productID: String, category: String, description: String, price: String, condition: String, uploadDate: String, status: String, imgLink: String): void
+    + Product(): void
+    + getProductID(): String
+    + setProductID(productID: String): void
+    + getCategory(): String
+    + setCategory(category: String): void
+    + getDescription(): String
+    + setDescription(description: String): void
+    + getPrice(): String
+    + setPrice(price: String): void
+    + getCondition(): String
+    + setCondition(condition: String): void
+    + getUploadDate(): String
+    + setUploadDate(uploadDate: String): void
+    + getStatus(): String
+    + setStatus(status: String): void
+    + getImgLink(): String
+    + setImgLink(imgLink: String): void
+    + getName(): String
+    + setName(name: String): void
+    + getCategoryId(): int
+    + setCategoryId(categoryId: int): void
+    + getId(): int
+    + setId(id: int): void
+    + addObserver(observer: Observer): void
+    + removeObserver(observer: Observer): void
+    + notifyObservers(): void
+}
+
+class Token {
+    - token: String
+    - type: Type
+
+    + Token(token: String, type: Type)
+}
+
+class Tokenizer {
+    - buffer: String
+    - currentToken: Token
+
+    + Tokenizer(text: String)
+    + next(): void
+    + tokenize(input: String): List<String>
+}
+
+class AVLTree<T> {
+    - root: TreeNode<T>
+
+    - rotateRight(y: TreeNode<T>): TreeNode<T>
+    - rotateLeft(x: TreeNode<T>): TreeNode<T>
+    - getHeight(N: TreeNode<T>): int
+    - getBalance(N: TreeNode<T>): int
+    + find(key: T): T
+    + insert(product: Product): void
+    + delete(product: Product): void
+    + search(criteria: String): List<Product>
+}
+
+class User {
+    - UID: String
+    - name: String
+    - email: String
+    - password: String
+
+    + User(UID: String, name: String, email: String, password: String)
+    + User(id: String)
+    + update(product: Product): void
+}
+
+
+class DatabaseManager {
+    - static instance: DatabaseManager
+    - DatabaseManager()
+    + getInstance(): DatabaseManager
+}
+
+
+}
+
+
+package Services{
+
+interface IProduct {
+    + getProductID(): String
+    + setProductID(productID: String): void
+    + getCategory(): String
+    + setCategory(category: String): void
+    + getDescription(): String
+    + setDescription(description: String): void
+    + getPrice(): String
+    + setPrice(price: String): void
+    + getCondition(): String
+    + setCondition(condition: String): void
+    + getUploadDate(): String
+    + setUploadDate(uploadDate: String): void
+    + getStatus(): String
+    + setStatus(status: String): void
+    + getImgLink(): String
+    + setImgLink(imgLink: String): void
+    + getName(): String
+    + setName(name: String): void
+    + getCategoryId(): int
+    + setCategoryId(categoryId: int): void
+    + getId(): int
+    + setId(id: int): void
+}
+
+class ConcreteProduct {
+    + ConcreteProduct()
+    + getProductID(): String
+    + setProductID(productID: String): void
+    + getCategory(): String
+    + setCategory(category: String): void
+    + getDescription(): String
+    + setDescription(description: String): void
+    + getPrice(): String
+    + setPrice(price: String): void
+    + getCondition(): String
+    + setCondition(condition: String): void
+    + getUploadDate(): String
+    + setUploadDate(uploadDate: String): void
+    + getStatus(): String
+    + setStatus(status: String): void
+    + getImgLink(): String
+    + setImgLink(imgLink: String): void
+    + getName(): String
+    + setName(name: String): void
+    + getCategoryId(): int
+    + setCategoryId(categoryId: int): void
+    + getId(): int
+    + setId(id: int): void
+}
+
+interface IProductFactory {
+    + createProduct(type: String): IProduct
+}
+
+class ConcreteProductFactory {
+    + createProduct(type: String): IProduct
+}
+
+interface Observable {
+    + addObserver(observer: Observer): void
+    + removeObserver(observer: Observer): void
+    + notifyObservers(): void
+}
+
+interface Observer {
+    + update(product: Product): void
+}
+
+class QueryProcessor {
+    - tokenizer: Tokenizer
+    - parser: Parser
+    - productTree: AVLTree
+
+    + processQuery(input: String): List<Product>
+}
+
+class SearchService {
+    - queryProcessor: QueryProcessor
+
+    + search(query: String): List<Product>
+    + sortProducts(products: List<Product>, criteria: String): List<Product>
+    + filterProducts(products: List<Product>, filter: String): List<Product>
+}
+
+class FavoriteProduct {
+    - productID: String
+    - category: String
+    - price :String
+
+    + FavoriteProduct(productID: String,price :String,category: String)
+    + getProductId(): String
+    + setProductId(productID: String): void
+    + getPrice(): String
+    + setPrice(price: String): void
+    + getCategory(): String
+    + setCategory(category: String): void
+}
+
+}
+
+
+
+
+
+@enduml
