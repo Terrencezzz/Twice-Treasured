@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
-    FirebaseStorage storage;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
 
     @Override
