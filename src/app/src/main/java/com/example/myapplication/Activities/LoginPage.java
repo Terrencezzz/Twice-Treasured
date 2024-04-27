@@ -67,7 +67,11 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 String txt_account = account.getText().toString();
                 String txt_password = password.getText().toString();
-                loginUser(txt_account,txt_password);
+                if (!txt_account.isEmpty() && !txt_password.isEmpty()) {
+                    loginUser(txt_account, txt_password);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Account and Password can't be empty!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
