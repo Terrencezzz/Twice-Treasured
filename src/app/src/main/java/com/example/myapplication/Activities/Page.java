@@ -57,4 +57,13 @@ public abstract class Page extends AppCompatActivity {
      */
     public void goPrivateMenu() { goToActivity(PrivateMenuActivity.class);}
 
+    /**
+     * You can move to Login Page with this function
+     * */
+    public void goLoginPage(){ goToActivity(LoginPage.class);}
+
+    /**
+     *  You can move to Register Page with this function
+     * */
+    public void goRegisterPage(){ goToActivity(RegisterActivity.class);}
 }
