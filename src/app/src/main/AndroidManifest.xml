@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.SearchResultPage"
+            android:exported="false" />
+        <activity
             android:name=".Activities.ProductPage"
             android:exported="false" />
         <activity
