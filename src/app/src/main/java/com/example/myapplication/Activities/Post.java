@@ -109,7 +109,7 @@ public class Post extends Page {
 
             Product product = new Product(productId, category, description, price, "New","2024-01-01", "Available", imageUri, owner, "0");
 
-            mDatabase.child("userProduct").child(productId).setValue(product)
+            mDatabase.child("Product").child(productId).setValue(product)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(Post.this, "Product added successfully!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Post.this, HomePage.class));

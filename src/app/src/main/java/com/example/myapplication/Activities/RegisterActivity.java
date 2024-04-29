@@ -98,8 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userMap.put("location", location);
                     userMap.put("headImage", defaultFile.toString());
 
-
-                    DatabaseReference userReference = reference.child("user").child(id);
+                    DatabaseReference userReference = reference.child("User").child(id);
                     userReference.setValue(userMap);
 
                     Intent intent = new Intent(RegisterActivity.this, HomePage.class);
