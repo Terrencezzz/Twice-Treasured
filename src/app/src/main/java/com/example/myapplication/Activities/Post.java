@@ -106,7 +106,10 @@ public class Post extends Page {
             Product product = new Product(productId, category, description, price, "New", "", "Available", imageUri);  // Assume defaults for unspecified fields
 
             mDatabase.child("userProduct").child(productId).setValue(product)
-                    .addOnSuccessListener(aVoid -> Toast.makeText(Post.this, "Product added successfully!", Toast.LENGTH_SHORT).show())
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(Post.this, "Product added successfully!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Post.this, HomePage.class));
+                    })
                     .addOnFailureListener(e -> Toast.makeText(Post.this, "Failed to add product", Toast.LENGTH_SHORT).show());
         });
     }
