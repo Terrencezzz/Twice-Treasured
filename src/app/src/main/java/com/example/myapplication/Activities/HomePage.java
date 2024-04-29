@@ -50,7 +50,6 @@ public class HomePage extends Page {
         setContentView(R.layout.activity_home_page);
 
         initCategory();
-        initRecommend();
 
         btnSearch = findViewById(R.id.btnSearch);
         btnPrivate = findViewById(R.id.btnPrivate);

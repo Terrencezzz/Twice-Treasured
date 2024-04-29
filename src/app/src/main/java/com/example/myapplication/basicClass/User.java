@@ -4,17 +4,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    public final String UID;
-    public String name;
-    public String email;
-    public String password;
+    private final String UID;
+    private String name;
+    private String email;
+    private String password;
+    private String headURL;
+    private String location;
 
 
-    User(String UID, String name,String email, String password) {
+    User(String UID, String name,String email, String password, String headURL, String location) {
         this.UID = UID;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.headURL = headURL;
+        this.location = location;
     }
 
+    public String getUID() {
+        return UID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getHeadURL() {
+        return headURL;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 }
