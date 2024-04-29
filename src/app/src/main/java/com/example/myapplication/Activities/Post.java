@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Adapters.ProductAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Product;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -101,9 +103,11 @@ public class Post extends Page {
             String price = productPrice.getText().toString().trim();
             String category = productCategory.getText().toString().trim();
             String description = productDescription.getText().toString().trim();
-            String productId = mDatabase.push().getKey();  // Generate unique ID for the product
+            String productId = mDatabase.push().getKey();
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String owner = user.getUid();
 
-            Product product = new Product(productId, category, description, price, "New", "", "Available", imageUri);  // Assume defaults for unspecified fields
+            Product product = new Product(productId, category, description, price, "New","2024-01-01", "Available", imageUri, owner, "0");
 
             mDatabase.child("userProduct").child(productId).setValue(product)
                     .addOnSuccessListener(aVoid -> {

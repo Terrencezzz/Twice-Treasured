@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -82,6 +84,8 @@ public class LoginPage extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> authResult) {
                 if (authResult.isSuccessful()) {
                     Toast.makeText(LoginPage.this, "Success!", Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = auth.getCurrentUser();
+                    String uid = user.getUid();
                     startActivity(new Intent(LoginPage.this, HomePage.class));
                     finish();
                 }

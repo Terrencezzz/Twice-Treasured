@@ -11,15 +11,15 @@ public class Product {
     private String status;
     private String imgLink;
     private String name;
-    private int categoryId;
-
-    private int Id;
+    private String owner;
+    private String categoryID;
 
 
 
     // Constructor to initialize the Product object with all attributes
     public Product(String productID, String category, String description, String price,
-                   String condition, String uploadDate, String status, String imgLink) {
+                   String condition, String uploadDate, String status, String imgLink, String owner,
+                   String categoryID) {
         this.productID = productID;
         this.category = category;
         this.description = description;
@@ -28,6 +28,8 @@ public class Product {
         this.uploadDate = uploadDate;
         this.status = status;
         this.imgLink = imgLink;
+        this.owner = owner;
+        this.categoryID = categoryID;
     }
 
     public Product() {
@@ -107,20 +109,12 @@ public class Product {
         this.name = name;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public String getCategoryID() {
+        return categoryID;
     }
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
-    }
-
 }
 

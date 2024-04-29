@@ -44,4 +44,5 @@ public class User {
     public String getLocation() {
         return location;
     }
+
 }
