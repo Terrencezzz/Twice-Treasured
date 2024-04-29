@@ -59,12 +59,6 @@ public class HomePage extends Page {
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
         btnFavorite= findViewById(R.id.btnFavorite);
         btnViewmore = findViewById(R.id.btnViewmore);
-        btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goHomePage();
-            }
-        });
 
         btnMe.setOnClickListener(new View.OnClickListener() {
             @Override

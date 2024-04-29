@@ -3,6 +3,7 @@ package com.example.myapplication.Activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
@@ -13,42 +14,55 @@ import com.example.myapplication.R;
  */
 public class UserPage extends Page {
 
+
+    private TextView btnPrivate;
+    private TextView btnHome;
+    private TextView btnMe;
+    private TextView btnFavorite;
+    private Button btnTradePlatform;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
 
-        TextView homePage = findViewById(R.id.HomePage);
-        TextView userPage = findViewById(R.id.UserPage);
-        TextView tradePage = findViewById(R.id.TradePage);
-        TextView favorite = findViewById(R.id.Favorite);
+        btnPrivate = findViewById(R.id.btnPrivate);
+        btnHome = findViewById(R.id.btnHome);
+        btnMe = findViewById(R.id.btnMe);
+        btnTradePlatform = findViewById(R.id.btnTradePlatform);
+        btnFavorite= findViewById(R.id.btnFavorite);
 
-        homePage.setOnClickListener(new View.OnClickListener() {
+        btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goHomePage();
             }
         });
 
-        userPage.setOnClickListener(new View.OnClickListener() {
+        btnMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goUserPage();
             }
         });
 
-        tradePage.setOnClickListener(new View.OnClickListener() {
+        btnTradePlatform.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goTradePage();
             }
         });
 
-        favorite.setOnClickListener(new View.OnClickListener() {
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goFavorite();
             }
         });
+        btnPrivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { goPrivateMenu();}
+        });
+
     }
 }

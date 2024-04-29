@@ -29,8 +29,8 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:text="Hi,"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,8 +38,8 @@
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
                     android:text="ABCD"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -249,15 +249,15 @@
                     android:layout_weight="1"
                     android:text="Recommended for you :)"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/btnViewmore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="View more"
-                    android:textSize="16sp"
-                    android:textColor="@color/red"/>
+                    android:textColor="@color/red"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -297,9 +297,9 @@
                     android:id="@+id/btnHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Home"
+                    android:layout_weight="0.8"
                     android:clickable="true"
+                    android:text="Home"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="20dp"
@@ -309,9 +309,9 @@
                     android:id="@+id/btnFavorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Favorite"
+                    android:layout_weight="0.8"
                     android:clickable="true"
+                    android:text="Favorite"
                     android:textAlignment="center"
                     android:textColor="@color/gray"
                     android:textSize="20dp" />
@@ -320,16 +320,16 @@
                     android:id="@+id/btnTradePlatform"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_weight="0.1"
+                    android:layout_weight="0.2"
                     android:background="@drawable/blue_button_background"
-                    android:textSize="30dp"
-                    android:text="+" />
+                    android:text="+"
+                    android:textSize="30dp" />
 
                 <TextView
                     android:id="@+id/btnPrivate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:clickable="true"
                     android:text="@string/btn_private"
                     android:textAlignment="center"
@@ -340,9 +340,9 @@
                     android:id="@+id/btnMe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Me"
+                    android:layout_weight="2"
                     android:clickable="true"
+                    android:text="Me"
                     android:textAlignment="center"
                     android:textColor="@color/gray"
                     android:textSize="20dp" />

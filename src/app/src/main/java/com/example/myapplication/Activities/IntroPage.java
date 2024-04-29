@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 
-public class IntroPage extends AppCompatActivity {
+public class IntroPage extends Page {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +25,7 @@ public class IntroPage extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(IntroPage.this,RegisterActivity.class);
-                startActivity(intent);
-                finish();
+                goRegisterPage();
             }
         });
 
@@ -35,9 +33,8 @@ public class IntroPage extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(IntroPage.this, LoginPage.class);
-                startActivity(intent);
-                finish();
+
+                goLoginPage();
             }
         });
     }
