@@ -1,8 +1,10 @@
 package com.example.myapplication.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,9 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -64,18 +69,29 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 String txt_account = account.getText().toString();
                 String txt_password = password.getText().toString();
-                loginUser(txt_account,txt_password);
+                if (!txt_account.isEmpty() && !txt_password.isEmpty()) {
+                    loginUser(txt_account, txt_password);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Account and Password can't be empty!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     private void loginUser(String txtAccount, String txtPassword) {
-        auth.signInWithEmailAndPassword(txtAccount,txtPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        auth.signInWithEmailAndPassword(txtAccount,txtPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onSuccess(AuthResult authResult) {
-                Toast.makeText(LoginPage.this, "Success!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginPage.this, HomePage.class));
-                finish();
+            public void onComplete(@NonNull Task<AuthResult> authResult) {
+                if (authResult.isSuccessful()) {
+                    Toast.makeText(LoginPage.this, "Success!", Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = auth.getCurrentUser();
+                    String uid = user.getUid();
+                    startActivity(new Intent(LoginPage.this, HomePage.class));
+                    finish();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "failed to login", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

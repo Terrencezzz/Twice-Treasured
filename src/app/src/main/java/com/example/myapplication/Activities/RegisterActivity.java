@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -85,14 +87,18 @@ public class RegisterActivity extends AppCompatActivity {
 
                     String id = task.getResult().getUser().getUid();
                     String name = email.getText().toString();
+                    String location = "None";
+                    Uri defaultFile = Uri.fromFile(new File("gs://second-hand-market-affd5.appspot.com/uploads/1714311493275.jpg"));
 
                     HashMap<String, String> userMap = new HashMap<>();
                     userMap.put("id", id);
                     userMap.put("name" , name);
                     userMap.put("email", txtEmail);
                     userMap.put("password", txtPassword);
+                    userMap.put("location", location);
+                    userMap.put("headImage", defaultFile.toString());
 
-                    DatabaseReference userReference = reference.child("user").child(id);
+                    DatabaseReference userReference = reference.child("User").child(id);
                     userReference.setValue(userMap);
 
                     Intent intent = new Intent(RegisterActivity.this, HomePage.class);
