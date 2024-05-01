@@ -1,9 +1,11 @@
 package com.example.myapplication.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -33,21 +35,6 @@ public class Post extends AppCompatActivity {
     private ActivityResultLauncher<String> mGetContent;
     private String imageUri;
 
-    // Method to upload image to Firebase and handles UI response
-    private void uploadImageToFirebase(Uri uri) {
-        StorageReference fileRef = storageReference.child("uploads/" + System.currentTimeMillis() + ".jpg");
-        fileRef.putFile(uri)
-                .addOnSuccessListener(taskSnapshot -> {
-                    Toast.makeText(Post.this, "Image Upload Successful", Toast.LENGTH_SHORT).show();
-                    fileRef.getDownloadUrl().addOnSuccessListener(downloadUri -> {
-                        imageUri = downloadUri.toString();
-                    });
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(Post.this, "Image Upload Failed", Toast.LENGTH_SHORT).show();
-                });
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,49 +43,83 @@ public class Post extends AppCompatActivity {
         // UI setup
         ImageButton back = findViewById(R.id.button_back);
         Spinner categorySpinner = findViewById(R.id.productCategorySpinner);
+        Spinner conditionSpinner = findViewById(R.id.productConditionSpinner);
         Button submitButton = findViewById(R.id.submitButton);
         Button imageButton = findViewById(R.id.image_button);
         ImageView imageView = findViewById(R.id.imageView);
 
-        // Populate Spinner with categories for product category selection
-        String[] categories = {"Electronics", "Clothing", "Furniture", "Books", "Sports", "Toys", "Beauty", "Others"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
-        categorySpinner.setAdapter(adapter);
+        setupSpinner(categorySpinner, new String[]{"Select Product Category", "Electronics", "Clothing", "Furniture", "Books", "Sports", "Toys", "Beauty", "Others"});
+        setupSpinner(conditionSpinner, new String[]{"Select Product Condition", "New", "Used"});
 
         // Navigation listeners
-        back.setOnClickListener(v -> {
-            startActivity(new Intent(Post.this, HomePage.class));
-            finish();
-        });
-
-        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
-            if (uri != null) {
-                imageView.setImageURI(uri);
-                uploadImageToFirebase(uri);
-            } else {
-                Toast.makeText(this, "Select this image!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        back.setOnClickListener(v -> navigateHome());
+        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> handleImageSelection(uri, imageView));
         imageButton.setOnClickListener(v -> mGetContent.launch("image/*"));
+        submitButton.setOnClickListener(v -> submitProduct(categorySpinner, conditionSpinner));
+    }
 
-        // Submit button event to upload product data to Firebase
-        submitButton.setOnClickListener(v -> {
-            String name = ((TextView) findViewById(R.id.productName)).getText().toString().trim();
-            String price = ((TextView) findViewById(R.id.productPrice)).getText().toString().trim();
-            String category = categorySpinner.getSelectedItem().toString();
-            String description = ((TextView) findViewById(R.id.productDescription)).getText().toString().trim();
-            String productId = mDatabase.push().getKey();
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String owner = user.getUid();
+    private void setupSpinner(Spinner spinner, String[] options) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, options) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0;
+            }
 
-            Product product = new Product(productId, category, description, price, "New", "2024-01-01", "Available", imageUri, owner, "0");
-            mDatabase.child("Product").child(productId).setValue(product)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(Post.this, "Product added successfully!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Post.this, HomePage.class));
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(Post.this, "Failed to add product", Toast.LENGTH_SHORT).show());
-        });
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                tv.setTextColor(position == 0 ? Color.GRAY : Color.BLACK);
+                return view;
+            }
+        };
+        spinner.setAdapter(adapter);
+    }
+
+    private void handleImageSelection(Uri uri, ImageView imageView) {
+        if (uri != null) {
+            imageView.setImageURI(uri);
+            uploadImageToFirebase(uri);
+        } else {
+            showToast("Select this image!");
+        }
+    }
+
+    private void navigateHome() {
+        startActivity(new Intent(Post.this, HomePage.class));
+        finish();
+    }
+
+    private void submitProduct(Spinner categorySpinner, Spinner conditionSpinner) {
+        String name = ((TextView) findViewById(R.id.productName)).getText().toString().trim();
+        String price = ((TextView) findViewById(R.id.productPrice)).getText().toString().trim();
+        String category = categorySpinner.getSelectedItem().toString();
+        String condition = conditionSpinner.getSelectedItem().toString();
+        String description = ((TextView) findViewById(R.id.productDescription)).getText().toString().trim();
+        String productId = mDatabase.push().getKey();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String owner = user.getUid();
+
+        Product product = new Product(productId, category, description, price, condition, "2024-01-01", "Available", imageUri, owner, "0");
+        mDatabase.child("Product").child(productId).setValue(product)
+                .addOnSuccessListener(aVoid -> {
+                    showToast("Product added successfully!");
+                    navigateHome();
+                })
+                .addOnFailureListener(e -> showToast("Failed to add product"));
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(Post.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void uploadImageToFirebase(Uri uri) {
+        StorageReference fileRef = storageReference.child("uploads/" + System.currentTimeMillis() + ".jpg");
+        fileRef.putFile(uri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    showToast("Image Upload Successful");
+                    fileRef.getDownloadUrl().addOnSuccessListener(downloadUri -> imageUri = downloadUri.toString());
+                })
+                .addOnFailureListener(e -> showToast("Image Upload Failed"));
     }
 }
