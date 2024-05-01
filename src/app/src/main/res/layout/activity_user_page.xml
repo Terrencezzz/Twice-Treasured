@@ -4,95 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     tools:context=".Activities.UserPage">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Me"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="765dp"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
+                android:id="@+id/btnHome"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:clickable="true"
+                android:text="Home"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/btnFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:clickable="true"
+                android:text="Favorite"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="20dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnTradePlatform"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="0.2"
+                android:background="@drawable/blue_button_background"
+                android:text="+"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/btnPrivate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="true"
+                android:text="@string/btn_private"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/btnMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="true"
                 android:text="Me"
                 android:textAlignment="center"
-                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:textSize="20dp"
                 android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="765dp"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/btnHome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:clickable="true"
-                    android:text="Home"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/btnFavorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:clickable="true"
-                    android:text="Favorite"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray"
-                    android:textSize="20dp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnTradePlatform"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_weight="0.2"
-                    android:background="@drawable/blue_button_background"
-                    android:text="+"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:id="@+id/btnPrivate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:clickable="true"
-                    android:text="@string/btn_private"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/btnMe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:clickable="true"
-                    android:text="Me"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
