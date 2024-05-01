@@ -7,4 +7,12 @@
     <color name="red">#E78895</color>
     <color name="grey">#F5F5F5</color>
     <color name="blue_grey">#607D8B</color>
+    <color name="light_purple">#979DD7</color>
+    <color name="dark_purple">#6750A4</color>
+    <color name="orange">#FEB447</color>
+    <color name="yellow">#FEC33A</color>
+    <color name="pink">#F4627F</color>
+    <color name="dark_pink">#D93F63</color>
+    <color name="green">#C5C442</color>
+    <color name="teak">#88C4C4</color>
 </resources>

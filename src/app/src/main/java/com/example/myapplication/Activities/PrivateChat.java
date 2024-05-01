@@ -43,10 +43,10 @@ public class PrivateChat extends AppCompatActivity {
         setContentView(R.layout.activity_private_chat);
 
         // Initialize components from the layout
-        editTextMessage = findViewById(R.id.editTextMessage);
-        buttonSend = findViewById(R.id.buttonSend);
-        buttonBack = findViewById(R.id.buttonBack); // Initialize the back button
-        recyclerViewMessages = findViewById(R.id.recyclerViewMessages);
+        editTextMessage = findViewById(R.id.message_text);
+        buttonSend = findViewById(R.id.chat_send_btn);
+        buttonBack = findViewById(R.id.chat_back_btn); // Initialize the back button
+        recyclerViewMessages = findViewById(R.id.chat_recycler_view);
         auth = FirebaseAuth.getInstance();
         recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
 
