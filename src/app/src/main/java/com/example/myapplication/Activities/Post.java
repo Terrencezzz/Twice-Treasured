@@ -27,6 +27,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+
 public class Post extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference mDatabase = database.getReference();
@@ -58,6 +66,7 @@ public class Post extends AppCompatActivity {
         submitButton.setOnClickListener(v -> submitProduct(categorySpinner, conditionSpinner));
     }
 
+    // Setup a spinner with provided options
     private void setupSpinner(Spinner spinner, String[] options) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, options) {
             @Override
@@ -76,6 +85,7 @@ public class Post extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
+    // Select the product image
     private void handleImageSelection(Uri uri, ImageView imageView) {
         if (uri != null) {
             imageView.setImageURI(uri);
@@ -90,17 +100,21 @@ public class Post extends AppCompatActivity {
         finish();
     }
 
+    // Submit new product details to firebase
     private void submitProduct(Spinner categorySpinner, Spinner conditionSpinner) {
+
         String name = ((TextView) findViewById(R.id.productName)).getText().toString().trim();
-        String price = ((TextView) findViewById(R.id.productPrice)).getText().toString().trim();
-        String category = categorySpinner.getSelectedItem().toString();
-        String condition = conditionSpinner.getSelectedItem().toString();
-        String description = ((TextView) findViewById(R.id.productDescription)).getText().toString().trim();
         String productId = mDatabase.push().getKey();
+        String category = categorySpinner.getSelectedItem().toString();
+        String description = ((TextView) findViewById(R.id.productDescription)).getText().toString().trim();
+        String price = ((TextView) findViewById(R.id.productPrice)).getText().toString().trim();
+        String condition = conditionSpinner.getSelectedItem().toString();
+        String uploadDate = getCurrentTimestamp();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String owner = user.getUid();
+        String categoryId = getCategoryId(category); // Map category name to ID
 
-        Product product = new Product(name, productId, category, description, price, condition, "2024-01-01", "Available", imageUri, owner, "0");
+        Product product = new Product(name, productId, category, description, price, condition, uploadDate, "Available", imageUri, owner, categoryId);
         mDatabase.child("Product").child(productId).setValue(product)
                 .addOnSuccessListener(aVoid -> {
                     showToast("Product added successfully!");
@@ -122,4 +136,27 @@ public class Post extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> showToast("Image Upload Failed"));
     }
+
+    // Map category name to category ID string
+    private String getCategoryId(String category) {
+        Map<String, String> categoryMap = new HashMap<>();
+        categoryMap.put("Electronics", "1");
+        categoryMap.put("Clothing", "2");
+        categoryMap.put("Furniture", "3");
+        categoryMap.put("Books", "4");
+        categoryMap.put("Sports", "5");
+        categoryMap.put("Toys", "6");
+        categoryMap.put("Beauty", "7");
+        categoryMap.put("Others", "8");
+
+        return categoryMap.getOrDefault(category, "8"); // Return Others if category is not found
+    }
+
+    // Format current date and time for Sydney, Australia
+    private String getCurrentTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"));
+        return sdf.format(new Date());
+    }
+
 }
