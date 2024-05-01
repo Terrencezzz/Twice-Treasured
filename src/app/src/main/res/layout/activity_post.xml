@@ -8,7 +8,6 @@
 
     <TextView
         android:id="@+id/TradeTitle"
-
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -20,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Product Input Fields -->
     <EditText
         android:id="@+id/productName"
         android:layout_width="match_parent"
@@ -43,13 +41,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productName" />
 
-    <EditText
-        android:id="@+id/productCategory"
+    <Spinner
+        android:id="@+id/productCategorySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Enter Product Category"
-        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productPrice" />
@@ -63,29 +59,7 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productCategory" />
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="50dp"
-        android:text="Submit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_button" />
-
-
-    <ImageButton
-        android:id="@+id/button_back"
-        android:layout_width="45dp"
-        android:layout_height="46dp"
-        android:background="#FEF7FF"
-        android:contentDescription="@string/btn_private_menu_return_des"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert"
-        app:tint="#3F51B5" />
+        app:layout_constraintTop_toBottomOf="@+id/productCategorySpinner" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -118,6 +92,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <!-- Existing navigation buttons -->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="96dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="50dp"
+        android:text="Submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_button" />
+
+    <ImageButton
+        android:id="@+id/button_back"
+        android:layout_width="45dp"
+        android:layout_height="46dp"
+        android:background="#FEF7FF"
+        android:contentDescription="@string/btn_private_menu_return_des"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        app:tint="#3F51B5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

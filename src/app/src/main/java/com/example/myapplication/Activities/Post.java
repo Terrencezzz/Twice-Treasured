@@ -4,19 +4,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.Adapters.ProductAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Product;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,11 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-
-import java.util.HashMap;
-import java.util.List;
-
-public class Post extends Page {
+public class Post extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference mDatabase = database.getReference();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -38,14 +33,14 @@ public class Post extends Page {
     private ActivityResultLauncher<String> mGetContent;
     private String imageUri;
 
+    // Method to upload image to Firebase and handles UI response
     private void uploadImageToFirebase(Uri uri) {
-        // If you prefer to use a fixed file name, replace with your own logic
         StorageReference fileRef = storageReference.child("uploads/" + System.currentTimeMillis() + ".jpg");
         fileRef.putFile(uri)
                 .addOnSuccessListener(taskSnapshot -> {
                     Toast.makeText(Post.this, "Image Upload Successful", Toast.LENGTH_SHORT).show();
                     fileRef.getDownloadUrl().addOnSuccessListener(downloadUri -> {
-                         imageUri = downloadUri.toString();
+                        imageUri = downloadUri.toString();
                     });
                 })
                 .addOnFailureListener(e -> {
@@ -60,37 +55,27 @@ public class Post extends Page {
 
         // UI setup
         ImageButton back = findViewById(R.id.button_back);
-
-        // Product input
-        EditText productName = findViewById(R.id.productName);
-        EditText productPrice = findViewById(R.id.productPrice);
-        EditText productCategory = findViewById(R.id.productCategory);
-        EditText productDescription = findViewById(R.id.productDescription);
+        Spinner categorySpinner = findViewById(R.id.productCategorySpinner);
         Button submitButton = findViewById(R.id.submitButton);
         Button imageButton = findViewById(R.id.image_button);
         ImageView imageView = findViewById(R.id.imageView);
 
+        // Populate Spinner with categories for product category selection
+        String[] categories = {"Electronics", "Clothing", "Furniture", "Books", "Sports", "Toys", "Beauty", "Others"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
+        categorySpinner.setAdapter(adapter);
 
         // Navigation listeners
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Post.this, HomePage.class));
-                finish();
-            }
+        back.setOnClickListener(v -> {
+            startActivity(new Intent(Post.this, HomePage.class));
+            finish();
         });
 
-
-
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
-            // Handle the returned Uri
             if (uri != null) {
-                imageView.setImageURI(uri); // Set the imageView to the picked image
-
-                // Now upload it to Firebase Storage
+                imageView.setImageURI(uri);
                 uploadImageToFirebase(uri);
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Select this image!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -99,17 +84,15 @@ public class Post extends Page {
 
         // Submit button event to upload product data to Firebase
         submitButton.setOnClickListener(v -> {
-
-            String name = productName.getText().toString().trim();
-            String price = productPrice.getText().toString().trim();
-            String category = productCategory.getText().toString().trim();
-            String description = productDescription.getText().toString().trim();
+            String name = ((TextView) findViewById(R.id.productName)).getText().toString().trim();
+            String price = ((TextView) findViewById(R.id.productPrice)).getText().toString().trim();
+            String category = categorySpinner.getSelectedItem().toString();
+            String description = ((TextView) findViewById(R.id.productDescription)).getText().toString().trim();
             String productId = mDatabase.push().getKey();
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String owner = user.getUid();
 
-            Product product = new Product(productId, category, description, price, "New","2024-01-01", "Available", imageUri, owner, "0");
-
+            Product product = new Product(productId, category, description, price, "New", "2024-01-01", "Available", imageUri, owner, "0");
             mDatabase.child("Product").child(productId).setValue(product)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(Post.this, "Product added successfully!", Toast.LENGTH_SHORT).show();
