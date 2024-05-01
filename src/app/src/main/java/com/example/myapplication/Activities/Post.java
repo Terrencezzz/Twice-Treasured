@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +59,7 @@ public class Post extends Page {
         setContentView(R.layout.activity_post);
 
         // UI setup
-        Button back = findViewById(R.id.button_back);
+        ImageButton back = findViewById(R.id.button_back);
 
         // Product input
         EditText productName = findViewById(R.id.productName);
