@@ -2,6 +2,7 @@ package com.example.myapplication.basicClass;
 
 
 public class Product {
+    private String name;
     private String productID;
     private String category;
     private String description;
@@ -10,16 +11,16 @@ public class Product {
     private String uploadDate;
     private String status;
     private String imgLink;
-    private String name;
     private String owner;
     private String categoryID;
 
 
 
     // Constructor to initialize the Product object with all attributes
-    public Product(String productID, String category, String description, String price,
+    public Product(String name, String productID, String category, String description, String price,
                    String condition, String uploadDate, String status, String imgLink, String owner,
                    String categoryID) {
+        this.name = name;
         this.productID = productID;
         this.category = category;
         this.description = description;

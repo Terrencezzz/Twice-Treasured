@@ -100,7 +100,7 @@ public class Post extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String owner = user.getUid();
 
-        Product product = new Product(productId, category, description, price, condition, "2024-01-01", "Available", imageUri, owner, "0");
+        Product product = new Product(name, productId, category, description, price, condition, "2024-01-01", "Available", imageUri, owner, "0");
         mDatabase.child("Product").child(productId).setValue(product)
                 .addOnSuccessListener(aVoid -> {
                     showToast("Product added successfully!");
