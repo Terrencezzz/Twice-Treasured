@@ -4,7 +4,7 @@ import java.lang.reflect.Type;
 
 public class Token {
 
-    public enum Type{};
+    public enum Type{LOCATION, CONDITION, PRICE, Category};
 
     private final String token;
     private final Type type;
@@ -14,4 +14,11 @@ public class Token {
         this.type = type;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public Type getType() {
+        return type;
+    }
 }

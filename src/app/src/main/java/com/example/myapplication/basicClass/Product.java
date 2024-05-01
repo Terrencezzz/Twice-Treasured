@@ -32,10 +32,6 @@ public class Product {
         this.categoryID = categoryID;
     }
 
-    public Product() {
-
-    }
-
     // Getter and setter methods for all properties
     public String getProductID() {
         return productID;
