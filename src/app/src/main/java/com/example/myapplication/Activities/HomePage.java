@@ -85,7 +85,18 @@ public class HomePage extends Page {
             @Override
             public void onClick(View v) { goPrivateMenu();}
         });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePage.this, SearchResultPage.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
+
 
     private void initRecommend() {
         DatabaseReference  db =database.getReference("Product");
