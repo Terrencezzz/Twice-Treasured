@@ -3,4 +3,5 @@
     <string name="title_private_menu">Messages</string>
     <string name="btn_private_menu_return_des">Return Home</string>
     <string name="btn_private">Chat</string>
+    <string name="back_button">Back</string>
 </resources>

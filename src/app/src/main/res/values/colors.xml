@@ -15,4 +15,6 @@
     <color name="dark_pink">#D93F63</color>
     <color name="green">#C5C442</color>
     <color name="teak">#88C4C4</color>
+    <color name="orange_button">#FFA500</color>
+    <color name="gray_button">#D3D3D3</color>
 </resources>
