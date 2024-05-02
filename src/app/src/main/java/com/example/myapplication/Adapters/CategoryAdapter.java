@@ -1,6 +1,7 @@
 package com.example.myapplication.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.myapplication.Activities.SearchResultPage;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Category;
 
@@ -78,12 +80,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         }
 
-        int drawableResourceId = context.getResources().getIdentifier(categories.get(position).getImagePath()
-        ,"drawable",holder.itemView.getContext().getOpPackageName());
         Glide.with(context)
                 .load(categories.get(position).getImagePath())
                 .transform(new CenterCrop(),new RoundedCorners(30))
                 .into(holder.imgCategory);
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, SearchResultPage.class);
+            intent.putExtra("CategoryId",categories.get(position).getId());
+            intent.putExtra("CategoryName",categories.get(position).getCategoryName());
+            context.startActivity(intent);
+        });
     }
 
     @Override
