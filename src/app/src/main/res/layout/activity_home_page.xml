@@ -92,7 +92,7 @@
                         android:inputType="text"
                         android:textAlignment="center"
                         android:textAllCaps="false"
-                        android:textColor="@color/lightblue"
+                        android:textColor="@color/light_blue"
                         android:textSize="18sp" />
 
                     <ImageView

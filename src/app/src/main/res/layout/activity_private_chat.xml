@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:background="@color/lightblue">
+        android:background="@color/light_blue">
 
         <Button
             android:id="@+id/chat_back_btn"
@@ -71,7 +71,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_centerVertical="true"
-            android:backgroundTint="@color/lightblue"
+            android:backgroundTint="@color/light_blue"
             android:textColor="@color/dark_purple"
             android:textSize="18sp"
             android:layout_alignParentRight="true"

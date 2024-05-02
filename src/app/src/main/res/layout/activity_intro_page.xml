@@ -19,7 +19,7 @@
         android:id="@+id/textView9"
         android:layout_width="412dp"
         android:layout_height="248dp"
-        android:background="@color/lightblue"
+        android:background="@color/light_blue"
         android:text=""
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
