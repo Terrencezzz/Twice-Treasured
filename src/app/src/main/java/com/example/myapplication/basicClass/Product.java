@@ -13,13 +13,14 @@ public class Product implements Comparable<Product>{
     private String imgLink;
     private String owner;
     private String categoryID;
+    private String location;
 
 
 
     // Constructor to initialize the Product object with all attributes
     public Product(String name, String productID, String category, String description, String price,
                    String condition, String uploadDate, String status, String imgLink, String owner,
-                   String categoryID) {
+                   String categoryID, String location) {
         this.name = name;
         this.productID = productID;
         this.category = category;
@@ -31,6 +32,7 @@ public class Product implements Comparable<Product>{
         this.imgLink = imgLink;
         this.owner = owner;
         this.categoryID = categoryID;
+        this.location = location;
     }
 
     // Getter and setter methods for all properties
@@ -113,6 +115,7 @@ public class Product implements Comparable<Product>{
     public String getCategoryID() {
         return categoryID;
     }
+    public String getLocation() {return location;}
 
     @Override
     public int compareTo(Product other) {

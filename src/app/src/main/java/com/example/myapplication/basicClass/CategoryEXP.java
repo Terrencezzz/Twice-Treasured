@@ -1,4 +1,10 @@
 package com.example.myapplication.basicClass;
 
-public class CategoryEXP {
+import java.util.ArrayList;
+
+public class CategoryEXP extends EXP{
+    @Override
+    public ArrayList<Product> search(String keyword) {
+        return productAVLTree.searchByPredicate(product -> product.getCategory().equalsIgnoreCase(keyword));
+    }
 }

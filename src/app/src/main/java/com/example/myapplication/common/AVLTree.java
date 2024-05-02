@@ -1,6 +1,7 @@
 package com.example.myapplication.common;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 // Definition of an AVL Tree class that supports generic types with Comparable interface
 public class AVLTree<T extends Comparable<? super T>> {
@@ -281,6 +282,23 @@ public class AVLTree<T extends Comparable<? super T>> {
         // Recursively traverse the left and right subtrees
         preOrderTraversal(currentNode.leftChild, resultList);
         preOrderTraversal(currentNode.rightChild, resultList);
+    }
+
+    public ArrayList<T> searchByPredicate(Predicate<T> predicate) {
+        ArrayList<T> results = new ArrayList<>();
+        searchByPredicate(root, predicate, results);
+        return results;
+    }
+
+    private void searchByPredicate(AVLNode<T> node, Predicate<T> predicate, ArrayList<T> results) {
+        if (node != null) {
+            if (predicate.test(node.key)) {
+                results.add(node.key);
+                results.addAll(node.getDuplicates()); // Assuming duplicates are identical for matching
+            }
+            searchByPredicate(node.leftChild, predicate, results);
+            searchByPredicate(node.rightChild, predicate, results);
+        }
     }
 
 }

@@ -7,4 +7,8 @@ public class Parser {
         this.tokenizer = tokenizer;
     }
 
+    public Parser(String text) {
+        this.tokenizer = new Tokenizer(text);
+    }
+
 }
