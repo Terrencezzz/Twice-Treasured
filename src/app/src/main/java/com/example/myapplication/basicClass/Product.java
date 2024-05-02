@@ -1,7 +1,7 @@
 package com.example.myapplication.basicClass;
 
 
-public class Product {
+public class Product implements Comparable<Product>{
     private String name;
     private String productID;
     private String category;
@@ -112,6 +112,11 @@ public class Product {
 
     public String getCategoryID() {
         return categoryID;
+    }
+
+    @Override
+    public int compareTo(Product other) {
+        return Integer.compare(Integer.parseInt(this.price), Integer.parseInt(other.price));
     }
 }
 
