@@ -118,7 +118,7 @@ public class Post extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String owner = user.getUid();
         String categoryId = getCategoryId(category); // Map category name to ID
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User").child("location");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User").child(owner).child("location");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
