@@ -7,7 +7,7 @@ public class Tokenizer {
     private final String locationCheck = "sydney, melbourne, queensland, adelaide, tasmania, canberra, south australia";
 
     public Tokenizer(String text) {
-        buffer = text;
+        buffer = text.toLowerCase();
         next();
     }
 

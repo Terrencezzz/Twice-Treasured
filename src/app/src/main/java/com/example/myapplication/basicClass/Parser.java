@@ -17,6 +17,9 @@ public class Parser {
     private Tokenizer tokenizerCategory;
     private Tokenizer tokenizerName;
     private AVLTree<Product> productAVLTree = new AVLTree<>();
+    boolean location = false;
+    boolean category = false;
+    boolean name = false;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
 
@@ -48,6 +51,7 @@ public class Parser {
                             Product product = dataSnapshot.getValue(Product.class);
                             if (product != null) {
                                 productAVLTree.insert(product);
+                                location = true;
                             }
                         }
                     }
