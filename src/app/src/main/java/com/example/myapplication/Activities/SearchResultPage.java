@@ -20,7 +20,9 @@ import android.widget.Toast;
 import com.example.myapplication.Adapters.SearchItemAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Database;
+import com.example.myapplication.basicClass.Parser;
 import com.example.myapplication.basicClass.Product;
+import com.example.myapplication.basicClass.Tokenizer;
 import com.example.myapplication.common.AVLTree;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -109,6 +111,8 @@ public class SearchResultPage extends AppCompatActivity {
                     Product product = dataSnapshot.getValue(Product.class);
                     avlTree.insert(product);
                 }
+
+
                 setupRecyclerView(avlTree.convertToArrayList());
             }
 
