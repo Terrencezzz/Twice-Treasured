@@ -20,10 +20,12 @@ import com.example.myapplication.Adapters.CategoryAdapter;
 import com.example.myapplication.Adapters.RecommendAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Category;
+import com.example.myapplication.basicClass.Database;
 import com.example.myapplication.basicClass.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -44,13 +46,14 @@ public class HomePage extends Page {
     private  TextView btnViewmore;
     private TextView input;
 
-
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        database = Database.getDatabase();
         initCategory();
 //        initRecommend();
 
