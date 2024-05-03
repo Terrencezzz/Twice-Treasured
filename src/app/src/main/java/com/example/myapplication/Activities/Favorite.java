@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 // RecyclerView imports
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,10 +42,10 @@ public class Favorite extends Page {
     private Button btnDelete;
     private LinearLayout bottomBar;
 
-    private TextView btnPrivate;
-    private TextView btnHome;
-    private TextView btnMe;
-    private TextView btnFavorite;
+    private ConstraintLayout clPrivate;
+    private ConstraintLayout clHome;
+    private ConstraintLayout clMe;
+    private ConstraintLayout clFavorite;
     private Button btnTradePlatform;
 
     @Override
@@ -65,11 +66,11 @@ public class Favorite extends Page {
         btnDelete = findViewById(R.id.btnDelete);
         bottomBar = findViewById(R.id.bottom_bar);
 
-        btnPrivate = findViewById(R.id.btnPrivate);
-        btnHome = findViewById(R.id.btnHome);
-        btnMe = findViewById(R.id.btnMe);
+        clPrivate = findViewById(R.id.clPrivate);
+        clHome = findViewById(R.id.clHome);
+        clMe = findViewById(R.id.clMe);
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
-        btnFavorite= findViewById(R.id.btnFavorite);
+        clFavorite= findViewById(R.id.clFavorite);
 
         // Initialize favorite products list and set up UI
         initFavoriteProducts();
@@ -121,7 +122,7 @@ public class Favorite extends Page {
             }
         });
 
-        btnMe.setOnClickListener(new View.OnClickListener() {
+        clMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goUserPage();
@@ -135,12 +136,12 @@ public class Favorite extends Page {
             }
         });
 
-        btnPrivate.setOnClickListener(new View.OnClickListener() {
+        clPrivate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { goPrivateMenu();}
         });
 
-        btnHome.setOnClickListener(new View.OnClickListener() {
+        clHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goHomePage();
