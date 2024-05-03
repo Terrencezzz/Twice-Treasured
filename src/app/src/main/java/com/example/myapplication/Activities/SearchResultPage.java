@@ -50,9 +50,9 @@ public class SearchResultPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result_page);
-//        initButtons();
-        initViews();
-//        setupSortOptionsPopup(); // Setup sort options popup
+//        initButtons();  // Initially commented out
+        initViews(); // Initialize views and setup sort options popup
+//        setupSortOptionsPopup(); // Setup sort options popup - Initially commented out
 
     }
 
@@ -65,21 +65,19 @@ public class SearchResultPage extends AppCompatActivity {
 
         btnBack.setOnClickListener(view -> finish());
 
-        // 初始化 PopupWindow
-        setupSortOptionsPopup();
+        // Initialize PopupWindow
+        setupSortOptionsPopup(); // Setup sort options popup
         inflatePriceOptions();  // Make sure to call this to prepare the price options
 
-        // 设置按钮切换行为
+        // Set button toggle behavior
         setupButtonWithToggle(btnSortBy, R.drawable.search_result_page_button_background,
                 R.drawable.search_result_page_selected_button_background, sortOptionsPopup);
 
-        // 设置 Price 按钮切换行为
+        // Set Price button toggle behavior
         setupButtonWithToggle(btnPrice, R.drawable.search_result_page_button_background,
                 R.drawable.search_result_page_selected_button_background, priceOptionsPopup);
 
     }
-
-
 
     private void inflatePriceOptions() {
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -93,50 +91,52 @@ public class SearchResultPage extends AppCompatActivity {
         btnReset = priceOptionsContainer.findViewById(R.id.btnReset);
         btnSeeItems = priceOptionsContainer.findViewById(R.id.btnSeeItems);
 
-        // 设置 "See Items" 按钮的点击监听器
+        // Set click listener for "See Items" button
         btnSeeItems.setOnClickListener(v -> {
-            // 保存输入值
+            // Get text from EditText fields
             String min = etMinimum.getText().toString();
             String max = etMaximum.getText().toString();
 
-            // 尝试转换字符串为整数
-            int minValue = min.isEmpty() ? Integer.MIN_VALUE : Integer.parseInt(min);
-            int maxValue = max.isEmpty() ? Integer.MAX_VALUE : Integer.parseInt(max);
+            // Try parsing strings into integers, set to null if empty
+            Integer minValue = min.isEmpty() ? null : Integer.parseInt(min);
+            Integer maxValue = max.isEmpty() ? null : Integer.parseInt(max);
 
-            // 如果最小值大于最大值，则交换它们
-            if (minValue > maxValue) {
-                int temp = minValue;
+            // If both are not null and minimum is greater than maximum, swap them
+            if (minValue != null && maxValue != null && minValue > maxValue) {
+                Integer temp = minValue;
                 minValue = maxValue;
                 maxValue = temp;
 
-                // 更新文本框值
+                // Update text fields
                 etMinimum.setText(String.valueOf(minValue));
                 etMaximum.setText(String.valueOf(maxValue));
-
             }
 
-            // 更新文本框值
-            savedMinimum = String.valueOf(minValue);
-            savedMaximum = String.valueOf(maxValue);
+            // Update saved values
+            savedMinimum = minValue != null ? String.valueOf(minValue) : "";
+            savedMaximum = maxValue != null ? String.valueOf(maxValue) : "";
 
-            // 更新 Price 按钮文本
-            if (!min.isEmpty() && max.isEmpty()) {
+            // Build and update Price button text
+            if (minValue != null && maxValue == null) {
                 btnPrice.setText("$ " + minValue + " or more");
-            } else if (min.isEmpty() && !max.isEmpty()) {
+            } else if (minValue == null && maxValue != null) {
                 btnPrice.setText("$ " + maxValue + " or less");
-            } else if (!min.isEmpty() && !max.isEmpty()) {
+            } else if (minValue != null && maxValue != null) {
                 btnPrice.setText("$ " + minValue + " to $ " + maxValue);
+            } else {
+                btnPrice.setText("Price");
             }
 
-            // 关闭下拉框
+            // Close dropdown
             if (priceOptionsPopup.isShowing()) {
                 priceOptionsPopup.dismiss();
             }
         });
 
-        // 设置 "Reset" 按钮的点击监听器
+
+        // Set click listener for "Reset" button
         btnReset.setOnClickListener(v -> {
-            // 检查并清空 etMinimum 和 etMaximum
+            // Check and clear etMinimum and etMaximum
             if (!etMinimum.getText().toString().isEmpty()) {
                 etMinimum.setText("");
             }
@@ -146,43 +146,42 @@ public class SearchResultPage extends AppCompatActivity {
         });
     }
 
-
     // Setup sort options popup window
     private void setupSortOptionsPopup() {
-        //创建一个线性布局，并设置它的方向为垂直，背景颜色为白色。
+        // Create a linear layout and set its orientation to vertical with white background
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setBackgroundColor(Color.WHITE);
-        //定义一个包含排序选项的字符串数组
+        // Define an array containing sorting options
         final String[] options = {"Suggested", "Lowest Price", "Highest Price", "Nearest", "Newest"};
-        //对于每个排序选项：
-        //从布局文件中填充排序选项视图，并找到其中的文本视图和勾选图像视图。
+        // For each sorting option:
+        // Inflate the sorting option view from layout file and find text view and checkmark image view within it.
         for (String option : options) {
             sortOptionView = getLayoutInflater().inflate(R.layout.research_result_sort_item, layout, false);
             tvOption = sortOptionView.findViewById(R.id.tvSortOption); // Initialize text view for sort option
             ivCheckmark = sortOptionView.findViewById(R.id.ivCheckmark); // Initialize checkmark image view
-            //设置排序选项的文本。
-            tvOption.setText(option); // Set text for sort option
+            // Set text for sorting option
+            tvOption.setText(option);
 
-            //根据选项是否被选中来更新显示。
-            updateOptionDisplay(tvOption, ivCheckmark, option.equals(selectedOption)); // Update display based on whether the option is selected
+            // Update display based on whether the option is selected
+            updateOptionDisplay(tvOption, ivCheckmark, option.equals(selectedOption));
 
-            //设置点击监听器，当用户选择了一个选项时，更新当前选中的选项，更新按钮文本为所选选项，更新排序选项的显示，并关闭弹出框。
+            // Set click listener to update currently selected option, update button text to selected option,
+            // update sorting options display, and close the popup when an option is selected.
             sortOptionView.setOnClickListener(v -> {
-                selectedOption = option; // Update currently selected option
-                btnSortBy.setText(option); // Update button text to the selected option
-                updateSortOptions(layout); // Update sort options display
-                sortOptionsPopup.dismiss(); // Close the popup
+                selectedOption = option;
+                btnSortBy.setText(option);
+                updateSortOptions(layout);
+                sortOptionsPopup.dismiss();
             });
 
-            layout.addView(sortOptionView); // Add sort option view to layout
+            layout.addView(sortOptionView); // Add sorting option view to layout
         }
-//将排序选项视图添加到布局中。
+        // Add sorting option views to layout
         sortOptionsPopup = new PopupWindow(layout, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         sortOptionsPopup.setOutsideTouchable(true); // Set popup to be outside touchable
         sortOptionsPopup.setFocusable(true); // Set popup to be focusable
     }
-
 
     // Update the display of sort options
     private void updateSortOptions(LinearLayout layout) {
@@ -207,8 +206,6 @@ public class SearchResultPage extends AppCompatActivity {
         button.setBackgroundResource(normalBg);
 
         // Click listener for the button
-        //检查弹出窗口当前是否正在显示。如果显示，则关闭弹出窗口并将按钮背景设置为正常状态；
-        // 如果未显示，则将按钮背景设置为选中状态，并在按钮下方显示弹出窗口。
         button.setOnClickListener(v -> {
             // Check if the popup is already showing
             if (popupWindow.isShowing()) {
@@ -221,15 +218,12 @@ public class SearchResultPage extends AppCompatActivity {
                 // Ensure the price options are correctly displayed when the popup is shown
                 etMinimum.setText(savedMinimum);
                 etMaximum.setText(savedMaximum);
-
             }
         });
 
         // Listener for popup dismissal
-        //设置弹出窗口关闭时的监听器，用于在弹出窗口关闭时将按钮背景重置为正常状态
         popupWindow.setOnDismissListener(() -> {
             button.setBackgroundResource(normalBg); // Reset button background when the popup is dismissed
-
         });
     }
 }
