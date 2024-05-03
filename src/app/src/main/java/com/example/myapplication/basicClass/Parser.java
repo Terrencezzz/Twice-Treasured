@@ -10,8 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
 
 public class Parser {
     private Tokenizer tokenizerLocation;
@@ -20,29 +19,28 @@ public class Parser {
     private AVLTree<Product> productAVLTree = new AVLTree<>();
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
+
     public Parser(Tokenizer tokenizer) {
         this.tokenizerLocation = tokenizer;
     }
 
+    // Initialize tokenizers for location, category, and name with the input text
     public Parser(String text) {
-        // Initialize all tokenizers with the input text converted to lower case to ensure case-insensitive comparisons
-        String lowerText = text.toLowerCase();
-        this.tokenizerLocation = new Tokenizer(lowerText);
-        this.tokenizerCategory = new Tokenizer(lowerText);
-        this.tokenizerName = new Tokenizer(lowerText);
+        this.tokenizerLocation = new Tokenizer(text);
+        this.tokenizerCategory = new Tokenizer(text);
+        this.tokenizerName = new Tokenizer(text);
     }
 
-    // Asynchronously parses products based on location and synchronizes with further parsing steps
-    public CompletableFuture<AVLTree<Product>> parseEXPAsync() {
-        CompletableFuture<AVLTree<Product>> future = new CompletableFuture<>();
-
+    // Parse based on location
+    public AVLTree<Product> parseEXP() {
         while(tokenizerLocation.hasNext()) {
-            Token token = tokenizerLocation.current();
-            Token.Type type = token.getType();
+            Token.Type type = tokenizerLocation.current().getType();
             if (type == Token.Type.LOCATION) {
-                String key = token.getToken();
+                String key = tokenizerLocation.current().getToken();
+                // Create a query to search for products with this location
                 Query query = reference.orderByChild("location").equalTo(key);
 
+                // Add a listener to retrieve data from Firebase
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -52,62 +50,67 @@ public class Parser {
                                 productAVLTree.insert(product);
                             }
                         }
-                        future.complete(productAVLTree);  // Complete the future when data is fully loaded
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        future.completeExceptionally(new RuntimeException("Firebase query cancelled"));
+
                     }
                 });
             }
-            tokenizerLocation.next();  // Move to the next token to avoid infinite loops
         }
-
-        return future;
+        // Proceed to parse categories after location parsing is complete
+        return parseCategory();
     }
 
-    // Synchronizes asynchronous operations and continues with category and name parsing
-    public AVLTree<Product> parse() throws ExecutionException, InterruptedException {
-        parseEXPAsync().get();  // Wait for the location-based asynchronous parsing to complete
-        parseCategory();
-        parseName();
+    // Parse based on category
+    public AVLTree<Product> parseCategory() {
+        AVLTree<Product> container = new AVLTree<>();
+        ArrayList<Product> products = productAVLTree.convertToArrayList();
+        while(tokenizerCategory.hasNext()) {
+            // Get the type of the current token
+            Token.Type type = tokenizerCategory.current().getType();
+            // Check if the token is of type CATEGORY
+            if (type == Token.Type.Category) {
+                String key = tokenizerCategory.current().getToken();
+                for (Product product : products) {
+                    String category = product.getCategory();
+                    if (category.toLowerCase().equals(key)) {
+                        container.insert(product);
+                    }
+                }
+            }
+        }
+        // Update the product AVL tree with the new container
+        productAVLTree = container;
+        // Proceed to parse names after category parsing is complete
+        return parseName();
+    }
+
+    public AVLTree<Product> parseName() {
+        AVLTree<Product> container = new AVLTree<>();
+        ArrayList<Product> products = productAVLTree.convertToArrayList();
+        while(tokenizerName.hasNext()) {
+            // Get the type of the current token
+            Token.Type type = tokenizerName.current().getType();
+            // Check if the token is of type NAME
+            if (type == Token.Type.NAME) {
+                String key = tokenizerName.current().getToken();
+                for (Product product : products) {
+                    String name = product.getName();
+                    if (name.toLowerCase().equals(key)) {
+                        container.insert(product);
+                    }
+                }
+            }
+        }
+        // Update the product AVL tree with the new container
+        productAVLTree = container;
+        // Return the final product AVL tree
         return productAVLTree;
     }
 
-    // Parses products based on category from the pre-filtered AVL tree
-    private void parseCategory() {
-        AVLTree<Product> container = new AVLTree<>();
-        for (Product product : productAVLTree.convertToArrayList()) {
-            String category = product.getCategory().toLowerCase();  // Compare in lower case
-            while (tokenizerCategory.hasNext()) {
-                String key = tokenizerCategory.current().getToken();
-                if (category.equals(key)) {
-                    container.insert(product);
-                }
-                tokenizerCategory.next();
-            }
-        }
-        productAVLTree = container;
-    }
-
-    // Parses products based on name from the pre-filtered AVL tree
-    private void parseName() {
-        AVLTree<Product> container = new AVLTree<>();
-        for (Product product : productAVLTree.convertToArrayList()) {
-            String name = product.getName().toLowerCase();  // Compare in lower case
-            while (tokenizerName.hasNext()) {
-                String key = tokenizerName.current().getToken();
-                if (name.equals(key)) {
-                    container.insert(product);
-                }
-                tokenizerName.next();
-            }
-        }
-        productAVLTree = container;
-    }
-
-    // Provides access to the final AVL tree of products
+    // Get the final product AVL tree
     public AVLTree<Product> getProductAVLTree() {
         return productAVLTree;
     }
