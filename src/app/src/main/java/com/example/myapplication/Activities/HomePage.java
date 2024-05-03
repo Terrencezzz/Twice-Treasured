@@ -41,6 +41,7 @@ public class HomePage extends Page {
     private TextView btnFavorite;
     private Button btnTradePlatform;
     private  TextView btnViewmore;
+    private TextView input;
 
 
 
@@ -59,6 +60,7 @@ public class HomePage extends Page {
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
         btnFavorite= findViewById(R.id.btnFavorite);
         btnViewmore = findViewById(R.id.btnViewmore);
+        input = findViewById(R.id.input);
 
         btnMe.setOnClickListener(new View.OnClickListener() {
             @Override

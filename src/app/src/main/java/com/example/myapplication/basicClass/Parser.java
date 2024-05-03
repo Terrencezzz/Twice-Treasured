@@ -10,6 +10,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class Parser {
     private Tokenizer tokenizerLocation;
     private Tokenizer tokenizerCategory;
@@ -57,17 +59,40 @@ public class Parser {
     }
 
     public AVLTree<Product> parseCategory() {
+        AVLTree<Product> container = new AVLTree<>();
+        ArrayList<Product> products = productAVLTree.convertToArrayList();
         while(tokenizerCategory.hasNext()) {
             Token.Type type = tokenizerCategory.current().getType();
             if (type == Token.Type.Category) {
                 String key = tokenizerCategory.current().getToken();
-
+                for (Product product : products) {
+                    String category = product.getCategory();
+                    if (category.toLowerCase().equals(key)) {
+                        container.insert(product);
+                    }
+                }
             }
         }
+        productAVLTree = container;
         return parseName();
     }
 
     public AVLTree<Product> parseName() {
+        AVLTree<Product> container = new AVLTree<>();
+        ArrayList<Product> products = productAVLTree.convertToArrayList();
+        while(tokenizerName.hasNext()) {
+            Token.Type type = tokenizerName.current().getType();
+            if (type == Token.Type.NAME) {
+                String key = tokenizerName.current().getToken();
+                for (Product product : products) {
+                    String name = product.getName();
+                    if (name.toLowerCase().equals(key)) {
+                        container.insert(product);
+                    }
+                }
+            }
+        }
+        productAVLTree = container;
         return productAVLTree;
     }
 

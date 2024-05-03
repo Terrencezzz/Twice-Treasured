@@ -81,7 +81,7 @@
                         app:srcCompat="@drawable/icon_settings" />
 
                     <EditText
-                        android:id="@+id/searchInputText"
+                        android:id="@+id/input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
