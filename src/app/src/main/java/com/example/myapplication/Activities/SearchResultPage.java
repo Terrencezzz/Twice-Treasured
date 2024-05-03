@@ -2,22 +2,16 @@ package com.example.myapplication.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.graphics.Color;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 
@@ -44,6 +38,8 @@ public class SearchResultPage extends AppCompatActivity {
 
     private String savedMinimum = "";
     private String savedMaximum = "";
+    private ImageView ivCheckbox;
+    private TextView tvConditionOption;
 
 
     @Override
@@ -68,6 +64,7 @@ public class SearchResultPage extends AppCompatActivity {
         // Initialize PopupWindow
         setupSortOptionsPopup(); // Setup sort options popup
         inflatePriceOptions();  // Make sure to call this to prepare the price options
+        setupConditionOptionsPopup();
 
         // Set button toggle behavior
         setupButtonWithToggle(btnSortBy, R.drawable.search_result_page_button_background,
@@ -78,6 +75,60 @@ public class SearchResultPage extends AppCompatActivity {
                 R.drawable.search_result_page_selected_button_background, priceOptionsPopup);
 
     }
+
+    private void setupConditionOptionsPopup() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        LinearLayout conditionOptionsContainer = (LinearLayout) inflater.inflate(R.layout.search_result_condition_dropdown_layout, null, false);
+
+        LinearLayout llConditionOptions = conditionOptionsContainer.findViewById(R.id.llConditionOptions);
+        final String[] conditions = {"Any", "New", "Used-like new", "Used-good", "Used-fair"};
+
+        for (String condition : conditions) {
+            View conditionView = inflater.inflate(R.layout.search_result_condition_item, llConditionOptions, false);
+            TextView tvConditionOption = conditionView.findViewById(R.id.tvConditionOption);
+            ImageView ivCheckbox = conditionView.findViewById(R.id.ivCheckbox);
+
+            tvConditionOption.setText(condition);
+            ivCheckbox.setImageResource(R.drawable.check_box_empty_24); // Assume checkbox_unchecked is your default icon
+
+            conditionView.setOnClickListener(v -> {
+                // Here you toggle the checkbox state and update the UI accordingly
+                boolean isSelected = toggleCheckbox(ivCheckbox); // You need to implement this method
+                updateConditionDisplay(ivCheckbox, isSelected);
+            });
+
+            llConditionOptions.addView(conditionView);
+        }
+
+        PopupWindow conditionPopup = new PopupWindow(conditionOptionsContainer, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        conditionPopup.setOutsideTouchable(true);
+        conditionPopup.setFocusable(true);
+
+        // Assuming you have a button or a view where this popup should be shown
+        btnCondition.setOnClickListener(v -> {
+            if (conditionPopup.isShowing()) {
+                conditionPopup.dismiss();
+            } else {
+                conditionPopup.showAsDropDown(btnCondition);
+            }
+        });
+    }
+
+    private boolean toggleCheckbox(ImageView ivCheckbox) {
+        // This method toggles the checkbox image between checked and unchecked
+        // Return the new state
+        // Dummy implementation
+        return false;
+    }
+
+    private void updateConditionDisplay(ImageView ivCheckbox, boolean isSelected) {
+        if (isSelected) {
+            ivCheckbox.setImageResource(R.drawable.select_check_box_24); // Assume checkbox_checked is your selected icon
+        } else {
+            ivCheckbox.setImageResource(R.drawable.check_box_empty_24);
+        }
+    }
+
 
     private void inflatePriceOptions() {
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -157,7 +208,7 @@ public class SearchResultPage extends AppCompatActivity {
         // For each sorting option:
         // Inflate the sorting option view from layout file and find text view and checkmark image view within it.
         for (String option : options) {
-            sortOptionView = getLayoutInflater().inflate(R.layout.research_result_sort_item, layout, false);
+            sortOptionView = getLayoutInflater().inflate(R.layout.search_result_sort_item, layout, false);
             tvOption = sortOptionView.findViewById(R.id.tvSortOption); // Initialize text view for sort option
             ivCheckmark = sortOptionView.findViewById(R.id.ivCheckmark); // Initialize checkmark image view
             // Set text for sorting option
