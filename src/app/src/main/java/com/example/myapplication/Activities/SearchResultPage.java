@@ -1,6 +1,9 @@
 package com.example.myapplication.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,29 +16,28 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.graphics.Color;
 
+import com.example.myapplication.Adapters.SearchItemAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.basicClass.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchResultPage extends AppCompatActivity {
     private ImageView btnBack; // Back button
-    private TextView btnSortBy; // Sort by button
-    private PopupWindow sortOptionsPopup; // Popup window for sort options
-
+    private TextView btnSortBy, btnPrice, btnCondition, btnDateListed;
+    private PopupWindow sortOptionsPopup, priceOptionsPopup;
+    private RecyclerView recyclerViewProducts;
+    private SearchItemAdapter searchItemAdapter;
     private View sortOptionView; // View for each sort option
     private TextView tvOption; // Text view for sort option
     private ImageView ivCheckmark; // Checkmark image view for selected option indicator
     private boolean isSortByExpanded = false; // Flag to track if sort options are expanded
     private String selectedOption = "Suggested"; // Initially selected sorting option
-
-    private TextView btnPrice;
     private EditText etMinimum, etMaximum;
-    private TextView btnCondition;
-    private TextView btnDateListed;
     private Button btnReset;
     private Button btnSeeItems;
-
     private LinearLayout priceOptionsContainer; // Container for dynamically loaded price options
-    private PopupWindow priceOptionsPopup;
-
     private String savedMinimum = "";
     private String savedMaximum = "";
     private ImageView ivCheckbox;
@@ -58,6 +60,7 @@ public class SearchResultPage extends AppCompatActivity {
         btnPrice = findViewById(R.id.btnPrice);
         btnCondition = findViewById(R.id.btnCondition);
         btnDateListed = findViewById(R.id.btnDateListed);
+        recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
 
         btnBack.setOnClickListener(view -> finish());
 
@@ -74,6 +77,32 @@ public class SearchResultPage extends AppCompatActivity {
         setupButtonWithToggle(btnPrice, R.drawable.search_result_page_button_background,
                 R.drawable.search_result_page_selected_button_background, priceOptionsPopup);
 
+        List<Product> products = loadFavoriteProducts();
+        setupRecyclerView(products);
+
+    }
+
+    private void setupRecyclerView(List<Product> products) {
+        recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 2));
+        searchItemAdapter = new SearchItemAdapter(this, products);
+        recyclerViewProducts.setAdapter(searchItemAdapter);
+    }
+
+    private List<Product> loadFavoriteProducts() {
+        // Dummy data for demonstration
+        List<Product> products = new ArrayList<>();
+        products.add(new Product("test","1", "Category", "Nice product Nice productNice productNice productNice productNice productNice productNice productNice product", "100", "New", "Today", "Available", "https://img01.yzcdn.cn/upload_files/2019/12/27/Fk1Z1GGZ-42PJVGrSSHFMrgSO4R8.jpg%21middle.jpg","tom","001","Canberra"));
+        products.add(new Product("test","2", "Category", "Another product Another productAnother productAnother productAnother productAnother productAnother productAnother productAnother product", "200", "Used", "Yesterday", "Available", "https://img01.yzcdn.cn/upload_files/2017/11/01/da3c0908669a5d3c43dec36642415254.jpg%21middle.jpg","tom","001","Sydney"));
+        products.add(new Product("test","3", "Category", "Awesome product Awesome productAwesome productAwesome productAwesome productAwesome productAwesome productAwesome productAwesome product", "150", "New", "Today", "Available", "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fg-search1.alicdn.com%2Fimg%2Fbao%2Fuploaded%2Fi4%2FO1CN01UL3Mg01PROLUi7MLa_%21%210-fleamarket.jpg_300x300.jpg&refer=http%3A%2F%2Fg-search1.alicdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1717053644&t=1c1527ee4c93bfde6992445a253901a9","tom","001","Perth"));
+        products.add(new Product("test","4", "Category", "Fantastic product Fantastic productFantastic productFantastic productFantastic productFantastic productFantastic productFantastic productFantastic product", "180", "Used", "Yesterday", "Available", "https://img1.baidu.com/it/u=4185713029,1649043310&fm=253&fmt=auto&app=138&f=JPEG?w=450&h=600","tom","001","ACT"));
+        products.add(new Product("test","5", "Category", "Superb product Superb productSuperb productSuperb productSuperb productSuperb productSuperb productSuperb productSuperb product", "250", "New", "Today", "Available", "https://img01.yzcdn.cn/upload_files/2020/03/29/FsKNyYUq6i2JbYVSMa-PAyaj_pya.jpg%21middle.jpg","tom","001","Melbourne"));
+        products.add(new Product("test","6", "Category", "Excellent product Excellent productExcellent productExcellent productExcellent productExcellent productExcellent productExcellent productExcellent product", "300", "Used", "Yesterday", "Available", "https://pic.rmb.bdstatic.com/bjh/down/dc41f9f74d70e08b5877df601c381c42.jpeg@wm_2,t_55m+5a625Y+3L+enn+S4gOermeS6jOaJi+WKnuWFrOWutuWFtw==,fc_ffffff,ff_U2ltSGVp,sz_20,x_13,y_13","tom","001","Sydney"));
+        products.add(new Product("test","7", "Category", "Amazing product Amazing productAmazing productAmazing productAmazing productAmazing productAmazing productAmazing productAmazing product", "170", "New", "Today", "Available", "https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2022%2F0628%2F06131eb4j00re6keu001dd200m800aag00g6007h.jpg&thumbnail=660x2147483647&quality=80&type=jpg","tom","001","Brisbane"));
+        products.add(new Product("test","8", "Category", "Incredible product Incredible productIncredible productIncredible productIncredible productIncredible productIncredible productIncredible productIncredible product", "220", "Used", "Yesterday", "Available", "https://img2.baidu.com/it/u=2984813231,3723666658&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500","tom","001","Melbourne"));
+        products.add(new Product("test","9", "Category", "Outstanding product Outstanding productOutstanding productOutstanding productOutstanding productOutstanding productOutstanding productOutstanding productOutstanding product", "280", "New", "Today", "Available", "https://img0.baidu.com/it/u=1257588435,2863691321&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500","tom","001","Sydney"));
+        products.add(new Product("test","10", "Category", "Spectacular product Spectacular productSpectacular productSpectacular productSpectacular productSpectacular productSpectacular productSpectacular productSpectacular product", "320", "Used", "Yesterday", "Available", "https://img2.baidu.com/it/u=271958556,2894190561&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500","tom","001","Melbourne"));
+
+        return products;
     }
 
     private void setupConditionOptionsPopup() {
