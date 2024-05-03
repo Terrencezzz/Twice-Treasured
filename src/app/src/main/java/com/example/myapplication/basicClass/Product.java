@@ -35,6 +35,11 @@ public class Product implements Comparable<Product>{
         this.location = location;
     }
 
+    public Product() {
+        // Default constructor required for calls to DataSnapshot.getValue(Product.class)
+    }
+
+
     // Getter and setter methods for all properties
     public String getProductID() {
         return productID;
