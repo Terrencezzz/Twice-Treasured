@@ -4,20 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private final String UID;
+    private String UID;
     private String name;
     private String email;
     private String password;
-    private String headURL;
+    private String headImage;
     private String location;
 
+    public User() {
 
-    User(String UID, String name,String email, String password, String headURL, String location) {
+    }
+
+    User(String UID, String name, String email, String password, String headImage, String location) {
         this.UID = UID;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.headURL = headURL;
+        this.headImage = headImage;
         this.location = location;
     }
 
@@ -37,8 +40,8 @@ public class User {
         return password;
     }
 
-    public String getHeadURL() {
-        return headURL;
+    public String getHeadImage() {
+        return headImage;
     }
 
     public String getLocation() {

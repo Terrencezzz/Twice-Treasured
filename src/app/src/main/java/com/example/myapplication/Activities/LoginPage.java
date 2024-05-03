@@ -86,7 +86,9 @@ public class LoginPage extends AppCompatActivity {
                     Toast.makeText(LoginPage.this, "Success!", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = auth.getCurrentUser();
                     String uid = user.getUid();
-                    startActivity(new Intent(LoginPage.this, HomePage.class));
+                    Intent intent = new Intent(LoginPage.this, HomePage.class);
+                    intent.putExtra("email",txtAccount);
+                    startActivity(intent);
                     finish();
                 }
                 else {

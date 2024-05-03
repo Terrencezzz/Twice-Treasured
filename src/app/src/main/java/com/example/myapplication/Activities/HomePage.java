@@ -21,11 +21,14 @@ import com.example.myapplication.Adapters.RecommendAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Category;
 import com.example.myapplication.basicClass.Database;
+import com.example.myapplication.basicClass.GlobalVariables;
 import com.example.myapplication.basicClass.Product;
+import com.example.myapplication.basicClass.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -45,8 +48,10 @@ public class HomePage extends Page {
     private Button btnTradePlatform;
     private  TextView btnViewmore;
     private TextView input;
+    private TextView txtUserName;
 
     FirebaseDatabase database;
+    GlobalVariables globalVars;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +59,8 @@ public class HomePage extends Page {
         setContentView(R.layout.activity_home_page);
 
         database = Database.getDatabase();
-        initCategory();
-//        initRecommend();
+        globalVars = GlobalVariables.getInstance();
+
 
         btnSearch = findViewById(R.id.btnSearch);
         clPrivate = findViewById(R.id.clPrivate);
@@ -65,6 +70,11 @@ public class HomePage extends Page {
         clFavorite= findViewById(R.id.clFavorite);
         btnViewmore = findViewById(R.id.btnViewmore);
         input = findViewById(R.id.input);
+        txtUserName = findViewById(R.id.txtUserName);
+
+        initLoginUser();
+        initCategory();
+//        initRecommend();
 
         clMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +110,39 @@ public class HomePage extends Page {
             }
         });
 
+
     }
 
+    private void initLoginUser() {
+        String userEmail = getIntent().getStringExtra("email");
+        DatabaseReference  db = database.getReference("User");
+        Query query = db.orderByChild("email").equalTo(userEmail);
+        ArrayList<User> users = new ArrayList<>();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()){
+                    for (DataSnapshot issue:snapshot.getChildren()){
+                        users.add(issue.getValue(User.class));
+                    }
+                    if(users.size()>0){
+
+                        globalVars.setLoginUser(users.get(0));
+                        txtUserName.setText(globalVars.getLoginUser().getName());
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
 
 
     private void initRecommend() {

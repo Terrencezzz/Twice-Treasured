@@ -11,7 +11,7 @@ public class Database {
     /**
      *  Lazy singleton pattern used in database connection
      * */
-    public static FirebaseDatabase getDatabase(){
+    public static synchronized FirebaseDatabase getDatabase(){
         if(database == null){
             database = FirebaseDatabase.getInstance();
         }else{
