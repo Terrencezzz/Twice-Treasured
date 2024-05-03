@@ -8,25 +8,27 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.myapplication.R;
 
 public class PrivateMenuActivity extends Page {
 
-    private TextView btnPrivate;
-    private TextView btnHome;
-    private TextView btnMe;
-    private TextView btnFavorite;
+    private ConstraintLayout clPrivate;
+    private ConstraintLayout clHome;
+    private ConstraintLayout clMe;
+    private ConstraintLayout clFavorite;
     private Button btnTradePlatform;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_menu);
 
-        btnPrivate = findViewById(R.id.btnPrivate);
-        btnHome = findViewById(R.id.btnHome);
-        btnMe = findViewById(R.id.btnMe);
+        clPrivate = findViewById(R.id.clPrivate);
+        clHome = findViewById(R.id.clHome);
+        clMe = findViewById(R.id.clMe);
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
-        btnFavorite= findViewById(R.id.btnFavorite);
+        clFavorite= findViewById(R.id.clFavorite);
         ImageButton btnReturnToHome =
                 findViewById(R.id.btn_return_to_home);
 
@@ -36,7 +38,7 @@ public class PrivateMenuActivity extends Page {
             public void onClick(View v) {goHomePage();}
         });
 
-        btnMe.setOnClickListener(new View.OnClickListener() {
+        clMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goUserPage();
@@ -50,14 +52,14 @@ public class PrivateMenuActivity extends Page {
             }
         });
 
-        btnFavorite.setOnClickListener(new View.OnClickListener() {
+        clFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goFavorite();
             }
         });
 
-        btnHome.setOnClickListener(new View.OnClickListener() {
+        clHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goHomePage();
