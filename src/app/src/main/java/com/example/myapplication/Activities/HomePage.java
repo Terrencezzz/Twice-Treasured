@@ -118,16 +118,15 @@ public class HomePage extends Page {
         DatabaseReference  db = database.getReference("User");
         Query query = db.orderByChild("email").equalTo(userEmail);
         ArrayList<User> users = new ArrayList<>();
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 if(snapshot.exists()){
+                    users.clear();
                     for (DataSnapshot issue:snapshot.getChildren()){
                         users.add(issue.getValue(User.class));
                     }
                     if(users.size()>0){
-
                         globalVars.setLoginUser(users.get(0));
                         txtUserName.setText(globalVars.getLoginUser().getName());
                     }

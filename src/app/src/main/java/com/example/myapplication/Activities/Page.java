@@ -62,4 +62,9 @@ public abstract class Page extends AppCompatActivity {
      *  You can move to Register Page with this function
      * */
     public void goRegisterPage(){ goToActivity(RegisterActivity.class);}
+
+    /**
+     *  You can move to UserDetail Page with this function
+     * */
+    public void goUserDetailPage(){goToActivity(UserDetailPage.class);}
 }
