@@ -56,6 +56,9 @@ public class SearchResultPage extends AppCompatActivity {
     private String[] dateListOptions = {"Any", "Last 24 hours", "Last 7 days", "Last 30 days"};
     private boolean[] dateListStates;
 
+    private EditText searchField;
+
+    private ImageView btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,16 @@ public class SearchResultPage extends AppCompatActivity {
         btnCondition = findViewById(R.id.btnCondition);
         btnDateListed = findViewById(R.id.btnDateListed);
         recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
+        searchField = findViewById(R.id.searchField);
+        btnSearch = findViewById(R.id.btnSearch);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userInput = searchField.getText().toString(); // 获取用户输入
+                resultProductOfSearch(userInput); // 调用搜索方法，传入用户输入
+            }
+        });
 
         // Back button click listener
         btnBack.setOnClickListener(view -> finish());
@@ -111,7 +124,7 @@ public class SearchResultPage extends AppCompatActivity {
                 R.drawable.search_result_page_selected_button_background, dateListPopup);
 
         // Load favorite products and set up RecyclerView
-        resultProductOfSearch();
+        // resultProductOfSearch();
     }
 
     // Setup sort options popup window
@@ -515,7 +528,7 @@ public class SearchResultPage extends AppCompatActivity {
         }
     }
 
-    private void resultProductOfSearch() {
+    private void resultProductOfSearch(String searchString) {
         // Dummy data for demonstration
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Product");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -526,7 +539,7 @@ public class SearchResultPage extends AppCompatActivity {
                     Product product = dataSnapshot.getValue(Product.class);
                     avlTree.insert(product);
                 }
-                Tokenizer tokenizer = new Tokenizer("canberra");
+                Tokenizer tokenizer = new Tokenizer(searchString);
                 Parser parser = new Parser(tokenizer);
                 avlTree = parser.parseEXP(avlTree);
 
