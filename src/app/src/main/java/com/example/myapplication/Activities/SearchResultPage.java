@@ -56,9 +56,9 @@ public class SearchResultPage extends AppCompatActivity {
     private String[] dateListOptions = {"Any", "Last 24 hours", "Last 7 days", "Last 30 days"};
     private boolean[] dateListStates;
 
-    private EditText searchField;
+    private EditText searchField; // User input field to search
 
-    private ImageView btnSearch;
+    private ImageView btnSearch; // Search button image
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +82,8 @@ public class SearchResultPage extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userInput = searchField.getText().toString(); // 获取用户输入
-                resultProductOfSearch(userInput); // 调用搜索方法，传入用户输入
+                String userInput = searchField.getText().toString(); // Get user input and convert to string
+                resultProductOfSearch(userInput); // Call the search method, passing in user input
             }
         });
 
@@ -528,6 +528,7 @@ public class SearchResultPage extends AppCompatActivity {
         }
     }
 
+    // Search Firebase for products matching user input string
     private void resultProductOfSearch(String searchString) {
         // Dummy data for demonstration
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Product");
