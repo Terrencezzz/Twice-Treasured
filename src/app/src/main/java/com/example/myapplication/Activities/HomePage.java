@@ -2,6 +2,9 @@ package com.example.myapplication.Activities;
 
 
 
+import static com.example.myapplication.common.CommonHelper.refreshLoginUser;
+import static com.example.myapplication.common.CommonHelper.showToast;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -113,6 +116,16 @@ public class HomePage extends Page {
         });
 
 
+    }
+    /**
+     *  Reload username
+     * */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(globalVars.getLoginUser()!=null){
+            txtUserName.setText(globalVars.getLoginUser().getName());
+        }
     }
 
     private void initLoginUser() {
