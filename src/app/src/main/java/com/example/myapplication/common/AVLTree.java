@@ -81,7 +81,7 @@ public class AVLTree<T extends Comparable<? super T>> {
     }
 
     // Method to calculate the height of a node.
-    private int nodeHeight(AVLNode<T> node) {
+    public int nodeHeight(AVLNode<T> node) {
         return node == null ? -1 : node.height;
     }
 
@@ -300,5 +300,49 @@ public class AVLTree<T extends Comparable<? super T>> {
             searchByPredicate(node.rightChild, predicate, results);
         }
     }
+
+    // Public method to get the root node of the AVL tree.
+    public AVLNode<T> getRoot() {
+        return root;
+    }
+
+    // Public method to check if the AVL tree is balanced.
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    // Private recursive method to check if the subtree rooted at 'node' is balanced.
+    // A tree is considered balanced if the height difference between its left and right subtree does not exceed the allowed imbalance.
+    private boolean isBalanced(AVLNode<T> node) {
+        if (node == null) {
+            return true; // A null node is considered balanced.
+        }
+        int leftHeight = nodeHeight(node.leftChild); // Calculate the height of the left subtree.
+        int rightHeight = nodeHeight(node.rightChild); // Calculate the height of the right subtree.
+        if (Math.abs(leftHeight - rightHeight) <= ALLOWED_IMBALANCE && isBalanced(node.leftChild) && isBalanced(node.rightChild)) {
+            return true; // Tree is balanced if both subtrees are balanced and the height difference is within the allowed range.
+        } else {
+            return false; // Tree is not balanced.
+        }
+    }
+
+    // Public method to check if the tree is a valid AVL tree according to AVL properties.
+    public boolean isValidAVLTree() {
+        return isValidAVLTree(root, null, null);
+    }
+
+    // Private recursive method to validate the AVL tree properties for the subtree rooted at 'node'.
+    // It ensures that every node's key is greater than all keys in its left subtree and less than all keys in its right subtree.
+    private boolean isValidAVLTree(AVLNode<T> node, T min, T max) {
+        if (node == null) {
+            return true; // A null node does not violate AVL properties.
+        }
+        if ((min != null && node.key.compareTo(min) <= 0) || (max != null && node.key.compareTo(max) >= 0)) {
+            return false; // Node key must be greater than min (if not null) and less than max (if not null) to maintain the BST property.
+        }
+        // Recursively check the left subtree and right subtree with updated min and max values.
+        return isValidAVLTree(node.leftChild, min, node.key) && isValidAVLTree(node.rightChild, node.key, max);
+    }
+
 
 }

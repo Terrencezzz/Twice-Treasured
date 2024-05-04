@@ -44,4 +44,13 @@ public class AVLNode<T extends Comparable<? super T>> {
                 ", rightChild=" + rightChild +
                 '}';
     }
+
+    public AVLNode<T> getLeftChild() {
+        return leftChild;
+    }
+
+    public AVLNode<T> getRightChild() {
+        return rightChild;
+    }
+
 }
