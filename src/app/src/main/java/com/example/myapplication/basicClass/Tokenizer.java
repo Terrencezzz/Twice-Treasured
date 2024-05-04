@@ -3,7 +3,7 @@ package com.example.myapplication.basicClass;
 public class Tokenizer {
     private String buffer;
     private Token currentToken;
-    private final String categoryCheck = "electronic, clothing, furniture, books, sports, toys, beauty";
+    private final String categoryCheck = "electronics, clothing, furniture, books, sports, toys, beauty, others";
     private final String locationCheck = "sydney, melbourne, queensland, adelaide, tasmania, canberra, south australia";
 
     public Tokenizer(String text) {

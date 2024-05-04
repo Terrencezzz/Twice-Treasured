@@ -79,11 +79,19 @@ public class SearchResultPage extends AppCompatActivity {
         searchField = findViewById(R.id.searchField);
         btnSearch = findViewById(R.id.btnSearch);
 
+        // Get the product category clicked by the user
+        String categoryName = getIntent().getStringExtra("CategoryName");
+
         // Get the user input string passed from HomePage
         String HomeSearchString = getIntent().getStringExtra("HomeSearchString");
 
+        // If the user clicks on the category picture, search for the corresponding category
+        if (categoryName != null && !categoryName.isEmpty()) {
+            // call the search method
+            resultProductOfSearch(categoryName);
+        }
         // If the user enters search content on the homepage, call the search method
-        if (HomeSearchString != null && !HomeSearchString.isEmpty()) {
+        else if (HomeSearchString != null && !HomeSearchString.isEmpty()) {
             resultProductOfSearch(HomeSearchString);
         }
 
