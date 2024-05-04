@@ -7,19 +7,20 @@
 
 
     <TextView
-        android:id="@+id/tvConditionOption"
+        android:id="@+id/tvDateListOption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:textSize="16sp" />
 
+
     <ImageView
-        android:id="@+id/ivCheckbox"
+        android:id="@+id/ivDateListCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/check_box_empty_24"/>
+        android:src="@drawable/search_result_icon_done_24px"/>
 
 </RelativeLayout>

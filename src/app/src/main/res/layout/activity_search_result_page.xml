@@ -149,7 +149,7 @@
                     android:paddingTop="8dp"
                     android:paddingRight="4dp"
                     android:paddingBottom="8dp"
-                    android:text="Date listed just for test just for test" />
+                    android:text="Date listed" />
 
             </RelativeLayout>
 
