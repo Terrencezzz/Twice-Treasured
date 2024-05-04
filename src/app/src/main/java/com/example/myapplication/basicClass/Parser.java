@@ -16,20 +16,21 @@ public class Parser {
     private Tokenizer tokenizerLocation;
     private Tokenizer tokenizerCategory;
     private Tokenizer tokenizerName;
-    private AVLTree<Product> productAVLTree = new AVLTree<>();
+    private Tokenizer tokenizerDescription;
     boolean location = false;
     boolean category = false;
     boolean name = false;
-
 
     // Initialize tokenizers for location, category, and name with the input text
     public Parser(String text) {
         this.tokenizerLocation = new Tokenizer(text);
         this.tokenizerCategory = new Tokenizer(text);
         this.tokenizerName = new Tokenizer(text);
+        this.tokenizerDescription = new Tokenizer(text);
     }
 
     public AVLTree<Product> parseEXP(AVLTree<Product> avlTree) {
+
         AVLTree<Product> container = new AVLTree<>();
         while (tokenizerLocation.hasNext()) {
             Token.Type type = tokenizerLocation.current().getType();
@@ -39,7 +40,7 @@ public class Parser {
                 ArrayList<Product> products = avlTree.convertToArrayList();
                 for (Product product : products) {
                     String check = product.getLocation().toLowerCase();
-                    if (check.contains(location)) {
+                    if (check.equals(location)) {
                         container.insert(product);
                     }
                 }
@@ -66,7 +67,7 @@ public class Parser {
                 ArrayList<Product> products = avlTree.convertToArrayList();
                 for (Product product : products) {
                     String check = product.getCategory().toLowerCase();
-                    if (check.contains(category)) {
+                    if (check.contains(category) || category.contains(check)) {
                         container.insert(product);
                     }
                 }
@@ -93,7 +94,7 @@ public class Parser {
                 ArrayList<Product> products = avlTree.convertToArrayList();
                 for (Product product : products) {
                     String check = product.getName().toLowerCase();
-                    if (name.contains(check)) {
+                    if (name.contains(check) || check.contains(name)) {
                         container.insert(product);
                     }
                 }
@@ -103,7 +104,7 @@ public class Parser {
             }
         }
         if (!location && !category && !name) {
-            return container;
+            return parseDescription(avlTree);
         }
         else if (!name) {
             return avlTree;
@@ -111,5 +112,36 @@ public class Parser {
         else return container;
     }
 
+    private AVLTree<Product> parseDescription(AVLTree<Product> avlTree) {
+        AVLTree<Product> container = new AVLTree<>();
+
+        if (!tokenizerDescription.hasNext()) {
+            String description = tokenizerDescription.current().getToken();
+            ArrayList<Product> products = avlTree.convertToArrayList();
+            for (Product product : products) {
+                String check = product.getDescription().toLowerCase();
+                if (check.contains(description)) {
+                    container.insert(product);
+                }
+            }
+            return container;
+        }
+
+        while (tokenizerDescription.hasNext()) {
+            String description = tokenizerDescription.current().getToken();
+            ArrayList<Product> products = avlTree.convertToArrayList();
+            for (Product product : products) {
+                String check = product.getDescription().toLowerCase();
+                if (check.contains(description)) {
+                    container.insert(product);
+                }
+
+            }
+            if (tokenizerDescription.hasNext()) {
+                tokenizerDescription.next();
+            }
+        }
+        return container;
+    }
 
 }

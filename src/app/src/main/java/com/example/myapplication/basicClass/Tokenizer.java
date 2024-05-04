@@ -3,7 +3,7 @@ package com.example.myapplication.basicClass;
 public class Tokenizer {
     private String buffer;
     private Token currentToken;
-    private final String categoryCheck = "electronics, clothing, furniture, books, sports, toys, beauty, others";
+    private final String categoryCheck = "electronics, clothing, furniture, books, sports, toys, beauty, others, electronic, clothes, book, sport, toy, other";
     private final String locationCheck = "sydney, melbourne, queensland, adelaide, tasmania, canberra, south australia";
 
     public Tokenizer(String text) {
@@ -38,9 +38,6 @@ public class Tokenizer {
         }
         else if (locationCheck.contains(input)) {
             currentToken = new Token(input, Token.Type.LOCATION);
-        }
-        else if (input.equals("a")) {
-            currentToken = new Token(input, Token.Type.AMOUNT);
         }
         else {
             currentToken = new Token(input, Token.Type.NAME);
