@@ -37,7 +37,8 @@ public class Dummy {
 
       // ... 
 
-      return usefulObject;
+//      return usefulObject;
+        return null;
     }
 
 }

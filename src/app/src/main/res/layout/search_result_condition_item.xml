@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tvConditionOption"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
@@ -17,6 +17,8 @@
         android:id="@+id/ivCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:src="@drawable/check_box_empty_24"/>
 
 </RelativeLayout>

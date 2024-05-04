@@ -18,11 +18,19 @@ import com.example.myapplication.basicClass.Product;
 
 import java.util.List;
 
+/**
+ * Adapter class for displaying search results in a RecyclerView.
+ */
 public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.ProductViewHolder> {
 
     private Context context;
     private final List<Product> productList;
 
+    /**
+     * Constructor for the adapter.
+     * @param context The context of the calling activity or fragment.
+     * @param productList The list of products to display.
+     */
     public SearchItemAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
@@ -31,12 +39,14 @@ public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.Pr
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the layout for each item in the RecyclerView.
         View view = LayoutInflater.from(context).inflate(R.layout.search_result_item_display_list, parent, false);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        // Bind data to the views in each item of the RecyclerView.
         Product product = productList.get(position);
         Glide.with(context).load(product.getImgLink()).into(holder.imageProduct);
         holder.textPrice.setText(product.getPrice());
@@ -54,20 +64,24 @@ public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.Pr
         holder.textPrice.setOnClickListener(returnToHomeListener);
         holder.textDescription.setOnClickListener(returnToHomeListener);
         holder.textLocation.setOnClickListener(returnToHomeListener);
-
     }
 
     @Override
     public int getItemCount() {
+        // Return the number of items in the list.
         return productList.size();
     }
 
+    /**
+     * ViewHolder class to hold the views of each item in the RecyclerView.
+     */
     static class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView imageProduct;
         TextView textPrice, textDescription, textLocation;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
+            // Initialize views from the layout.
             imageProduct = itemView.findViewById(R.id.imageProduct);
             textPrice = itemView.findViewById(R.id.textPrice);
             textDescription = itemView.findViewById(R.id.textDescription);
@@ -75,3 +89,4 @@ public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.Pr
         }
     }
 }
+
