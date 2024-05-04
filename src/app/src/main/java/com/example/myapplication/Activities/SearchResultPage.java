@@ -18,7 +18,9 @@ import android.graphics.Color;
 
 import com.example.myapplication.Adapters.SearchItemAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.basicClass.Parser;
 import com.example.myapplication.basicClass.Product;
+import com.example.myapplication.basicClass.Tokenizer;
 import com.example.myapplication.common.AVLTree;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -515,19 +517,24 @@ public class SearchResultPage extends AppCompatActivity {
 
     private void resultProductOfSearch() {
         // Dummy data for demonstration
-        AVLTree<Product> avlTree = new AVLTree<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Product");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                AVLTree<Product> avlTree = new AVLTree<>();
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                     Product product = dataSnapshot.getValue(Product.class);
                     avlTree.insert(product);
                 }
+                Tokenizer tokenizer = new Tokenizer("canberra");
+                Parser parser = new Parser(tokenizer);
+                avlTree = parser.parseEXP(avlTree);
+
                 recyclerViewProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
                 searchItemAdapter = new SearchItemAdapter(getApplicationContext(), avlTree.convertToArrayList());
                 recyclerViewProducts.setAdapter(searchItemAdapter);
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
