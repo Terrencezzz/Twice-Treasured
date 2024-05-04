@@ -65,7 +65,7 @@ public class Parser {
                 ArrayList<Product> products = avlTree.convertToArrayList();
                 for (Product product : products) {
                     String check = product.getCategory().toLowerCase();
-                    if ((check.equals(category)) || category.contains(check)) {
+                    if ((check.equals(category)) || category.contains(check) || category.equals("clothes") && check.equals("clothing")) {
                         container.insert(product);
                     }
                 }

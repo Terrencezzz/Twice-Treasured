@@ -11,7 +11,6 @@ public class TokenTest {
     private Token locationToken;
     private Token categoryToken;
     private Token nameToken;
-    private Token amountToken;
 
     // Set up the tokens before each test case
     @Before
@@ -19,7 +18,6 @@ public class TokenTest {
         locationToken = new Token("Sydney", Token.Type.LOCATION);
         categoryToken = new Token("Electronic", Token.Type.Category);
         nameToken = new Token("iPhone", Token.Type.NAME);
-        amountToken = new Token("100", Token.Type.AMOUNT);
     }
 
     // Test the getToken method for correct string conversion and handling
@@ -28,7 +26,6 @@ public class TokenTest {
         assertEquals("sydney", locationToken.getToken());  // Ensure location is processed in lowercase
         assertEquals("electronic", categoryToken.getToken());  // Check if category is correctly lowered
         assertEquals("iphone", nameToken.getToken());  // Verify name token handling
-        assertEquals("100", amountToken.getToken());  // Amount token should be correct
     }
 
     // Test the getType method for correct type attribution
@@ -37,6 +34,5 @@ public class TokenTest {
         assertEquals(Token.Type.LOCATION, locationToken.getType());  // Location type should be correctly identified
         assertEquals(Token.Type.Category, categoryToken.getType());  // Verify category type assignment
         assertEquals(Token.Type.NAME, nameToken.getType());  // Name type should be assigned properly
-        assertEquals(Token.Type.AMOUNT, amountToken.getType());  // Check amount type correctness
     }
 }

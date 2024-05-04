@@ -33,6 +33,7 @@ public class Tokenizer {
                 keepChecking = false;
             }
         }
+
         if (categoryCheck.contains(input)) {
             currentToken = new Token(input, Token.Type.Category);
         }
