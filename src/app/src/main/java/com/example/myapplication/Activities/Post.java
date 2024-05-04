@@ -107,6 +107,11 @@ public class Post extends AppCompatActivity {
 
     // Submit new product details to firebase
     private void submitProduct(Spinner categorySpinner, Spinner conditionSpinner) {
+        // Check if the image has been uploaded successfully
+        if (imageUri == null) {
+            showToast("Image has not been uploaded. Please wait for the upload to finish.");
+            return;  // Stop submission if image is not uploaded
+        }
 
         String name = ((TextView) findViewById(R.id.productName)).getText().toString().trim();
         String productId = mDatabase.push().getKey();
