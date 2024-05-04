@@ -24,6 +24,7 @@ import java.util.List;
  */
 public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.ProductViewHolder> {
 
+
     private Context context;
     private final List<Product> productList;
 

@@ -1,9 +1,7 @@
 package com.example.myapplication.Activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -16,20 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.graphics.Color;
-import android.widget.Toast;
 
 import com.example.myapplication.Adapters.SearchItemAdapter;
 import com.example.myapplication.R;
-import com.example.myapplication.basicClass.Database;
-import com.example.myapplication.basicClass.Parser;
 import com.example.myapplication.basicClass.Product;
-import com.example.myapplication.basicClass.Tokenizer;
-import com.example.myapplication.common.AVLTree;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +44,6 @@ public class SearchResultPage extends AppCompatActivity {
     private String savedMaximum = "";
     private boolean[] conditionStates;
     private String[] conditions = {"Any", "New", "Used-like new", "Used-good", "Used-fair"};
-    private ImageView ivCheckbox;
-    private TextView tvConditionOption;
-    private TextView userInput;
 
 
     @Override
@@ -75,14 +60,13 @@ public class SearchResultPage extends AppCompatActivity {
         btnCondition = findViewById(R.id.btnCondition);
         btnDateListed = findViewById(R.id.btnDateListed);
         recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
-        userInput = findViewById(R.id.searchField);
 
         btnBack.setOnClickListener(view -> finish());
 
         conditionStates = new boolean[5];
-        conditionStates[0] = true; // 'Any' is selected by default
+        conditionStates[0] = true; // 默认只有 'Any' 被选中
         for (int i = 1; i < conditionStates.length; i++) {
-            conditionStates[i] = false; // Other options are not selected initially
+            conditionStates[i] = false; // 其他所有选项都不选中
         }
 
         // Initialize PopupWindow
@@ -98,159 +82,6 @@ public class SearchResultPage extends AppCompatActivity {
         setupButtonWithToggle(btnPrice, R.drawable.search_result_page_button_background,
                 R.drawable.search_result_page_selected_button_background, priceOptionsPopup);
 
-        getResultFromInput();
-
-    }
-
-    private void setupRecyclerView(List<Product> products) {
-        recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 2));
-        searchItemAdapter = new SearchItemAdapter(this, products);
-        recyclerViewProducts.setAdapter(searchItemAdapter);
-    }
-
-    private void getResultFromInput() {
-        // Dummy data for demonstration
-        FirebaseDatabase database = Database.getDatabase();
-        DatabaseReference reference = database.getReference("Product");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                AVLTree<Product> avlTree = new AVLTree<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    avlTree.insert(product);
-                }
-
-
-                setupRecyclerView(avlTree.convertToArrayList());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void setupConditionOptionsPopup() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        LinearLayout conditionOptionsContainer = (LinearLayout) inflater.inflate(R.layout.search_result_condition_dropdown_layout, null, false);
-
-        LinearLayout llConditionOptions = conditionOptionsContainer.findViewById(R.id.llConditionOptions);
-        final String[] conditions = {"Any", "New", "Used-like new", "Used-good", "Used-fair"};
-
-        for (String condition : conditions) {
-            View conditionView = inflater.inflate(R.layout.search_result_condition_item, llConditionOptions, false);
-            TextView tvConditionOption = conditionView.findViewById(R.id.tvConditionOption);
-            ImageView ivCheckbox = conditionView.findViewById(R.id.ivCheckbox);
-
-            tvConditionOption.setText(condition);
-            ivCheckbox.setImageResource(R.drawable.check_box_empty_24); // Assume checkbox_unchecked is your default icon
-
-            conditionView.setOnClickListener(v -> {
-                // Here you toggle the checkbox state and update the UI accordingly
-                boolean isSelected = toggleCheckbox(ivCheckbox); // You need to implement this method
-                updateConditionDisplay(ivCheckbox, isSelected);
-            });
-
-            llConditionOptions.addView(conditionView);
-        }
-
-        PopupWindow conditionPopup = new PopupWindow(conditionOptionsContainer, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-        conditionPopup.setOutsideTouchable(true);
-        conditionPopup.setFocusable(true);
-
-        // Assuming you have a button or a view where this popup should be shown
-        btnCondition.setOnClickListener(v -> {
-            if (conditionPopup.isShowing()) {
-                conditionPopup.dismiss();
-            } else {
-                conditionPopup.showAsDropDown(btnCondition);
-            }
-        });
-    }
-
-    private boolean toggleCheckbox(ImageView ivCheckbox) {
-        // This method toggles the checkbox image between checked and unchecked
-        // Return the new state
-        // Dummy implementation
-        return false;
-    }
-
-    private void updateConditionDisplay(ImageView ivCheckbox, boolean isSelected) {
-        if (isSelected) {
-            ivCheckbox.setImageResource(R.drawable.select_check_box_24); // Assume checkbox_checked is your selected icon
-        } else {
-            ivCheckbox.setImageResource(R.drawable.check_box_empty_24);
-        }
-    }
-
-
-    private void inflatePriceOptions() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        priceOptionsContainer = (LinearLayout) inflater.inflate(R.layout.search_result_price_options, null, false);
-        priceOptionsPopup = new PopupWindow(priceOptionsContainer, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-        priceOptionsPopup.setOutsideTouchable(true);
-        priceOptionsPopup.setFocusable(true);
-
-        etMinimum = priceOptionsContainer.findViewById(R.id.etMinimum);
-        etMaximum = priceOptionsContainer.findViewById(R.id.etMaximum);
-        btnReset = priceOptionsContainer.findViewById(R.id.btnReset);
-        btnSeeItems = priceOptionsContainer.findViewById(R.id.btnSeeItems);
-
-        // Set click listener for "See Items" button
-        btnSeeItems.setOnClickListener(v -> {
-            // Get text from EditText fields
-            String min = etMinimum.getText().toString();
-            String max = etMaximum.getText().toString();
-
-            // Try parsing strings into integers, set to null if empty
-            Integer minValue = min.isEmpty() ? null : Integer.parseInt(min);
-            Integer maxValue = max.isEmpty() ? null : Integer.parseInt(max);
-
-            // If both are not null and minimum is greater than maximum, swap them
-            if (minValue != null && maxValue != null && minValue > maxValue) {
-                Integer temp = minValue;
-                minValue = maxValue;
-                maxValue = temp;
-
-                // Update text fields
-                etMinimum.setText(String.valueOf(minValue));
-                etMaximum.setText(String.valueOf(maxValue));
-            }
-
-            // Update saved values
-            savedMinimum = minValue != null ? String.valueOf(minValue) : "";
-            savedMaximum = maxValue != null ? String.valueOf(maxValue) : "";
-
-            // Build and update Price button text
-            if (minValue != null && maxValue == null) {
-                btnPrice.setText("$ " + minValue + " or more");
-            } else if (minValue == null && maxValue != null) {
-                btnPrice.setText("$ " + maxValue + " or less");
-            } else if (minValue != null && maxValue != null) {
-                btnPrice.setText("$ " + minValue + " to $ " + maxValue);
-            } else {
-                btnPrice.setText("Price");
-            }
-
-            // Close dropdown
-            if (priceOptionsPopup.isShowing()) {
-                priceOptionsPopup.dismiss();
-            }
-        });
-
-
-        // Set click listener for "Reset" button
-        btnReset.setOnClickListener(v -> {
-            // Check and clear etMinimum and etMaximum
-            if (!etMinimum.getText().toString().isEmpty()) {
-                etMinimum.setText("");
-            }
-            if (!etMaximum.getText().toString().isEmpty()) {
-                etMaximum.setText("");
-            }
-        });
         setupButtonWithToggle(btnCondition, R.drawable.search_result_page_button_background,
                 R.drawable.search_result_page_selected_button_background, conditionPopup);
 
@@ -258,7 +89,10 @@ public class SearchResultPage extends AppCompatActivity {
         setupRecyclerView(products);
     }
 
-    // Setup sort options popup window
+
+
+    //和sort by按钮相关的交互
+// Setup sort options popup window
     private void setupSortOptionsPopup() {
         // Create a linear layout and set its orientation to vertical with white background
         LinearLayout layout = new LinearLayout(this);
@@ -340,10 +174,6 @@ public class SearchResultPage extends AppCompatActivity {
     }
 
 
-
-
-    //和price 按钮相关的交互
-    // Interactions related to the "price" button
     private void inflatePriceOptions() {
         LayoutInflater inflater = LayoutInflater.from(this);
         priceOptionsContainer = (LinearLayout) inflater.inflate(R.layout.search_result_price_options, null, false);
@@ -398,6 +228,7 @@ public class SearchResultPage extends AppCompatActivity {
             }
         });
 
+
         // Set click listener for "Reset" button
         btnReset.setOnClickListener(v -> {
             // Check and clear etMinimum and etMaximum
@@ -411,7 +242,7 @@ public class SearchResultPage extends AppCompatActivity {
     }
 
 
-    // Interactions related to the "condition" button
+    //和condition按钮相关的交互
     private void setupConditionOptionsPopup() {
         LayoutInflater inflater = LayoutInflater.from(this);
         LinearLayout conditionOptionsContainer = (LinearLayout) inflater.inflate(R.layout.search_result_condition_dropdown_layout, null, false);
@@ -426,7 +257,7 @@ public class SearchResultPage extends AppCompatActivity {
             TextView tvConditionOption = conditionView.findViewById(R.id.tvConditionOption);
             ImageView ivCheckbox = conditionView.findViewById(R.id.ivCheckbox);
             tvConditionOption.setText(conditions[i]);
-            ivCheckbox.setImageResource(conditionStates[i] ? R.drawable.check_box_select_24 : R.drawable.check_box_empty_24);
+            ivCheckbox.setImageResource(conditionStates[i] ? R.drawable.check_box_selected_24 : R.drawable.check_box_empty_24);
             final int index = i;
             conditionView.setOnClickListener(v -> {
                 toggleCheckbox(ivCheckbox, index, conditions);
@@ -436,11 +267,8 @@ public class SearchResultPage extends AppCompatActivity {
 
 
 
-
-        // Interaction related to the "condition" button
         btnConditionSeeItems = conditionOptionsContainer.findViewById(R.id.btnConditionSeeItems);
         btnConditionSeeItems.setOnClickListener(v -> {
-            // Dismiss the condition popup and update the condition button text
             if (conditionPopup != null && conditionPopup.isShowing()) {
                 conditionPopup.dismiss();
                 updateConditionButtonText();
@@ -450,8 +278,8 @@ public class SearchResultPage extends AppCompatActivity {
         btnConditonReset = conditionOptionsContainer.findViewById(R.id.btnConditonReset);
         btnConditonReset.setOnClickListener(view -> resetConditionOptions());
 
+
         btnCondition.setOnClickListener(v -> {
-            // Show or dismiss the condition popup when the condition button is clicked
             if (conditionPopup.isShowing()) {
                 conditionPopup.dismiss();
             } else {
@@ -461,31 +289,30 @@ public class SearchResultPage extends AppCompatActivity {
 
     }
 
-    // Toggle the state of the checkbox
     private void toggleCheckbox(ImageView ivCheckbox, int index, String[] conditions) {
-        // Get the current selected state of the checkbox
+        // 获取当前checkbox的选中状态
         boolean isSelected = conditionStates[index];
 
-        if (index == 0) { // If 'Any' is clicked
+        if (index == 0) { // 点击的是'Any'
             if (!isSelected) {
-                // If 'Any' was previously unselected, select 'Any' and deselect all other options
+                // 如果'Any'之前是未选中状态，则选中'Any'并取消选中其他所有选项
                 conditionStates[index] = true;
-                ivCheckbox.setImageResource(R.drawable.check_box_select_24);
+                ivCheckbox.setImageResource(R.drawable.check_box_selected_24);
                 for (int i = 1; i < conditionStates.length; i++) {
                     conditionStates[i] = false;
                     updateCheckboxUI(i, false);
                 }
-            } // If 'Any' was already selected and no other options were selected, no change is needed
-        } else { // If a non-'Any' option is clicked
-            conditionStates[index] = !isSelected; // Toggle the selection state
-            ivCheckbox.setImageResource(conditionStates[index] ? R.drawable.check_box_select_24 : R.drawable.check_box_empty_24);
+            } // 如果'Any'之前已被选中，且无其他选项被选中，则无需做任何改变
+        } else { // 点击的是非'Any'的选项
+            conditionStates[index] = !isSelected; // 切换选中状态
+            ivCheckbox.setImageResource(conditionStates[index] ? R.drawable.check_box_selected_24 : R.drawable.check_box_empty_24);
 
             if (conditionStates[index]) {
-                // If any non-'Any' option is selected, ensure 'Any' is deselected
+                // 如果选中了非'Any'的任何选项，确保'Any'被取消选中
                 conditionStates[0] = false;
                 updateCheckboxUI(0, false);
             } else {
-                // Check if any other non-'Any' option is still selected
+                // 检查是否还有其他非'Any'选项被选中
                 boolean anyNonAnySelected = false;
                 for (int i = 1; i < conditionStates.length; i++) {
                     if (conditionStates[i]) {
@@ -494,7 +321,7 @@ public class SearchResultPage extends AppCompatActivity {
                     }
                 }
                 if (!anyNonAnySelected) {
-                    // If the deselected option was the only selected non-'Any' option, automatically select 'Any'
+                    // 如果取消选中的是非'Any'中唯一选中的选项，且没有其他非'Any'被选中，则自动选中'Any'
                     conditionStates[0] = true;
                     updateCheckboxUI(0, true);
                 }
@@ -503,18 +330,17 @@ public class SearchResultPage extends AppCompatActivity {
     }
 
     /**
-     * Update the UI display of the specified checkbox
+     * 更新指定复选框的UI显示
      *
-     * @param index      Index of the checkbox
-     * @param isSelected Whether the checkbox is selected
+     * @param index      复选框索引
+     * @param isSelected 是否选中
      */
     private void updateCheckboxUI(int index, boolean isSelected) {
         LinearLayout llConditionOptions = (LinearLayout) conditionPopup.getContentView().findViewById(R.id.llConditionOptions);
         ImageView checkboxView = (ImageView) llConditionOptions.getChildAt(index).findViewById(R.id.ivCheckbox);
-        checkboxView.setImageResource(isSelected ? R.drawable.check_box_select_24 : R.drawable.check_box_empty_24);
+        checkboxView.setImageResource(isSelected ? R.drawable.check_box_selected_24 : R.drawable.check_box_empty_24);
     }
 
-    // Update the text of the condition button based on the selected conditions
     private void updateConditionButtonText() {
         StringBuilder selectedConditions = new StringBuilder();
         int count = 0;
@@ -532,7 +358,7 @@ public class SearchResultPage extends AppCompatActivity {
             // If 'Any' is selected or no conditions are selected
             btnCondition.setText("Condition"); // Use your default text for 'Any'
         } else if (count > 2) {
-            // Ensure the string truncation doesn't remove too much text
+            // 确保字符串截断不会删去过多文本
             int lastCommaIndex = selectedConditions.lastIndexOf(",");
             if (lastCommaIndex > 0) {
                 int secondLastCommaIndex = selectedConditions.substring(0, lastCommaIndex).lastIndexOf(",");
@@ -542,7 +368,7 @@ public class SearchResultPage extends AppCompatActivity {
                     btnCondition.setText(selectedConditions.substring(0, lastCommaIndex) + "…");
                 }
             } else {
-                btnCondition.setText(selectedConditions.toString());  // For the case where only one option is selected
+                btnCondition.setText(selectedConditions.toString());  // 只有一个选项的情况
             }
         } else {
             // If one or two conditions are selected, display them
@@ -551,10 +377,9 @@ public class SearchResultPage extends AppCompatActivity {
     }
 
 
-    // Reset all condition options
     private void resetConditionOptions() {
         boolean anyNonAnySelected = false;
-        // Check if any non-'Any' option is selected
+        // 检查是否有非'Any'选项被选中
         for (int i = 1; i < conditionStates.length; i++) {
             if (conditionStates[i]) {
                 anyNonAnySelected = true;
@@ -563,7 +388,7 @@ public class SearchResultPage extends AppCompatActivity {
         }
 
         if (anyNonAnySelected) {
-            // If any non-'Any' option is selected, deselect all non-'Any' options and select 'Any'
+            // 如果有非'Any'选项被选中，则取消选中所有非'Any'选项，并选中'Any'
             for (int i = 1; i < conditionStates.length; i++) {
                 conditionStates[i] = false;
                 updateCheckboxUI(i, false);
@@ -571,10 +396,10 @@ public class SearchResultPage extends AppCompatActivity {
             conditionStates[0] = true;
             updateCheckboxUI(0, true);
         }
-        // If only 'Any' is selected, no action is needed
+        // 如果只有'Any'被选中，不做任何操作
     }
 
-    // Interaction related to the displayed products
+    //和展示的商品相关的交互
     private void setupRecyclerView(List<Product> products) {
         recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 2));
         searchItemAdapter = new SearchItemAdapter(this, products);
