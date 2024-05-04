@@ -76,11 +76,40 @@ public class Parser {
             }
         }
         if (!category) {
-            return avlTree;
+            return parseName(avlTree);
         }
         else {
-            return container;
+            return parseName(container);
         }
     }
+
+    private AVLTree<Product> parseName(AVLTree<Product> avlTree) {
+        AVLTree<Product> container = new AVLTree<>();
+        while (tokenizerName.hasNext()) {
+            Token.Type type = tokenizerName.current().getType();
+            if (type == Token.Type.NAME) {
+                name = true;
+                String name = tokenizerName.current().getToken();
+                ArrayList<Product> products = avlTree.convertToArrayList();
+                for (Product product : products) {
+                    String check = product.getName().toLowerCase();
+                    if (name.contains(check)) {
+                        container.insert(product);
+                    }
+                }
+            }
+            if (tokenizerName.hasNext()) {
+                tokenizerName.next();
+            }
+        }
+        if (!location && !category && !name) {
+            return container;
+        }
+        else if (!name) {
+            return avlTree;
+        }
+        else return container;
+    }
+
 
 }
