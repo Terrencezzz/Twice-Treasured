@@ -74,7 +74,7 @@ public class HomePage extends Page {
 
         initLoginUser();
         initCategory();
-//        initRecommend();
+        initRecommend();
 
         clMe.setOnClickListener(new View.OnClickListener() {
             @Override
