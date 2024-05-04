@@ -105,8 +105,10 @@ public class HomePage extends Page {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String userInput = input.getText().toString(); // Get the string entered by the user
                 Intent intent = new Intent(HomePage.this, SearchResultPage.class);
-                startActivity(intent);
+                intent.putExtra("HomeSearchString", userInput); // Pass user input as string to SearchResultPage
+                startActivity(intent); // Go to SearchResultPage
             }
         });
 

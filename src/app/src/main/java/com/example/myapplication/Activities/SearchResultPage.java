@@ -79,6 +79,14 @@ public class SearchResultPage extends AppCompatActivity {
         searchField = findViewById(R.id.searchField);
         btnSearch = findViewById(R.id.btnSearch);
 
+        // Get the user input string passed from HomePage
+        String HomeSearchString = getIntent().getStringExtra("HomeSearchString");
+
+        // If the user enters search content on the homepage, call the search method
+        if (HomeSearchString != null && !HomeSearchString.isEmpty()) {
+            resultProductOfSearch(HomeSearchString);
+        }
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
