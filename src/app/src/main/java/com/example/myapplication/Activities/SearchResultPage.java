@@ -548,8 +548,7 @@ public class SearchResultPage extends AppCompatActivity {
                     Product product = dataSnapshot.getValue(Product.class);
                     avlTree.insert(product);
                 }
-                Tokenizer tokenizer = new Tokenizer(searchString);
-                Parser parser = new Parser(tokenizer);
+                Parser parser = new Parser(searchString);
                 avlTree = parser.parseEXP(avlTree);
 
                 recyclerViewProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));

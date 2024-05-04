@@ -22,10 +22,6 @@ public class Parser {
     boolean name = false;
 
 
-    public Parser(Tokenizer tokenizer) {
-        this.tokenizerLocation = tokenizer;
-    }
-
     // Initialize tokenizers for location, category, and name with the input text
     public Parser(String text) {
         this.tokenizerLocation = new Tokenizer(text);
@@ -53,6 +49,33 @@ public class Parser {
             }
         }
         if (!location) {
+            return parseCategory(avlTree);
+        }
+        else {
+            return parseCategory(container);
+        }
+    }
+
+    private AVLTree<Product> parseCategory(AVLTree<Product> avlTree) {
+        AVLTree<Product> container = new AVLTree<>();
+        while (tokenizerCategory.hasNext()) {
+            Token.Type type = tokenizerCategory.current().getType();
+            if (type == Token.Type.Category) {
+                category = true;
+                String category = tokenizerCategory.current().getToken();
+                ArrayList<Product> products = avlTree.convertToArrayList();
+                for (Product product : products) {
+                    String check = product.getCategory().toLowerCase();
+                    if (check.contains(category)) {
+                        container.insert(product);
+                    }
+                }
+            }
+            if (tokenizerCategory.hasNext()) {
+                tokenizerCategory.next();
+            }
+        }
+        if (!category) {
             return avlTree;
         }
         else {
