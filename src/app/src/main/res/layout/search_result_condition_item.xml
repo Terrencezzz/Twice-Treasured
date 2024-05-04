@@ -13,6 +13,7 @@
         android:layout_alignParentStart="true"
         android:textSize="16sp" />
 
+
     <ImageView
         android:id="@+id/ivCheckbox"
         android:layout_width="wrap_content"

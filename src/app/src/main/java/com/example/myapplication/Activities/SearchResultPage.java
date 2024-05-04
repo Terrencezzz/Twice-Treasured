@@ -2,7 +2,6 @@ package com.example.myapplication.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -172,6 +171,7 @@ public class SearchResultPage extends AppCompatActivity {
 
 
 
+
     //和price 按钮相关的交互
     // Interactions related to the "price" button
     private void inflatePriceOptions() {
@@ -256,7 +256,7 @@ public class SearchResultPage extends AppCompatActivity {
             TextView tvConditionOption = conditionView.findViewById(R.id.tvConditionOption);
             ImageView ivCheckbox = conditionView.findViewById(R.id.ivCheckbox);
             tvConditionOption.setText(conditions[i]);
-            ivCheckbox.setImageResource(conditionStates[i] ? R.drawable.check_box_selected_24 : R.drawable.check_box_empty_24);
+            ivCheckbox.setImageResource(conditionStates[i] ? R.drawable.check_box_select_24 : R.drawable.check_box_empty_24);
             final int index = i;
             conditionView.setOnClickListener(v -> {
                 toggleCheckbox(ivCheckbox, index, conditions);
@@ -300,7 +300,7 @@ public class SearchResultPage extends AppCompatActivity {
             if (!isSelected) {
                 // If 'Any' was previously unselected, select 'Any' and deselect all other options
                 conditionStates[index] = true;
-                ivCheckbox.setImageResource(R.drawable.check_box_selected_24);
+                ivCheckbox.setImageResource(R.drawable.check_box_select_24);
                 for (int i = 1; i < conditionStates.length; i++) {
                     conditionStates[i] = false;
                     updateCheckboxUI(i, false);
@@ -308,7 +308,7 @@ public class SearchResultPage extends AppCompatActivity {
             } // If 'Any' was already selected and no other options were selected, no change is needed
         } else { // If a non-'Any' option is clicked
             conditionStates[index] = !isSelected; // Toggle the selection state
-            ivCheckbox.setImageResource(conditionStates[index] ? R.drawable.check_box_selected_24 : R.drawable.check_box_empty_24);
+            ivCheckbox.setImageResource(conditionStates[index] ? R.drawable.check_box_select_24 : R.drawable.check_box_empty_24);
 
             if (conditionStates[index]) {
                 // If any non-'Any' option is selected, ensure 'Any' is deselected
@@ -341,7 +341,7 @@ public class SearchResultPage extends AppCompatActivity {
     private void updateCheckboxUI(int index, boolean isSelected) {
         LinearLayout llConditionOptions = (LinearLayout) conditionPopup.getContentView().findViewById(R.id.llConditionOptions);
         ImageView checkboxView = (ImageView) llConditionOptions.getChildAt(index).findViewById(R.id.ivCheckbox);
-        checkboxView.setImageResource(isSelected ? R.drawable.check_box_selected_24 : R.drawable.check_box_empty_24);
+        checkboxView.setImageResource(isSelected ? R.drawable.check_box_select_24 : R.drawable.check_box_empty_24);
     }
 
     // Update the text of the condition button based on the selected conditions

@@ -18,6 +18,7 @@ import com.example.myapplication.basicClass.Product;
 
 import java.util.List;
 
+
 /**
  * Adapter class for displaying search results in a RecyclerView.
  */
