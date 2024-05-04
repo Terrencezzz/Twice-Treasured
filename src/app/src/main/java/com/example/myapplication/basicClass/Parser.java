@@ -58,6 +58,7 @@ public class Parser {
         return parseCategory(productAVLTree);
     }
 
+    // Parse based on Category
     public AVLTree<Product> parseCategory(AVLTree<Product> avlTree) {
         AVLTree<Product> container = new AVLTree<>();
         while (tokenizerCategory.hasNext()) {
@@ -80,10 +81,11 @@ public class Parser {
         return parseName(productAVLTree);
     }
 
+    // Parse based on Name
     public AVLTree<Product> parseName(AVLTree<Product> avlTree) {
         AVLTree<Product> container = new AVLTree<>();
-        while(tokenizerCategory.hasNext()) {
-            Token.Type type = tokenizerCategory.current().getType();
+        while(tokenizerName.hasNext()) {
+            Token.Type type = tokenizerName.current().getType();
             if (type == Token.Type.NAME) {
                 name = true;
                 ArrayList<Product> products = productAVLTree.convertToArrayList();
