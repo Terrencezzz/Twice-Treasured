@@ -1,7 +1,9 @@
 package com.example.myapplication.Activities;
 
+import static com.example.myapplication.common.CommonHelper.getLastLocation;
 import static com.example.myapplication.common.CommonHelper.refreshLoginUser;
 import static com.example.myapplication.common.CommonHelper.showToast;
+import static com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -9,7 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -24,7 +34,13 @@ import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Database;
 import com.example.myapplication.basicClass.GlobalVariables;
+import com.example.myapplication.basicClass.LocationResultListener;
 import com.example.myapplication.basicClass.User;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +50,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -63,6 +82,9 @@ public class UserDetailPage extends Page {
     private ActivityResultLauncher<String> mGetContent;
     private String imageUri;
 
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +94,7 @@ public class UserDetailPage extends Page {
         auth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
         globalVars = GlobalVariables.getInstance();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         ivUserPic = findViewById(R.id.ivUserPic);
         editName = findViewById(R.id.editName);
@@ -86,7 +109,8 @@ public class UserDetailPage extends Page {
         btnCancel = findViewById(R.id.btnCancel);
         pbUserDetail = findViewById(R.id.pbUserDetail);
         user_detail_pic = findViewById(R.id.user_detail_pic);
-        user_detail_btnBack =findViewById(R.id.user_detail_btnBack);
+        user_detail_btnBack = findViewById(R.id.user_detail_btnBack);
+
 
 
         btnSave.setOnClickListener(view -> {
@@ -121,21 +145,18 @@ public class UserDetailPage extends Page {
                         showToast(UserDetailPage.this,"Successfully updated.");
                 });
 
-
-
-
             }
         });
         btnCancel.setOnClickListener(view -> goUserPage());
         user_detail_btnBack.setOnClickListener(view -> goUserPage());
-        btnRelocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnRelocation.setOnClickListener(view -> {
+//            getLastLocation(UserDetailPage.this, UserDetailPage.this, address -> {
+//                editLocation.setText(address.getLocality());
+//            });
+            getLocation();
 
-
-
-            }
         });
+
 
         clRPwd.setVisibility(View.GONE);
         editPwd.addTextChangedListener(new TextWatcher() {
@@ -153,6 +174,20 @@ public class UserDetailPage extends Page {
         user_detail_pic.setOnClickListener(view -> mGetContent.launch("image/*"));
 
         ReloadPage();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == LOCATION_PERMISSION_REQUEST_CODE){
+            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                //getLastLocation(UserDetailPage.this, UserDetailPage.this, address -> editLocation.setText(address.getLocality()));
+                getLocation();
+            }else{
+                showToast(UserDetailPage.this,"Required permission");
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private Boolean Validate(){
@@ -223,4 +258,54 @@ public class UserDetailPage extends Page {
             showToast(UserDetailPage.this,"Sorry, you haven't picked a pic yet.");
         }
     }
+
+    private void getLocation(){
+        if (ContextCompat.checkSelfPermission(UserDetailPage.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            // Permission is granted
+
+            // Create location service client
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+            // Get last known location
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                // Location found, convert to city name
+                                String cityName = getCityNameFromLocation(location);
+                                // Display city name in TextView
+                                editLocation.setText(cityName);
+                            } else {
+                                // No location found
+                                showToast(UserDetailPage.this,"Location not available");
+                            }
+                        }
+                    });
+
+
+
+        } else {
+            // Permission is not granted, request it
+            ActivityCompat.requestPermissions(UserDetailPage.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+    private String getCityNameFromLocation(Location location) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (!addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                return address.getLocality(); // Get city name
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "None";
+    }
+
+
 }

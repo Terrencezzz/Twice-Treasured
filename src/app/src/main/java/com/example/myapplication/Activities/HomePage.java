@@ -1,10 +1,5 @@
 package com.example.myapplication.Activities;
 
-
-
-import static com.example.myapplication.common.CommonHelper.refreshLoginUser;
-import static com.example.myapplication.common.CommonHelper.showToast;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
