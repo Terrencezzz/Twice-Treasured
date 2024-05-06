@@ -33,6 +33,10 @@ public class AVLNode<T extends Comparable<? super T>> {
         return duplicates;
     }
 
+    public int getCount() {
+        return duplicates.size() + 1; // +1 for the key itself
+    }
+
     // Override toString method to provide a string representation of the node
     @Override
     public String toString() {

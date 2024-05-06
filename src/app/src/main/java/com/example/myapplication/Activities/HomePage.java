@@ -116,8 +116,6 @@ public class HomePage extends Page {
                 startActivity(intent); // Go to SearchResultPage
             }
         });
-
-
     }
     /**
      *  Reload username

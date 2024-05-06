@@ -265,7 +265,7 @@ public class AVLTree<T extends Comparable<? super T>> {
     public ArrayList<T> convertToArrayList() {
         // Convert the AVL tree to an ArrayList using pre-order traversal
         ArrayList<T> resultList = new ArrayList<>();
-        preOrderTraversal(root, resultList);
+        inOrderTraversal(root, resultList);
         return resultList;
     }
 
@@ -283,6 +283,20 @@ public class AVLTree<T extends Comparable<? super T>> {
         preOrderTraversal(currentNode.leftChild, resultList);
         preOrderTraversal(currentNode.rightChild, resultList);
     }
+
+    private void inOrderTraversal(AVLNode<T> currentNode, ArrayList<T> resultList) {
+        // Perform in-order traversal of the AVL tree and add elements to the result list
+        if (currentNode == null) {
+            return;
+        }
+        inOrderTraversal(currentNode.leftChild, resultList);
+        // Add current node's key and handle duplicates
+        for (int i = 0; i < currentNode.getCount(); i++) {  // Assuming getCount returns 1 + number of duplicates
+            resultList.add(currentNode.key);
+        }
+        inOrderTraversal(currentNode.rightChild, resultList);
+    }
+
 
     public ArrayList<T> searchByPredicate(Predicate<T> predicate) {
         ArrayList<T> results = new ArrayList<>();
