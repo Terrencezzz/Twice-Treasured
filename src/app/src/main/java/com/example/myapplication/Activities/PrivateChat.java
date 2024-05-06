@@ -101,14 +101,11 @@ public class PrivateChat extends AppCompatActivity {
 
         environmentId = "msg" + userIds[0] + userIds[1];
 
-
-        Log.d("msg", environmentId);
         openNewOrExistingEnvironment();
 
-        //Create Id for the two users and check that there isn't already a MessageEnvironment with
-        //The same id.
 
-
+        DatabaseReference environmentRef = reference.child(environmentId);
+        DatabaseReference messagesRef = environmentRef.child("messages");
 
         /**
         recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
@@ -125,22 +122,47 @@ public class PrivateChat extends AppCompatActivity {
                 String message = editTextMessage.getText().toString().trim(); // Get text from EditText
                 if (!message.isEmpty()) {
 
+                    //update the information regarding most recent message in firebase.
+                    messageEnvironment.setRecentMessageTimestamp(CommonHelper.getCurrentTimestamp());
+                    messageEnvironment.setRecentSenderId(loginUser.getId());
+
                     MessageBuble messageBuble = new MessageBuble(message,
                             loginUser.getId(),
                             CommonHelper.getCurrentTimestamp());
 
-                    messageEnvironment.setRecentMessageTimestamp(CommonHelper.getCurrentTimestamp());
-                    messageEnvironment.setRecentSenderId(loginUser.getId());
-                    reference.child(environmentId).setValue(messageEnvironment);
+
+                    messageEnvironment.addMessage(messageBuble);
+
+                    //Log.e("checkMessage", messageEnvironment.getMessageList().get(0).toString());
+                    reference.child(environmentId).setValue(messageEnvironment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            editTextMessage.setText("");
+                        }
+                    });
+
+                    //get a unique key for the message
+                    /**String messageId = messagesRef.push().getKey();
+
+                    messagesRef.child(messageId).setValue(messageBuble)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                editTextMessage.setText("");
+                                            }
+                                        }
+                                    });
+                    */
 
 
 
 
 
-                    messagesList.add(message); // Add message to the list
-                    adapter.notifyDataSetChanged(); // Notify adapter that data has changed
-                    editTextMessage.setText(""); // Clear the input field
-                    recyclerViewMessages.scrollToPosition(messagesList.size() - 1); // Scroll to the last message
+                    //messagesList.add(message); // Add message to the list
+                    //adapter.notifyDataSetChanged(); // Notify adapter that data has changed
+                    //editTextMessage.setText(""); // Clear the input field
+                    //recyclerViewMessages.scrollToPosition(messagesList.size() - 1); // Scroll to the last message
                 }
             }
         });
@@ -156,7 +178,7 @@ public class PrivateChat extends AppCompatActivity {
                         messageEnvironment = new MessageEnvironment(environmentId,
                                 Arrays.asList(loginUser.getId(), otherUser.getId()),
                                 CommonHelper.getCurrentTimestamp(),
-                                "");
+                                "","", new ArrayList<MessageBuble>());
                         reference.child(environmentId).setValue(messageEnvironment);
                     }
                 }
