@@ -15,8 +15,6 @@ import com.google.firebase.storage.FirebaseStorage;
  */
 public abstract class Page extends AppCompatActivity {
 
-    public FirebaseDatabase database = Database.getDatabase();
-
     protected void goToActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
