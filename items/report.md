@@ -176,18 +176,24 @@ Here is a partial (short) example for the subsection `Data Structures`:*
 ### Parser
 
 ### <u>Grammar(s)</u>
-*[How do you design the grammar? What are the advantages of your designs?]*
-*If there are several grammars, list them all under this section and what they relate to.*
+*Basically my grammar is for tracking key words of the user input, it's made of different filters combine with each other.
+The advantage of doing this is this way is easier to modify in the future if we want to improve the grammar, and also it's
+very powerful and easy to implement.*
 
 Production Rules:
 
-    <Non-Terminal> ::= <some output>
-    <Non-Terminal> ::= <some output>
-
+    <query> ::= <location-filter> <category-filter> <name-filter>
+    <location-filter> ::= 'LOCATION' <string> | ε
+    <category-filter> ::= 'CATEGORY' <string> | ε
+    <name-filter> ::= 'NAME' <string> | ε
+    <string> ::= [a-zA-Z0-9]+
 
 ### <u>Tokenizers and Parsers</u>
 
-*[Where do you use tokenisers and parsers? How are they built? What are the advantages of the designs?]*
+*[I use the parser when they user want to search something on whatever homepage or the search result page, first I will
+grab the data from the real time database and put it into an empty AVL tree, then I will use the parser to get the result
+from the AVL tree base on the use input. Tokenizers will be used inside the parser to classify user's input and track key
+words.]*
 
 <hr>
 
