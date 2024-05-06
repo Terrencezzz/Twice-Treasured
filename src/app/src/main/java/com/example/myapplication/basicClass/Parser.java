@@ -69,8 +69,11 @@ public class Parser {
         AVLTree<Product> category = parseCategory(avlTree);
         if (!category.isEmpty()) {
             ArrayList<Product> categoryList = category.convertToArrayList();
+            ArrayList<Product> containerList = container.convertToArrayList();
             for (Product product : categoryList) {
-                container.insert(product);
+                if (!containerList.contains(product)) {
+                    container.insert(product);
+                }
             }
         }
 
