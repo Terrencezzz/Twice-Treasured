@@ -38,7 +38,8 @@ import java.util.ArrayList;
  */
 public class HomePage extends Page {
 
-    private  ImageView btnSearch;
+    private ImageView btnSearch;
+    private ImageView btnNotification;
     private ConstraintLayout clPrivate;
     private ConstraintLayout clHome;
     private ConstraintLayout clMe;
@@ -61,6 +62,7 @@ public class HomePage extends Page {
 
 
         btnSearch = findViewById(R.id.btnSearch);
+        btnNotification = findViewById(R.id.btnNotification);
         clPrivate = findViewById(R.id.clPrivate);
         clHome = findViewById(R.id.clHome);
         clMe = findViewById(R.id.clMe);
@@ -98,6 +100,12 @@ public class HomePage extends Page {
         clPrivate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { goPrivateMenu();}
+        });
+
+        btnNotification.setOnClickListener(view -> {
+            Intent intent = new Intent(HomePage.this, Notification.class);
+            startActivity(intent);
+            //do not use finish() here, otherwise it cannot back to here
         });
 
         btnSearch.setOnClickListener(new View.OnClickListener() {

@@ -67,4 +67,9 @@ public abstract class Page extends AppCompatActivity {
      *  You can move to UserDetail Page with this function
      * */
     public void goUserDetailPage(){goToActivity(UserDetailPage.class);}
+
+    /**
+     *  You can move to Notification Page with this function
+     * */
+    public void goNotification(){goToActivity(Notification.class);}
 }

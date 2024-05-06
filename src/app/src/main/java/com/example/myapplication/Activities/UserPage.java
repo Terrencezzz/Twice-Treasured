@@ -3,6 +3,7 @@ package com.example.myapplication.Activities;
 
 import static com.example.myapplication.common.CommonHelper.*;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -93,7 +94,11 @@ public class UserPage extends Page {
 
         clUserProfile.setOnClickListener(view -> goUserDetailPage());
         clUserFavorite.setOnClickListener(view -> goFavorite());
-        clUserMessage.setOnClickListener(view -> {});
+        clUserMessage.setOnClickListener(view -> {
+            Intent intent = new Intent(UserPage.this, Notification.class);
+            startActivity(intent);
+            //do not use finish() here, otherwise it cannot back to here
+        });
         clUserProduct.setOnClickListener(view -> {});
 
         clHome.setOnClickListener(v -> goHomePage());
