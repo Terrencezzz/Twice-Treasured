@@ -9,10 +9,10 @@
         android:id="@+id/btnproductDetailPageBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:contentDescription="@string/back_button"
+        android:layout_alignParentTop="true"
         android:layout_marginBottom="16dp"
+        android:contentDescription="@string/back_button"
         android:src="@drawable/icon_arrow_back_black_24" />
 
     <ScrollView
@@ -28,38 +28,36 @@
 
             <!-- Existing Views like Image and Title -->
             <ImageView
-                android:id="@+id/imgProduct"
+                android:id="@+id/imageProduct"
                 android:layout_width="match_parent"
-                android:layout_height="311dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/white_background" />
 
             <TextView
-                android:id="@+id/txtName"
+                android:id="@+id/textProductTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:maxLines="2"
                 android:text="Product Title"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtPrice"
+                android:id="@+id/textProductPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="0"
-                android:textStyle="bold"
-                android:textColor="@color/orange"
+                android:text="test50"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <!-- Horizontal Line -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey" />
+                android:background="@android:color/darker_gray" />
 
             <!-- Description Title -->
             <TextView
@@ -72,19 +70,17 @@
 
             <!-- Product Description -->
             <TextView
-                android:id="@+id/textProductDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Product Description Here"
                 android:textColor="@color/black"
-                android:layout_marginBottom="16dp"
                 android:textSize="16sp" />
 
             <!-- Horizontal Line -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey" />
+                android:background="@android:color/darker_gray" />
 
             <!-- Details Title -->
             <TextView
@@ -98,28 +94,27 @@
             <!-- Condition Title -->
             <TextView
                 android:id="@+id/textProductCondition"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Condition"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <!-- 城市信息 -->
+            <!-- Condition Value -->
             <TextView
-                android:id="@+id/textCityInfo"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textProductCondition"
+                android:layout_weight="2"
+                android:text="Condition Value Here"
                 android:textColor="@color/black"
-                android:layout_marginTop="8dp"
-                android:text="Canberra"
                 android:textSize="16sp" />
 
             <!-- Horizontal Line -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/grey" />
+                android:background="@android:color/darker_gray" />
 
             <!-- Container for Seller Information and Details -->
             <RelativeLayout
@@ -142,9 +137,8 @@
                     android:id="@+id/textSellerDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_alignParentRight="true"
-                    android:layout_alignBaseline="@id/textSellerInfo"
+                    android:layout_centerVertical="true"
                     android:text="Seller Details"
                     android:textColor="@color/blue"
                     android:textSize="16sp" />
@@ -152,8 +146,8 @@
                 <!-- Seller Profile Image -->
                 <ImageView
                     android:id="@+id/imageSellerProfile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_below="@id/textSellerInfo"
                     android:layout_alignParentLeft="true"
                     android:layout_marginTop="8dp"
@@ -166,11 +160,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/imageSellerProfile"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@id/imageSellerProfile"
                     android:text="Seller Name Here" />
 
+                <!-- Icon for Location -->
+                <ImageView
+                    android:id="@+id/product_detail_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imageSellerProfile"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Text for City Info -->
+                <TextView
+                    android:id="@+id/textCityInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/product_detail_location"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/product_detail_location"
+                    android:text="Canberra" />
             </RelativeLayout>
 
 
@@ -188,28 +199,28 @@
             android:id="@+id/product_detail_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/product_detail_favorite_24"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/product_detail_favorite_24" />
 
         <ImageView
             android:id="@+id/product_detail_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/product_detail_share_24"
-            android:layout_toRightOf="@id/product_detail_favorite"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:layout_centerVertical="true"/>
+            android:layout_toRightOf="@id/product_detail_favorite"
+            android:src="@drawable/product_detail_share_24" />
 
         <Button
             android:id="@+id/btnChatWithSeller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chat_with_seller"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingLeft="12dp"
-            android:paddingRight="12dp"/>
+            android:paddingRight="12dp"
+            android:text="@string/chat_with_seller" />
     </RelativeLayout>
 
 </RelativeLayout>

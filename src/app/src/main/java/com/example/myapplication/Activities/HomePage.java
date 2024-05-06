@@ -60,7 +60,6 @@ public class HomePage extends Page {
         database = Database.getDatabase();
         globalVars = GlobalVariables.getInstance();
 
-
         btnSearch = findViewById(R.id.btnSearch);
         btnNotification = findViewById(R.id.btnNotification);
         clPrivate = findViewById(R.id.clPrivate);
@@ -182,7 +181,7 @@ public class HomePage extends Page {
                     if(products.size()>0){
                         RecyclerView rvRecommend = findViewById(R.id.rvRecommend);
                         rvRecommend.setLayoutManager(new LinearLayoutManager(HomePage.this,LinearLayoutManager.HORIZONTAL,false));
-                        RecyclerView.Adapter<RecommendAdapter.ViewHolder> adapter  = new RecommendAdapter(products);
+                        RecyclerView.Adapter<RecommendAdapter.ViewHolder> adapter  = new RecommendAdapter(products, HomePage.this);
                         rvRecommend.setAdapter(adapter);
                     }
 

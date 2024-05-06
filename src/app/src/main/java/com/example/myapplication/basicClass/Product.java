@@ -1,7 +1,9 @@
 package com.example.myapplication.basicClass;
 
+import java.io.Serializable;
 
-public class Product implements Comparable<Product>{
+
+public class Product implements Comparable<Product>, Serializable{
     private String name;
     private String productID;
     private String category;
@@ -11,7 +13,7 @@ public class Product implements Comparable<Product>{
     private String uploadDate;
     private String status;
     private String imgLink;
-    private String owner;
+    private String ownerID;
     private String categoryID;
     private String location;
 
@@ -19,7 +21,7 @@ public class Product implements Comparable<Product>{
 
     // Constructor to initialize the Product object with all attributes
     public Product(String name, String productID, String category, String description, String price,
-                   String condition, String uploadDate, String status, String imgLink, String owner,
+                   String condition, String uploadDate, String status, String imgLink, String ownerID,
                    String categoryID, String location) {
         this.name = name;
         this.productID = productID;
@@ -30,7 +32,7 @@ public class Product implements Comparable<Product>{
         this.uploadDate = uploadDate;
         this.status = status;
         this.imgLink = imgLink;
-        this.owner = owner;
+        this.ownerID = ownerID;
         this.categoryID = categoryID;
         this.location = location;
     }
@@ -113,8 +115,8 @@ public class Product implements Comparable<Product>{
         this.name = name;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getOwnerID() {
+        return ownerID;
     }
 
     public String getCategoryID() {
