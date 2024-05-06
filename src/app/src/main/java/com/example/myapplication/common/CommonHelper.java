@@ -37,6 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class CommonHelper {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
@@ -126,5 +130,11 @@ public class CommonHelper {
             ActivityCompat.requestPermissions(activity,new String[]
                     {Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_PERMISSION_REQUEST_CODE);
         }
+    }
+
+    public static String getCurrentTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"));
+        return sdf.format(new Date());
     }
 }
