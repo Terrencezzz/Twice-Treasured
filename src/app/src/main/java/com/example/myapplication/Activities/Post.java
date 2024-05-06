@@ -105,25 +105,63 @@ public class Post extends AppCompatActivity {
         finish();
     }
 
-    // Submit new product details to firebase
-    private void submitProduct(Spinner categorySpinner, Spinner conditionSpinner) {
-        // Check if the image has been uploaded successfully
-        if (imageUri == null) {
-            showToast("Image has not been uploaded. Please wait for the upload to finish.");
-            return;  // Stop submission if image is not uploaded
+    // Check the validity of the product details entered by the user
+    private boolean validateInputs(String name, String description, String price, String category, String condition) {
+        if (name.isEmpty()) {
+            showToast("Please enter the product name.");
+            return false;
         }
+        if (description.isEmpty()) {
+            showToast("Please enter a description for the product.");
+            return false;
+        }
+        if (price.isEmpty()) {
+            showToast("Please enter a price for the product.");
+            return false;
+        }
+        if (category.equals("Select Product Category")) {
+            showToast("Please select a product category.");
+            return false;
+        }
+        if (condition.equals("Select Product Condition")) {
+            showToast("Please select the condition of the product.");
+            return false;
+        }
+        return true;
+    }
 
+    // Get the product details entered by the user
+    private void submitProduct(Spinner categorySpinner, Spinner conditionSpinner) {
         String name = ((TextView) findViewById(R.id.productName)).getText().toString().trim();
-        String productId = mDatabase.push().getKey();
-        String category = categorySpinner.getSelectedItem().toString();
         String description = ((TextView) findViewById(R.id.productDescription)).getText().toString().trim();
         String price = ((TextView) findViewById(R.id.productPrice)).getText().toString().trim();
+        String category = categorySpinner.getSelectedItem().toString();
         String condition = conditionSpinner.getSelectedItem().toString();
+
+        // Detect whether the user input box is empty and the validity of the selection field
+        if (!validateInputs(name, description, price, category, condition)) {
+            return;  // Stop submission if any validation fails
+        }
+
+        // Detect whether the user has selected the product image
+        if (imageUri == null) {
+            showToast("Please upload an image before submitting.");
+            return;
+        }
+
+        // After the product information is complete, upload it to Firebase
+        saveProductToDatabase(name, description, price, category, condition);
+    }
+
+    // Submit new product details to Firebase
+    private void saveProductToDatabase(String name, String description, String price, String category, String condition) {
+        String productId = mDatabase.push().getKey();
         String uploadDate = getCurrentTimestamp();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String owner = user.getUid();
-        String categoryId = getCategoryId(category); // Map category name to ID
+        String categoryId = getCategoryId(category);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User").child(owner).child("location");
+
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
