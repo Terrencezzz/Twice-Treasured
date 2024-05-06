@@ -53,7 +53,6 @@ public class CommonHelper {
         FirebaseDatabase database = Database.getDatabase();
         GlobalVariables globalVars = GlobalVariables.getInstance();
         String userEmail = globalVars.getLoginUser().getEmail();
-        database = Database.getDatabase();
         DatabaseReference db = database.getReference("User");
         Query query = db.orderByChild("email").equalTo(userEmail);
         ArrayList<User> users = new ArrayList<>();

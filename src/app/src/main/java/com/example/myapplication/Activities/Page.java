@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.basicClass.Database;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -13,6 +14,8 @@ import com.google.firebase.storage.FirebaseStorage;
  * All the page can extend this page(maybe except PrivateChat)).
  */
 public abstract class Page extends AppCompatActivity {
+
+    public FirebaseDatabase database = Database.getDatabase();
 
     protected void goToActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
