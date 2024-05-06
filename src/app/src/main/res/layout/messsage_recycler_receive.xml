@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:gravity="left">
+    <TextView
+        android:id="@+id/bubble_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Placeholder"
+        android:background="@drawable/edittext_background"
+        android:backgroundTint="@color/dark_pink"
+        android:textColor="@color/white"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sent time"
+        android:textSize="10sp"
+        android:layout_below="@id/bubble_send"
+        android:paddingHorizontal="10dp"
+        android:textColor="@color/gray"/>
+
+</RelativeLayout>

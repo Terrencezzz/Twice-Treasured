@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.example.myapplication.Adapters.MessageAdapter;
 import com.example.myapplication.Adapters.UserAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.GlobalVariables;
@@ -49,7 +50,7 @@ public class PrivateChat extends AppCompatActivity {
     TextView receiverEmailText; // TextView to show who the message is being sent to.
     private RecyclerView recyclerViewMessages; // RecyclerView to display messages
     private List<String> messagesList = new ArrayList<>(); // List to hold messages
-    private UserAdapter adapter; // Adapter for RecyclerView
+    MessageAdapter messageAdapter;
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -106,6 +107,10 @@ public class PrivateChat extends AppCompatActivity {
 
         DatabaseReference environmentRef = reference.child(environmentId);
         DatabaseReference messagesRef = environmentRef.child("messages");
+
+
+
+
 
         /**
         recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
@@ -181,9 +186,22 @@ public class PrivateChat extends AppCompatActivity {
                                 "","", new ArrayList<MessageBuble>());
                         reference.child(environmentId).setValue(messageEnvironment);
                     }
+
+                    // Create Recycler
+                    setUpRecycler(messageEnvironment);
                 }
             }
         });
+    }
+
+    void setUpRecycler(MessageEnvironment messageEnvironment) {
+        if(messageEnvironment.getMessageList() == null){
+            messageAdapter = new MessageAdapter(getApplicationContext(), loginUser.getId(), new ArrayList<MessageBuble>());
+        } else{
+            messageAdapter = new MessageAdapter(getApplicationContext(), loginUser.getId(), messageEnvironment.getMessageList());
+        }
+        recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewMessages.setAdapter(messageAdapter);
     }
 
 
