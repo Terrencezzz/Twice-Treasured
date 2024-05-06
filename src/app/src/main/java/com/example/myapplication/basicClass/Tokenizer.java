@@ -1,11 +1,16 @@
 package com.example.myapplication.basicClass;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
 public class Tokenizer {
     private String buffer;
     private Token currentToken;
-    private final String categoryCheck = "electronics, clothing, furniture, books, sports, toys, beauty, others, electronic, clothes, book, sport, toy, other";
-    private final String locationCheck = "sydney, melbourne, queensland, adelaide, tasmania, canberra, south australia";
-
+    private ArrayList<String> categoryList = new ArrayList<>(Arrays.asList("electronics", "clothing", "furniture", "books", "sports", "toys", "beauty", "others", "electronic", "clothes", "book", "sport", "toy", "other"));
+    private ArrayList<String> locationList = new ArrayList<>(Arrays.asList("sydney", "melbourne", "queensland", "adelaide", "tasmania", "canberra", "south australia"));
+    private ArrayList<String> ignoreList = new ArrayList<>(Arrays.asList("a", "the", "and", "or", "with", "i", "for", "in", "from", "at", "an"));
     public Tokenizer(String text) {
         buffer = text.toLowerCase();
         next();
@@ -34,11 +39,14 @@ public class Tokenizer {
             }
         }
 
-        if (categoryCheck.contains(input)) {
+        if (locationList.contains(input)) {
+            currentToken = new Token(input, Token.Type.LOCATION);
+        }
+        else if (categoryList.contains(input)) {
             currentToken = new Token(input, Token.Type.Category);
         }
-        else if (locationCheck.contains(input)) {
-            currentToken = new Token(input, Token.Type.LOCATION);
+        else if (ignoreList.contains(input)) {
+            currentToken = new Token(input, Token.Type.IGNORE);
         }
         else {
             currentToken = new Token(input, Token.Type.NAME);

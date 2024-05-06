@@ -1,14 +1,6 @@
 package com.example.myapplication.basicClass;
 
-import androidx.annotation.NonNull;
-
 import com.example.myapplication.common.AVLTree;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -48,33 +40,6 @@ public class Parser {
             }
         }
         if (!location) {
-            return parseCategory(avlTree);
-        }
-        else {
-            return parseCategory(container);
-        }
-    }
-
-    private AVLTree<Product> parseCategory(AVLTree<Product> avlTree) {
-        AVLTree<Product> container = new AVLTree<>();
-        while (tokenizerCategory.hasNext()) {
-            Token.Type type = tokenizerCategory.current().getType();
-            if (type == Token.Type.Category) {
-                category = true;
-                String category = tokenizerCategory.current().getToken();
-                ArrayList<Product> products = avlTree.convertToArrayList();
-                for (Product product : products) {
-                    String check = product.getCategory().toLowerCase();
-                    if ((check.contains(category)) || category.contains(check) || category.equals("clothes") && check.equals("clothing")) {
-                        container.insert(product);
-                    }
-                }
-            }
-            if (tokenizerCategory.hasNext()) {
-                tokenizerCategory.next();
-            }
-        }
-        if (!category) {
             return parseName(avlTree);
         }
         else {
@@ -101,13 +66,38 @@ public class Parser {
                 tokenizerName.next();
             }
         }
-        if (!location && !category && !name) {
-            return container;
+        AVLTree<Product> category = parseCategory(avlTree);
+        if (!category.isEmpty()) {
+            ArrayList<Product> categoryList = category.convertToArrayList();
+            for (Product product : categoryList) {
+                container.insert(product);
+            }
         }
-        else if (!name) {
-            return avlTree;
+
+        return container;
+    }
+
+
+    private AVLTree<Product> parseCategory(AVLTree<Product> avlTree) {
+        AVLTree<Product> container = new AVLTree<>();
+        while (tokenizerCategory.hasNext()) {
+            Token.Type type = tokenizerCategory.current().getType();
+            if (type == Token.Type.Category) {
+                category = true;
+                String category = tokenizerCategory.current().getToken();
+                ArrayList<Product> products = avlTree.convertToArrayList();
+                for (Product product : products) {
+                    String check = product.getCategory().toLowerCase();
+                    if (check.contains(category) || category.contains(check) || category.equals("clothes") && check.equals("clothing")) {
+                        container.insert(product);
+                    }
+                }
+            }
+            if (tokenizerCategory.hasNext()) {
+                tokenizerCategory.next();
+            }
         }
-        else return container;
+        return container;
     }
 
 }
