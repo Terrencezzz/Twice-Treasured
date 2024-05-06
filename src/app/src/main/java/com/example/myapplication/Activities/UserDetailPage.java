@@ -264,6 +264,19 @@ public class UserDetailPage extends Page {
                 == PackageManager.PERMISSION_GRANTED) {
             // Permission is granted
 
+            LocationRequest locationRequest = new LocationRequest.Builder(PRIORITY_HIGH_ACCURACY, 100)
+                    .setWaitForAccurateLocation(false)
+                    .setMinUpdateIntervalMillis(2000)
+                    .setMaxUpdateDelayMillis(100)
+                    .build();
+            LocationCallback locationCallback = new LocationCallback() {
+                @Override
+                public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {}
+
+            };
+            LocationServices.getFusedLocationProviderClient(UserDetailPage.this)
+                    .requestLocationUpdates(locationRequest, locationCallback, null);
+
             // Create location service client
             FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
