@@ -17,9 +17,11 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.UserDetailPage"
+            android:name=".Activities.Notification"
             android:exported="false" />
-        <!-- <activity -->
+        <activity
+            android:name=".Activities.UserDetailPage"
+            android:exported="false" /> <!-- <activity -->
         <!-- android:name=".Activities.SearchResultPage" -->
         <!-- android:exported="false" /> -->
         <activity
