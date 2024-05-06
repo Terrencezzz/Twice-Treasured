@@ -1,5 +1,6 @@
 package com.example.myapplication.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,9 @@ public class PrivateMenuActivity extends Page {
     private ConstraintLayout clFavorite;
     private Button btnTradePlatform;
 
+    private Button btnTestMessage;
+
+    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_menu);
@@ -29,13 +33,18 @@ public class PrivateMenuActivity extends Page {
         clMe = findViewById(R.id.clMe);
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
         clFavorite= findViewById(R.id.clFavorite);
-        ImageButton btnReturnToHome =
-                findViewById(R.id.btn_return_to_home);
+        btnTestMessage = findViewById(R.id.open_message_test_btn);
 
 
-        btnReturnToHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {goHomePage();}
+        /**
+         * Temporary button to test private message functionality, to be fixed when there is
+         * a product page.
+         */
+        btnTestMessage.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), PrivateChat.class );
+            intent.putExtra("userEmail", "chattest@gmail.com");
+            intent.putExtra("userId", "LE16b1YUZDPPR7pewtr7qTQz7Sz1");
+            startActivity(intent);
         });
 
         clMe.setOnClickListener(new View.OnClickListener() {
