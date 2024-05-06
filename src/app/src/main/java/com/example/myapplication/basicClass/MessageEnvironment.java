@@ -1,5 +1,6 @@
 package com.example.myapplication.basicClass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,14 +11,19 @@ import java.util.List;
 
 public class MessageEnvironment {
     String environmentId, recentSenderId, timestamp, recentMessageTimestamp;
-    List<String> UserIds;
+    List<String> userIds;
+    List<MessageBuble> messageList;
 
 
-    public MessageEnvironment(String environmentId, List<String> userIds, String timeStamp, String recentSenderId) {
+    public MessageEnvironment(String environmentId, List<String> userIds, String timestamp,
+                              String recentSenderId, String recentMessageTimestamp,
+                              List<MessageBuble> messageList) {
         this.environmentId = environmentId;
-        UserIds = userIds;
-        this.timestamp = timeStamp;
+        this.userIds = userIds;
+        this.timestamp = timestamp;
         this.recentSenderId = recentSenderId;
+        this.recentMessageTimestamp = recentMessageTimestamp;
+        this.messageList = messageList;
     }
 
     public MessageEnvironment(){};
@@ -31,11 +37,11 @@ public class MessageEnvironment {
     }
 
     public List<String> getUserIds() {
-        return UserIds;
+        return userIds;
     }
 
     public void setUserIds(List<String> userIds) {
-        UserIds = userIds;
+        this.userIds = userIds;
     }
 
     public String getTimestamp() {
@@ -60,5 +66,13 @@ public class MessageEnvironment {
 
     public void setRecentMessageTimestamp(String recentMessageTimestamp) {
         this.recentMessageTimestamp = recentMessageTimestamp;
+    }
+
+    public void addMessage(MessageBuble messageBuble) {
+        messageList.add(messageBuble);
+    }
+
+    public List<MessageBuble> getMessageList() {
+        return messageList;
     }
 }

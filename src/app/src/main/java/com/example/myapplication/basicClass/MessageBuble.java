@@ -1,5 +1,7 @@
 package com.example.myapplication.basicClass;
 
+import androidx.annotation.NonNull;
+
 public class MessageBuble {
     private String message, senderId, timestamp;
 
@@ -34,5 +36,15 @@ public class MessageBuble {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "MessageBuble{" +
+                "message='" + message + '\'' +
+                ", senderId='" + senderId + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                '}';
     }
 }
