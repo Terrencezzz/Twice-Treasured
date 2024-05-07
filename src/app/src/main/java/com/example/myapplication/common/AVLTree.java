@@ -265,7 +265,7 @@ public class AVLTree<T extends Comparable<? super T>> {
     public ArrayList<T> convertToArrayList() {
         // Convert the AVL tree to an ArrayList using pre-order traversal
         ArrayList<T> resultList = new ArrayList<>();
-        inOrderTraversal(root, resultList);
+        preOrderTraversal(root, resultList);
         return resultList;
     }
 
