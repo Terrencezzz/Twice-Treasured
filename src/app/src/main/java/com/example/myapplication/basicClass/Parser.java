@@ -77,6 +77,10 @@ public class Parser {
             }
         }
 
+        if (!name) {
+            return avlTree;
+        }
+
         return container;
     }
 
