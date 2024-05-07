@@ -39,6 +39,8 @@ public class Tokenizer {
             }
         }
 
+        input = checkTypo(input);
+
         if (locationList.contains(input)) {
             currentToken = new Token(input, Token.Type.LOCATION);
         }
@@ -66,5 +68,28 @@ public class Tokenizer {
         {
             return currentToken != null;
         }
+    }
+
+    private String checkTypo(String input) {
+        for (String string : locationList) {
+            if (string.length() == input.length()) {
+                int record = 0;
+                for (int i = 0; i < string.length(); i++) {
+                    if (string.charAt(i) != input.charAt(i)) record++;
+                }
+                if (record <= 2) return string;
+            }
+        }
+
+        for (String string : categoryList) {
+            if (string.length() == input.length()) {
+                int record = 0;
+                for (int i = 0; i < string.length(); i++) {
+                    if (string.charAt(i) != input.charAt(i)) record++;
+                }
+                if (record <= 2) return string;
+            }
+        }
+        return input;
     }
 }
