@@ -9,7 +9,7 @@ public class Tokenizer {
     private String buffer;
     private Token currentToken;
     private ArrayList<String> categoryList = new ArrayList<>(Arrays.asList("electronics", "clothing", "furniture", "books", "sports", "toys", "beauty", "others", "electronic", "clothes", "book", "sport", "toy", "other"));
-    private ArrayList<String> locationList = new ArrayList<>(Arrays.asList("sydney", "melbourne", "queensland", "adelaide", "tasmania", "canberra", "south australia"));
+    private ArrayList<String> locationList = new ArrayList<>(Arrays.asList("sydney", "melbourne", "queensland", "tasmania", "canberra", "south australia"));
     private ArrayList<String> ignoreList = new ArrayList<>(Arrays.asList("a", "the", "and", "or", "with", "i", "for", "in", "from", "at", "an"));
     public Tokenizer(String text) {
         buffer = text.toLowerCase();
