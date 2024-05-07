@@ -171,7 +171,7 @@ Here is a partial (short) example for the subsection `Data Structures`:*
 ### Design Patterns
 *[What design patterns did your team utilise? Where and why?]*
 
-1. Singleton Pattern
+1. *Singleton Pattern*
    * *Objective: used for storing the only one database connection instance for Firebase Integration feature.*
    * Code Locations: defined in [Class Database, methods getDatabase()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Database.java?#L14-23) ; processed using [Homepage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L60) ,[CommonHelper.refreshLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java?#L53) 
    * *Reasons:*
@@ -179,8 +179,15 @@ Here is a partial (short) example for the subsection `Data Structures`:*
       * Reusing the same connection reduces system overhead, making things faster.
       * Singleton ensures safe access to the connection, even in a multi-threaded environment.
       * All parts of the program use the same connection, ensuring data consistency.
-2. *Pattern*
-   - 
+2. *Observer pattern*
+    * *Objective: Notify users about updates to their favorited items, such as price changes and item delistings.*
+    * Code Locations:defined in 
+    * * Reasons:*
+      * *Ensures real-time notifications:* Users receive immediate updates on changes to their favorited items.*
+      * * Maintains consistency:* Keeps the favorite list consistent with item status changes.*
+      * * Decouples logic:* Observers and subjects can vary independently, making the system modular and scalable.*
+      * *Promotes engagement:* Encourages users to remain active and up-to-date on items they care about.* 
+      * *Enhances flexibility:* Multiple types of observers (e.g., chat interface, notifications) can be added without altering the core logic.*
 
 <hr>
 
