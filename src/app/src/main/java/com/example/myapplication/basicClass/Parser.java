@@ -77,7 +77,10 @@ public class Parser {
             }
         }
 
-        return container;
+        if (container.isEmpty()) {
+            return avlTree;
+        }
+        else return container;
     }
 
 
