@@ -181,7 +181,7 @@ Here is a partial (short) example for the subsection `Data Structures`:*
       * All parts of the program use the same connection, ensuring data consistency.
 2. *Observer pattern*
     * *Objective: Notify users about updates to their favorited items, such as price changes and item delistings.*
-    * Code Locations:defined in 
+    * Code Locations:defined in[Class FavoriteLog] (https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/FavoriteLog.java?ref_type=heads#L1-28),[Class Observer](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Observer.java?ref_type=heads#L1-9),[Class Subject](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Subject.java?ref_type=heads#L1-10)
     * * Reasons:*
       * *Ensures real-time notifications:* Users receive immediate updates on changes to their favorited items.*
       * * Maintains consistency:* Keeps the favorite list consistent with item status changes.*
