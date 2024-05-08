@@ -1,11 +1,13 @@
 package com.example.myapplication.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -43,7 +45,6 @@ public class FavoritePage extends Page {
     private Button btnManage;
     private Button btnDelete;
     private LinearLayout bottomBar;
-
     private ConstraintLayout clPrivate;
     private ConstraintLayout clHome;
     private ConstraintLayout clMe;
@@ -53,6 +54,7 @@ public class FavoritePage extends Page {
     private DatabaseReference productRef;
     private User currentUser;
     private GlobalVariables globalVars;
+    private ProgressBar pbLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class FavoritePage extends Page {
         tvTitle = findViewById(R.id.tvTitle);
         btn_return_to_home = findViewById(R.id.btn_return_to_home);
         btn_return_to_home.setOnClickListener(v -> goHomePage());
+        pbLoading = findViewById(R.id.pbLoading);
 
         rvFavorite = findViewById(R.id.rvFavorite);
         rvFavorite.setLayoutManager(new LinearLayoutManager(this));
@@ -94,17 +97,21 @@ public class FavoritePage extends Page {
 
     // Initialize favorite products list
     private void initFavoriteProducts() {
-        adapter = new FavoriteAdapter(new ArrayList<>(), this::handleProductClick);
+        pbLoading.setVisibility(View.VISIBLE);
+        adapter = new FavoriteAdapter(new ArrayList<>(),favoriteRef, currentUser, this::handleProductClick);
         rvFavorite.setAdapter(adapter);
         loadFavoriteProducts(favoriteProducts -> {
             adapter.setFavoriteItemList(favoriteProducts);
+            pbLoading.setVisibility(View.GONE);
             updateSelectAllVisibility(!favoriteProducts.isEmpty());
         });
     }
 
     // Handle click on a product
     public void handleProductClick(Product product) {
-        goHomePage();
+        Intent intent = new Intent(FavoritePage.this, ProductPage.class);
+        intent.putExtra("product", product);
+        startActivity(intent);
     }
 
     // Set up management mode (for deleting items)
@@ -129,7 +136,7 @@ public class FavoritePage extends Page {
 
         btnDelete.setOnClickListener(v -> {
             if (this.adapter != null) {
-                this.adapter.deleteSelectedItems();
+                this.adapter.deleteSelectedItems(favoriteRef, currentUser);
                 if (adapter.getItemCount() == 0) {
                     btnDelete.setVisibility(View.GONE);
                     updateSelectAllVisibility(false);

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 // RecyclerView imports
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,14 @@ import com.bumptech.glide.Glide;
 
 // Custom class imports
 import com.example.myapplication.R;
+import com.example.myapplication.basicClass.Favorite;
 import com.example.myapplication.basicClass.Product;
+import com.example.myapplication.basicClass.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 // Java utility imports
 import java.util.ArrayList;
@@ -35,15 +43,19 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     private Set<Integer> selectedItems = new HashSet<>();
     private ProductClickListener productClickListener;
     private boolean isManageMode = false;
+    private DatabaseReference favoriteRef;
+    private User currentUser;
 
     public interface ProductClickListener {
         void onProductClick(Product product);
     }
 
     // Constructor
-    public FavoriteAdapter(List<Product> favoriteItemList, ProductClickListener productClickListener) {
+    public FavoriteAdapter(List<Product> favoriteItemList, DatabaseReference favoriteRef, User currentUser, ProductClickListener productClickListener) {
         this.favoriteItemList = favoriteItemList;
-        this.productClickListener= productClickListener;
+        this.favoriteRef = favoriteRef;
+        this.currentUser = currentUser;
+        this.productClickListener = productClickListener;
     }
 
     @Override
@@ -61,6 +73,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         holder.productDescription.setText(product.getDescription());
         holder.productPrice.setText("$ " + product.getPrice());
         Glide.with(holder.itemView.getContext()).load(product.getImgLink()).into(holder.productImage);
+
+        // 为产品描述、价格、图片设置点击事件监听器
+        View.OnClickListener clickListener = v -> productClickListener.onProductClick(product);
+        holder.productDescription.setOnClickListener(clickListener);
+        holder.productPrice.setOnClickListener(clickListener);
+        holder.productImage.setOnClickListener(clickListener);
 
         // Update view constraints based on management mode
         updateConstraints(holder);
@@ -125,13 +143,44 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
     // Delete selected items
-    public void deleteSelectedItems() {
+    public void deleteSelectedItems(DatabaseReference favoriteRef, User currentUser){
+        if (currentUser == null) {
+            return; // 确保用户已登录
+        }
+
         List<Product> remainingItems = new ArrayList<>();
+        List<String> favoriteIDsToRemove = new ArrayList<>();
+
         for (int i = 0; i < favoriteItemList.size(); i++) {
             if (!selectedItems.contains(i)) {
                 remainingItems.add(favoriteItemList.get(i));
+            }else {
+                Product product = favoriteItemList.get(i);
+                favoriteIDsToRemove.add(product.getProductID());
             }
         }
+
+        // 删除 Firebase 中的收藏数据
+        for (String productID : favoriteIDsToRemove) {
+            Query query = favoriteRef.orderByChild("productID").equalTo(productID);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Favorite favorite = dataSnapshot.getValue(Favorite.class);
+                        if (favorite != null && favorite.getUserID().equals(currentUser.getId())) {
+                            dataSnapshot.getRef().removeValue();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // 处理错误
+                }
+            });
+        }
+
         favoriteItemList = remainingItems;
         selectedItems.clear();
         notifyDataSetChanged();

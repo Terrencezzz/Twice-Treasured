@@ -63,19 +63,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/icon_dollar" />
 
-            <TextView
-                android:id="@+id/textView10"
+            <ImageView
+                android:id="@+id/textAddToFavoriteList"
                 android:layout_width="45dp"
                 android:layout_height="40dp"
-                android:text="+"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="30dp"
-                android:background="@drawable/plus_background"
+                android:src="@drawable/icon_favorite_unclick"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/textAddToFavoriteList"-->
+<!--                android:layout_width="45dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:text="+"-->
+<!--                android:textAlignment="center"-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="30dp"-->
+<!--                android:background="@drawable/plus_background"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -152,7 +152,7 @@ public class ProductPage extends AppCompatActivity {
 
         // Update favorite button state
         private void updateFavoriteButton ( boolean isFavorited){
-            productFavorite.setImageResource(isFavorited ? R.drawable.icon_favorite : R.drawable.icon_favorite_unclick);
+            productFavorite.setImageResource(isFavorited ? R.drawable.icon_favorite_click : R.drawable.icon_favorite_unclick);
         }
 
         // Toggle favorite status

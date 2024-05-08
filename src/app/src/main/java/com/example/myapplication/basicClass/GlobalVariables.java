@@ -36,9 +36,4 @@ public class GlobalVariables {
         this.categoryList = categoryList;
     }
 
-
-
-
-
-
 }

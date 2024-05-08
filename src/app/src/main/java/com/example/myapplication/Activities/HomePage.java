@@ -151,7 +151,7 @@ public class HomePage extends Page {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                txtUserName.setText("Unknown User");
             }
         });
 
@@ -225,4 +225,6 @@ public class HomePage extends Page {
             }
         });
     }
+
+
 }

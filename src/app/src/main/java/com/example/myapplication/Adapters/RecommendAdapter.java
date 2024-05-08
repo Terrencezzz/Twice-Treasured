@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,12 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.myapplication.Activities.ProductPage;
 import com.example.myapplication.R;
+import com.example.myapplication.basicClass.Database;
+import com.example.myapplication.basicClass.Favorite;
+import com.example.myapplication.basicClass.GlobalVariables;
 import com.example.myapplication.basicClass.Product;
+import com.example.myapplication.basicClass.User;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -24,10 +30,14 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
 
     ArrayList<Product> products;
     Context context;
+    DatabaseReference favoriteRef;
+    User currentUser;
 
     public RecommendAdapter(ArrayList<Product> products, Context context) {
         this.products = products;
         this.context = context;
+        this.favoriteRef = Database.getDatabase().getReference().child("Favorite");
+        this.currentUser = GlobalVariables.getInstance().getLoginUser();
     }
 
     @NonNull
@@ -54,6 +64,19 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
             context.startActivity(intent);
         });
 
+        // Add click listener to add product to favorite list
+        holder.textAddToFavoriteList.setOnClickListener(v -> {
+            if (currentUser != null) {
+                String favoriteID = favoriteRef.push().getKey();
+                Favorite favorite = new Favorite(favoriteID, currentUser.getId(), product.getProductID(), true);
+                favoriteRef.child(favoriteID).setValue(favorite)
+                        .addOnSuccessListener(aVoid -> Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(context, "Failed to add to favorites: " + e.getMessage(), Toast.LENGTH_LONG).show());
+            } else {
+                Toast.makeText(context, "You must be logged in to add favorites", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     @Override
@@ -63,12 +86,13 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
 
     public class ViewHolder extends  RecyclerView.ViewHolder{
         TextView txtName,txtPrice;
-        ImageView imgProduct;
+        ImageView imgProduct,textAddToFavoriteList;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtName);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             imgProduct = itemView.findViewById(R.id.imgProduct);
+            textAddToFavoriteList = itemView.findViewById(R.id.textAddToFavoriteList);
         }
 
         public void bind(Product product) {
