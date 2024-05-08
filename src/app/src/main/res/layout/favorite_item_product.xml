@@ -20,7 +20,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/white_background"
         app:layout_constraintEnd_toStartOf="@id/product_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/checkBox"

@@ -4,16 +4,12 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.basicClass.Database;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-
 
 /**
  * All the page can extend this page(maybe except PrivateChat)).
  */
 public abstract class Page extends AppCompatActivity {
+
 
     protected void goToActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
@@ -46,7 +42,7 @@ public abstract class Page extends AppCompatActivity {
      * You can move to Favorite page with this function.
      */
     public void goFavorite() {
-        goToActivity(Favorite.class);
+        goToActivity(FavoritePage.class);
     }
 
     /**

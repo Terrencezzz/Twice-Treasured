@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 // RecyclerView imports
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,14 @@ import com.bumptech.glide.Glide;
 
 // Custom class imports
 import com.example.myapplication.R;
+import com.example.myapplication.basicClass.Favorite;
 import com.example.myapplication.basicClass.Product;
+import com.example.myapplication.basicClass.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 // Java utility imports
 import java.util.ArrayList;
@@ -31,15 +39,23 @@ import java.util.Set;
  * Adapter class for managing favorite products
  */
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
-    private List<Product> productList;
-    private boolean isManageMode = false;
+    private List<Product> favoriteItemList;
     private Set<Integer> selectedItems = new HashSet<>();
-    private Runnable productClickCallback;
+    private ProductClickListener productClickListener;
+    private boolean isManageMode = false;
+    private DatabaseReference favoriteRef;
+    private User currentUser;
+
+    public interface ProductClickListener {
+        void onProductClick(Product product);
+    }
 
     // Constructor
-    public FavoriteAdapter(List<Product> productList, Runnable productClickCallback) {
-        this.productList = productList;
-        this.productClickCallback = productClickCallback;
+    public FavoriteAdapter(List<Product> favoriteItemList, DatabaseReference favoriteRef, User currentUser, ProductClickListener productClickListener) {
+        this.favoriteItemList = favoriteItemList;
+        this.favoriteRef = favoriteRef;
+        this.currentUser = currentUser;
+        this.productClickListener = productClickListener;
     }
 
     @Override
@@ -52,20 +68,26 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Product product = productList.get(position);
+        Product product = favoriteItemList.get(position);
         // Bind product data to UI elements
         holder.productDescription.setText(product.getDescription());
         holder.productPrice.setText("$ " + product.getPrice());
         Glide.with(holder.itemView.getContext()).load(product.getImgLink()).into(holder.productImage);
 
+        // 为产品描述、价格、图片设置点击事件监听器
+        View.OnClickListener clickListener = v -> productClickListener.onProductClick(product);
+        holder.productDescription.setOnClickListener(clickListener);
+        holder.productPrice.setOnClickListener(clickListener);
+        holder.productImage.setOnClickListener(clickListener);
+
         // Update view constraints based on management mode
-        updateConstraints(holder, position);
+        updateConstraints(holder);
         // Update checkbox state and listener
         updateCheckBox(holder, position);
     }
 
     // Update view constraints based on management mode
-    private void updateConstraints(ViewHolder holder, int position) {
+    private void updateConstraints(ViewHolder holder) {
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone((ConstraintLayout) holder.itemView);
         if (isManageMode) {
@@ -91,25 +113,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             }
             notifyItemChanged(position);
         });
-
-        // Update click event
-        if (!isManageMode) {
-            View.OnClickListener clickListener = v -> productClickCallback.run();
-            holder.itemView.setOnClickListener(clickListener);
-            holder.productDescription.setOnClickListener(clickListener);
-            holder.productPrice.setOnClickListener(clickListener);
-        } else {
-            holder.itemView.setOnClickListener(v -> {
-                boolean isSelected = !holder.checkBox.isChecked();
-                holder.checkBox.setChecked(isSelected);
-                if (isSelected) {
-                    selectedItems.add(position);
-                } else {
-                    selectedItems.remove(position);
-                }
-            });
-        }
     }
+
 
     // ViewHolder class
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -138,14 +143,45 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
     // Delete selected items
-    public void deleteSelectedItems() {
+    public void deleteSelectedItems(DatabaseReference favoriteRef, User currentUser){
+        if (currentUser == null) {
+            return; // 确保用户已登录
+        }
+
         List<Product> remainingItems = new ArrayList<>();
-        for (int i = 0; i < productList.size(); i++) {
+        List<String> favoriteIDsToRemove = new ArrayList<>();
+
+        for (int i = 0; i < favoriteItemList.size(); i++) {
             if (!selectedItems.contains(i)) {
-                remainingItems.add(productList.get(i));
+                remainingItems.add(favoriteItemList.get(i));
+            }else {
+                Product product = favoriteItemList.get(i);
+                favoriteIDsToRemove.add(product.getProductID());
             }
         }
-        productList = remainingItems;
+
+        // 删除 Firebase 中的收藏数据
+        for (String productID : favoriteIDsToRemove) {
+            Query query = favoriteRef.orderByChild("productID").equalTo(productID);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Favorite favorite = dataSnapshot.getValue(Favorite.class);
+                        if (favorite != null && favorite.getUserID().equals(currentUser.getId())) {
+                            dataSnapshot.getRef().removeValue();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // 处理错误
+                }
+            });
+        }
+
+        favoriteItemList = remainingItems;
         selectedItems.clear();
         notifyDataSetChanged();
     }
@@ -153,7 +189,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     // Get total item count
     @Override
     public int getItemCount() {
-        return productList.size();
+        return favoriteItemList.size();
     }
 
     public boolean isManageMode() {
@@ -163,7 +199,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     // Check if in management mode
     public void selectAll() {
         selectedItems.clear();
-        for (int i = 0; i < productList.size(); i++) {
+        for (int i = 0; i < favoriteItemList.size(); i++) {
             selectedItems.add(i);
         }
         notifyDataSetChanged();
@@ -174,5 +210,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         selectedItems.clear();
         notifyDataSetChanged();
     }
+
+    // Update the favorite products list
+    public void setFavoriteItemList(List<Product> newFavoriteItemList) {
+        // Set the favoriteItemList with a new list if it's not null, otherwise initialize it as an empty list
+        this.favoriteItemList = newFavoriteItemList != null ? new ArrayList<>(newFavoriteItemList) : new ArrayList<>();
+        // Notify the adapter of the data change
+        notifyDataSetChanged();
+    }
+
 
 }

@@ -33,8 +33,6 @@ import com.google.firebase.storage.StorageReference;
  * In this page user can check his information.
  */
 public class UserPage extends Page {
-
-
     FirebaseStorage storage;
     FirebaseDatabase database;
     StorageReference storageReference;
@@ -64,7 +62,6 @@ public class UserPage extends Page {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
-
         database = Database.getDatabase();
         storage = FirebaseStorage.getInstance();
         globalVars = GlobalVariables.getInstance();

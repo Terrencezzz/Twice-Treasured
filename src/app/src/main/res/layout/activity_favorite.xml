@@ -63,12 +63,13 @@
                     android:layout_weight="1">
 
                     <ProgressBar
-                        android:id="@+id/pbCategory"
+                        android:id="@+id/pbLoading"
                         style="?android:attr/progressBarStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/rvFavorite"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="@+id/rvFavorite"
                         app:layout_constraintTop_toTopOf="parent" />
 

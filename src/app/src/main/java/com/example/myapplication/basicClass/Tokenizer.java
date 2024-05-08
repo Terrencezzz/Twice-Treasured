@@ -9,7 +9,7 @@ public class Tokenizer {
     private String buffer;
     private Token currentToken;
     private ArrayList<String> categoryList = new ArrayList<>(Arrays.asList("electronics", "clothing", "furniture", "books", "sports", "toys", "beauty", "others", "electronic", "clothes", "book", "sport", "toy", "other"));
-    private ArrayList<String> locationList = new ArrayList<>(Arrays.asList("sydney", "melbourne", "queensland", "adelaide", "tasmania", "canberra", "south australia"));
+    private ArrayList<String> locationList = new ArrayList<>(Arrays.asList("sydney", "melbourne", "queensland", "tasmania", "canberra", "south australia"));
     private ArrayList<String> ignoreList = new ArrayList<>(Arrays.asList("a", "the", "and", "or", "with", "i", "for", "in", "from", "at", "an"));
     public Tokenizer(String text) {
         buffer = text.toLowerCase();
@@ -39,6 +39,8 @@ public class Tokenizer {
             }
         }
 
+        input = checkTypo(input);
+
         if (locationList.contains(input)) {
             currentToken = new Token(input, Token.Type.LOCATION);
         }
@@ -66,5 +68,28 @@ public class Tokenizer {
         {
             return currentToken != null;
         }
+    }
+
+    private String checkTypo(String input) {
+        for (String string : locationList) {
+            if (string.length() == input.length()) {
+                int record = 0;
+                for (int i = 0; i < string.length(); i++) {
+                    if (string.charAt(i) != input.charAt(i)) record++;
+                }
+                if (record <= 2) return string;
+            }
+        }
+
+        for (String string : categoryList) {
+            if (string.length() == input.length()) {
+                int record = 0;
+                for (int i = 0; i < string.length(); i++) {
+                    if (string.charAt(i) != input.charAt(i)) record++;
+                }
+                if (record <= 2) return string;
+            }
+        }
+        return input;
     }
 }

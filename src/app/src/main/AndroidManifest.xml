@@ -22,8 +22,6 @@
         <activity
             android:name=".Activities.UserDetailPage"
             android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".Activities.SearchResultPage" -->
-        <!-- android:exported="false" /> -->
         <activity
             android:name=".Activities.ProductPage"
             android:exported="false" />
@@ -44,7 +42,7 @@
             android:name=".Activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.Favorite"
+            android:name=".Activities.FavoritePage"
             android:exported="true" />
         <activity
             android:name=".Activities.Post"
