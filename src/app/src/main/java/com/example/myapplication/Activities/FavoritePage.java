@@ -1,37 +1,39 @@
 package com.example.myapplication.Activities;
 
-// Android imports
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-// RecyclerView imports
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-// Custom adapters and classes
 import com.example.myapplication.Adapters.FavoriteAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.basicClass.Database;
+import com.example.myapplication.basicClass.Favorite;
+import com.example.myapplication.basicClass.GlobalVariables;
 import com.example.myapplication.basicClass.Product;
+import com.example.myapplication.basicClass.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-// Java utility imports
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
  * In this page people can check their favorite products.
  */
-public class Favorite extends Page {
+public class FavoritePage extends Page {
     // UI elements
     private TextView tvTitle;
     private RecyclerView rvFavorite;
@@ -47,11 +49,20 @@ public class Favorite extends Page {
     private ConstraintLayout clMe;
     private ConstraintLayout clFavorite;
     private Button btnTradePlatform;
+    private DatabaseReference favoriteRef;
+    private DatabaseReference productRef;
+    private User currentUser;
+    private GlobalVariables globalVars;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+
+        globalVars = GlobalVariables.getInstance();
+        currentUser = globalVars.getLoginUser();
+        favoriteRef = Database.getDatabase().getReference().child("Favorite");
+        productRef = Database.getDatabase().getReference().child("Product");
 
         // Initializing UI elements
         tvTitle = findViewById(R.id.tvTitle);
@@ -70,25 +81,29 @@ public class Favorite extends Page {
         clHome = findViewById(R.id.clHome);
         clMe = findViewById(R.id.clMe);
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
-        clFavorite= findViewById(R.id.clFavorite);
+        clFavorite = findViewById(R.id.clFavorite);
 
         // Initialize favorite products list and set up UI
         initFavoriteProducts();
         setupManageMode();
         setupSelectAllFeature();
         updateSelectAllVisibility(false);
+        initFavoriteProducts();
     }
 
 
     // Initialize favorite products list
     private void initFavoriteProducts() {
-        List<Product> favoriteProducts = loadFavoriteProducts();
-        this.adapter = new FavoriteAdapter(favoriteProducts, this::handleProductClick);
-        rvFavorite.setAdapter(this.adapter);
+        adapter = new FavoriteAdapter(new ArrayList<>(), this::handleProductClick);
+        rvFavorite.setAdapter(adapter);
+        loadFavoriteProducts(favoriteProducts -> {
+            adapter.setFavoriteItemList(favoriteProducts);
+            updateSelectAllVisibility(!favoriteProducts.isEmpty());
+        });
     }
 
     // Handle click on a product
-    public void handleProductClick() {
+    public void handleProductClick(Product product) {
         goHomePage();
     }
 
@@ -138,7 +153,9 @@ public class Favorite extends Page {
 
         clPrivate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { goPrivateMenu();}
+            public void onClick(View v) {
+                goPrivateMenu();
+            }
         });
 
         clHome.setOnClickListener(new View.OnClickListener() {
@@ -170,21 +187,65 @@ public class Favorite extends Page {
         btnDelete.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
-    private List<Product> loadFavoriteProducts() {
-        // Dummy data for demonstration
-        List<Product> products = new ArrayList<>();
-        products.add(new Product("test","1", "Category", "Nice product Nice productNice productNice productNice productNice productNice productNice productNice product", "100", "New", "Today", "Available", "https://img01.yzcdn.cn/upload_files/2019/12/27/Fk1Z1GGZ-42PJVGrSSHFMrgSO4R8.jpg%21middle.jpg","tom","001","Canberra"));
-        products.add(new Product("test","2", "Category", "Another product Another productAnother productAnother productAnother productAnother productAnother productAnother productAnother product", "200", "Used", "Yesterday", "Available", "https://img01.yzcdn.cn/upload_files/2017/11/01/da3c0908669a5d3c43dec36642415254.jpg%21middle.jpg","tom","001","Sydney"));
-        products.add(new Product("test","3", "Category", "Awesome product Awesome productAwesome productAwesome productAwesome productAwesome productAwesome productAwesome productAwesome product", "150", "New", "Today", "Available", "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fg-search1.alicdn.com%2Fimg%2Fbao%2Fuploaded%2Fi4%2FO1CN01UL3Mg01PROLUi7MLa_%21%210-fleamarket.jpg_300x300.jpg&refer=http%3A%2F%2Fg-search1.alicdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1717053644&t=1c1527ee4c93bfde6992445a253901a9","tom","001","Perth"));
-        products.add(new Product("test","4", "Category", "Fantastic product Fantastic productFantastic productFantastic productFantastic productFantastic productFantastic productFantastic productFantastic product", "180", "Used", "Yesterday", "Available", "https://img1.baidu.com/it/u=4185713029,1649043310&fm=253&fmt=auto&app=138&f=JPEG?w=450&h=600","tom","001","ACT"));
-        products.add(new Product("test","5", "Category", "Superb product Superb productSuperb productSuperb productSuperb productSuperb productSuperb productSuperb productSuperb product", "250", "New", "Today", "Available", "https://img01.yzcdn.cn/upload_files/2020/03/29/FsKNyYUq6i2JbYVSMa-PAyaj_pya.jpg%21middle.jpg","tom","001","Melbourne"));
-        products.add(new Product("test","6", "Category", "Excellent product Excellent productExcellent productExcellent productExcellent productExcellent productExcellent productExcellent productExcellent product", "300", "Used", "Yesterday", "Available", "https://pic.rmb.bdstatic.com/bjh/down/dc41f9f74d70e08b5877df601c381c42.jpeg@wm_2,t_55m+5a625Y+3L+enn+S4gOermeS6jOaJi+WKnuWFrOWutuWFtw==,fc_ffffff,ff_U2ltSGVp,sz_20,x_13,y_13","tom","001","Sydney"));
-        products.add(new Product("test","7", "Category", "Amazing product Amazing productAmazing productAmazing productAmazing productAmazing productAmazing productAmazing productAmazing product", "170", "New", "Today", "Available", "https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2022%2F0628%2F06131eb4j00re6keu001dd200m800aag00g6007h.jpg&thumbnail=660x2147483647&quality=80&type=jpg","tom","001","Brisbane"));
-        products.add(new Product("test","8", "Category", "Incredible product Incredible productIncredible productIncredible productIncredible productIncredible productIncredible productIncredible productIncredible product", "220", "Used", "Yesterday", "Available", "https://img2.baidu.com/it/u=2984813231,3723666658&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500","tom","001","Melbourne"));
-        products.add(new Product("test","9", "Category", "Outstanding product Outstanding productOutstanding productOutstanding productOutstanding productOutstanding productOutstanding productOutstanding productOutstanding product", "280", "New", "Today", "Available", "https://img0.baidu.com/it/u=1257588435,2863691321&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500","tom","001","Sydney"));
-        products.add(new Product("test","10", "Category", "Spectacular product Spectacular productSpectacular productSpectacular productSpectacular productSpectacular productSpectacular productSpectacular productSpectacular product", "320", "Used", "Yesterday", "Available", "https://img2.baidu.com/it/u=271958556,2894190561&fm=253&fmt=auto&app=138&f=JPEG?w=667&h=500","tom","001","Melbourne"));
+    // 从 Firebase 数据库加载收藏产品列表
+    private void loadFavoriteProducts(FavoriteProductsListener listener) {
+        List<Product> favoriteProducts = new ArrayList<>();
+        favoriteRef.orderByChild("userID").equalTo(currentUser.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                int totalFavorites = (int) snapshot.getChildrenCount();
+                if (totalFavorites == 0) {
+                    // 如果没有收藏产品，直接返回空列表
+                    listener.onProductsLoaded(favoriteProducts);
+                    return;
+                }
 
-        return products;
+                AtomicInteger loadedCount = new AtomicInteger(0);
+                for (DataSnapshot favoriteSnapshot : snapshot.getChildren()) {
+                    Favorite favorite = favoriteSnapshot.getValue(Favorite.class);
+                    if (favorite != null && favorite.isFavoriteStatus()) {
+                        productRef.child(favorite.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot productSnapshot) {
+                                Product product = productSnapshot.getValue(Product.class);
+                                if (product != null) {
+                                    favoriteProducts.add(product);
+                                }
+
+                                if (loadedCount.incrementAndGet() == totalFavorites) {
+                                    listener.onProductsLoaded(favoriteProducts);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+                                // 处理潜在错误
+                                if (loadedCount.incrementAndGet() == totalFavorites) {
+                                    listener.onProductsLoaded(favoriteProducts);
+                                }
+                            }
+                        });
+                    } else {
+                        if (loadedCount.incrementAndGet() == totalFavorites) {
+                            listener.onProductsLoaded(favoriteProducts);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // 处理潜在错误
+                listener.onProductsLoaded(favoriteProducts);
+            }
+        });
     }
+
+private interface FavoriteProductsListener {
+    void onProductsLoaded(List<Product> favoriteProducts);
+}
+
+
+
 
 }

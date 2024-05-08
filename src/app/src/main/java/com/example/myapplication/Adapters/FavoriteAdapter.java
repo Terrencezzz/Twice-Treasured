@@ -31,15 +31,19 @@ import java.util.Set;
  * Adapter class for managing favorite products
  */
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
-    private List<Product> productList;
-    private boolean isManageMode = false;
+    private List<Product> favoriteItemList;
     private Set<Integer> selectedItems = new HashSet<>();
-    private Runnable productClickCallback;
+    private ProductClickListener productClickListener;
+    private boolean isManageMode = false;
+
+    public interface ProductClickListener {
+        void onProductClick(Product product);
+    }
 
     // Constructor
-    public FavoriteAdapter(List<Product> productList, Runnable productClickCallback) {
-        this.productList = productList;
-        this.productClickCallback = productClickCallback;
+    public FavoriteAdapter(List<Product> favoriteItemList, ProductClickListener productClickListener) {
+        this.favoriteItemList = favoriteItemList;
+        this.productClickListener= productClickListener;
     }
 
     @Override
@@ -52,20 +56,20 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Product product = productList.get(position);
+        Product product = favoriteItemList.get(position);
         // Bind product data to UI elements
         holder.productDescription.setText(product.getDescription());
         holder.productPrice.setText("$ " + product.getPrice());
         Glide.with(holder.itemView.getContext()).load(product.getImgLink()).into(holder.productImage);
 
         // Update view constraints based on management mode
-        updateConstraints(holder, position);
+        updateConstraints(holder);
         // Update checkbox state and listener
         updateCheckBox(holder, position);
     }
 
     // Update view constraints based on management mode
-    private void updateConstraints(ViewHolder holder, int position) {
+    private void updateConstraints(ViewHolder holder) {
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone((ConstraintLayout) holder.itemView);
         if (isManageMode) {
@@ -91,25 +95,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             }
             notifyItemChanged(position);
         });
-
-        // Update click event
-        if (!isManageMode) {
-            View.OnClickListener clickListener = v -> productClickCallback.run();
-            holder.itemView.setOnClickListener(clickListener);
-            holder.productDescription.setOnClickListener(clickListener);
-            holder.productPrice.setOnClickListener(clickListener);
-        } else {
-            holder.itemView.setOnClickListener(v -> {
-                boolean isSelected = !holder.checkBox.isChecked();
-                holder.checkBox.setChecked(isSelected);
-                if (isSelected) {
-                    selectedItems.add(position);
-                } else {
-                    selectedItems.remove(position);
-                }
-            });
-        }
     }
+
 
     // ViewHolder class
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -140,12 +127,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     // Delete selected items
     public void deleteSelectedItems() {
         List<Product> remainingItems = new ArrayList<>();
-        for (int i = 0; i < productList.size(); i++) {
+        for (int i = 0; i < favoriteItemList.size(); i++) {
             if (!selectedItems.contains(i)) {
-                remainingItems.add(productList.get(i));
+                remainingItems.add(favoriteItemList.get(i));
             }
         }
-        productList = remainingItems;
+        favoriteItemList = remainingItems;
         selectedItems.clear();
         notifyDataSetChanged();
     }
@@ -153,7 +140,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     // Get total item count
     @Override
     public int getItemCount() {
-        return productList.size();
+        return favoriteItemList.size();
     }
 
     public boolean isManageMode() {
@@ -163,7 +150,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     // Check if in management mode
     public void selectAll() {
         selectedItems.clear();
-        for (int i = 0; i < productList.size(); i++) {
+        for (int i = 0; i < favoriteItemList.size(); i++) {
             selectedItems.add(i);
         }
         notifyDataSetChanged();
@@ -172,6 +159,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     // Select all items
     public void deselectAll() {
         selectedItems.clear();
+        notifyDataSetChanged();
+    }
+
+    // 更新收藏产品列表
+    public void setFavoriteItemList(List<Product> newFavoriteItemList) {
+        this.favoriteItemList = newFavoriteItemList != null ? new ArrayList<>(newFavoriteItemList) : new ArrayList<>();
         notifyDataSetChanged();
     }
 

@@ -33,8 +33,6 @@ import com.google.firebase.storage.StorageReference;
  * In this page user can check his information.
  */
 public class UserPage extends Page {
-
-
     FirebaseStorage storage;
     FirebaseDatabase database;
     StorageReference storageReference;
