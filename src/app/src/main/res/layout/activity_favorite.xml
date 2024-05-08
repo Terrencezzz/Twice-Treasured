@@ -18,12 +18,10 @@
                 android:id="@+id/btn_return_to_home"
                 android:layout_width="45dp"
                 android:layout_height="46dp"
-                android:background="#FEF7FF"
                 android:contentDescription="@string/btn_private_menu_return_des"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_revert"
-                app:tint="#3F51B5" />
+                android:src="@drawable/icon_arrow_back_black_24"/>
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -57,6 +55,36 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- 类别按钮行 -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/categoryButtons"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/btnAllItems"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="All Items" />
+
+                        <!-- 动态添加类别按钮 -->
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- 价格按钮 -->
+                <Button
+                    android:id="@+id/btnFavoritePagePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    android:drawableEnd="@drawable/baseline_arrow_drop_down_24" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="700dp"
@@ -81,7 +109,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

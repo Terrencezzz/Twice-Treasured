@@ -143,9 +143,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
     // Delete selected items
+    /**
+     * Deletes selected items from the favorites.
+     * @param favoriteRef Reference to the Firebase database node for favorites.
+     * @param currentUser The current logged-in user.
+     */
     public void deleteSelectedItems(DatabaseReference favoriteRef, User currentUser){
         if (currentUser == null) {
-            return; // 确保用户已登录
+            return;
         }
 
         List<Product> remainingItems = new ArrayList<>();
@@ -160,7 +165,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             }
         }
 
-        // 删除 Firebase 中的收藏数据
+        // Delete favorite data from Firebase
         for (String productID : favoriteIDsToRemove) {
             Query query = favoriteRef.orderByChild("productID").equalTo(productID);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -176,7 +181,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // 处理错误
+                    // Handle error
                 }
             });
         }
@@ -185,6 +190,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         selectedItems.clear();
         notifyDataSetChanged();
     }
+
 
     // Get total item count
     @Override
@@ -217,6 +223,42 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         this.favoriteItemList = newFavoriteItemList != null ? new ArrayList<>(newFavoriteItemList) : new ArrayList<>();
         // Notify the adapter of the data change
         notifyDataSetChanged();
+    }
+
+    public List<Product> getFavoriteItemList() {
+        return favoriteItemList;
+    }
+
+    public ProductClickListener getProductClickListener() {
+        return productClickListener;
+    }
+
+    public DatabaseReference getFavoriteRef() {
+        return favoriteRef;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setSelectedItems(Set<Integer> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
+    public void setProductClickListener(ProductClickListener productClickListener) {
+        this.productClickListener = productClickListener;
+    }
+
+    public void setManageMode(boolean manageMode) {
+        isManageMode = manageMode;
+    }
+
+    public void setFavoriteRef(DatabaseReference favoriteRef) {
+        this.favoriteRef = favoriteRef;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
 

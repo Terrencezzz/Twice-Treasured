@@ -28,7 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -55,6 +58,9 @@ public class FavoritePage extends Page {
     private User currentUser;
     private GlobalVariables globalVars;
     private ProgressBar pbLoading;
+    private boolean isPriceAscending = true; // Flag for sorting price in ascending order
+    private String currentCategory = "All Items"; // Currently selected category, initialized to "All Items"
+    private List<Product> allFavoriteProducts = new ArrayList<>(); // Global variable to store all favorite products
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +97,9 @@ public class FavoritePage extends Page {
         setupManageMode();
         setupSelectAllFeature();
         updateSelectAllVisibility(false);
-        initFavoriteProducts();
+        setupAllItemsButton(); // Add logic for "All Items" button
+        initCategoryButtons();
+        setupPriceSortingButton();
     }
 
 
@@ -101,9 +109,12 @@ public class FavoritePage extends Page {
         adapter = new FavoriteAdapter(new ArrayList<>(),favoriteRef, currentUser, this::handleProductClick);
         rvFavorite.setAdapter(adapter);
         loadFavoriteProducts(favoriteProducts -> {
+            allFavoriteProducts = new ArrayList<>(favoriteProducts); // Store all products
             adapter.setFavoriteItemList(favoriteProducts);
             pbLoading.setVisibility(View.GONE);
             updateSelectAllVisibility(!favoriteProducts.isEmpty());
+            // Call initCategoryButtons() to ensure category buttons are correctly initialized
+            initCategoryButtons();
         });
     }
 
@@ -196,10 +207,10 @@ public class FavoritePage extends Page {
 
     // Load favorite products list from Firebase database
     private void loadFavoriteProducts(FavoriteProductsListener listener) {
-        if (currentUser == null) {
-            pbLoading.setVisibility(View.GONE);
-            return;
-        }
+//        if (currentUser == null) {
+//            pbLoading.setVisibility(View.GONE);
+//            return;
+//        }
         List<Product> favoriteProducts = new ArrayList<>();
         favoriteRef.orderByChild("userID").equalTo(currentUser.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -256,7 +267,74 @@ public class FavoritePage extends Page {
         void onProductsLoaded(List<Product> favoriteProducts);
     }
 
+    private static final String TAG = "FavoritePage"; // Log tag defined at the beginning of the class
 
+    private void initCategoryButtons() {
+
+        LinearLayout categoryLayout = findViewById(R.id.categoryButtons);
+
+        // Clear existing buttons, except for the "All Items" button
+        int childCount = categoryLayout.getChildCount();
+        for (int i = childCount - 1; i > 0; i--) {
+            categoryLayout.removeViewAt(i);
+        }
+
+        Set<String> categories = new HashSet<>(); // Used to store unique category names
+
+        for (Product product : allFavoriteProducts) {
+            String category = product.getCategory();
+            if (category != null) {
+                categories.add(category);
+            }
+        }
+
+        for (String category : categories) {
+            Button categoryButton = new Button(this);
+            categoryButton.setText(category);
+            categoryButton.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            ));
+            categoryButton.setOnClickListener(v -> filterByCategory(category));
+            categoryLayout.addView(categoryButton);
+        }
+    }
+
+    private void filterByCategory(String category) {
+
+        List<Product> filteredProducts = new ArrayList<>();
+        for (Product product : allFavoriteProducts) {
+            if (product.getCategory().equals(category)) {
+                filteredProducts.add(product);
+            }
+        }
+        adapter.setFavoriteItemList(filteredProducts);
+        adapter.notifyDataSetChanged(); // Ensure RecyclerView is refreshed
+    }
+
+    private void setupAllItemsButton() {
+        Button btnAllItems = findViewById(R.id.btnAllItems);
+        btnAllItems.setOnClickListener(v -> {
+            adapter.setFavoriteItemList(new ArrayList<>(allFavoriteProducts));
+            adapter.notifyDataSetChanged();
+            currentCategory = "All Items"; // Reset current category state
+        });
+    }
+
+    private void setupPriceSortingButton() {
+        Button btnPrice = findViewById(R.id.btnFavoritePagePrice);
+        btnPrice.setOnClickListener(v -> {
+            if (isPriceAscending) {
+                Collections.sort(adapter.getFavoriteItemList(), (p1, p2) -> Integer.compare(Integer.parseInt(p1.getPrice()), Integer.parseInt(p2.getPrice())));
+                btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_arrow_drop_up_24, 0);
+            } else {
+                Collections.sort(adapter.getFavoriteItemList(), (p1, p2) -> Integer.compare(Integer.parseInt(p2.getPrice()), Integer.parseInt(p1.getPrice())));
+                btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_arrow_drop_down_24, 0);
+            }
+            adapter.notifyDataSetChanged();
+            isPriceAscending = !isPriceAscending; // Toggle sorting state
+        });
+    }
 
 
 
