@@ -20,6 +20,7 @@ import com.example.myapplication.basicClass.GlobalVariables;
 import com.example.myapplication.basicClass.LocationResultListener;
 import com.example.myapplication.basicClass.OnDataUpdatedListener;
 import com.example.myapplication.basicClass.User;
+import com.example.myapplication.basicClass.UserLoggedInState;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -65,7 +66,9 @@ public class CommonHelper {
                         users.add(issue.getValue(User.class));
                     }
                     if(users.size()>0){
-                        GlobalVariables.getInstance().setLoginUser(users.get(0));
+                        //GlobalVariables.getInstance().setLoginUser(users.get(0));
+                        globalVars.setState(new UserLoggedInState());
+                        globalVars.addLoginUser(users.get(0));
                         listener.onDataUpdated();
                     }
 

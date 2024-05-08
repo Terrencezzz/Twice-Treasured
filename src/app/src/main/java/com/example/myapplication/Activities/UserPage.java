@@ -81,6 +81,14 @@ public class UserPage extends Page {
         clUserProduct = findViewById(R.id.clUserProduct);
         pbUserPage = findViewById(R.id.pbUserPage);
 
+        clHome.setOnClickListener(v -> goHomePage());
+        btnTradePlatform.setOnClickListener(v -> goTradePage());
+        clFavorite.setOnClickListener(v -> goFavorite());
+        clPrivate.setOnClickListener(v -> goPrivateMenu());
+
+        if(globalVars.getLoginUser() == null)
+            return;
+
         username.setText(globalVars.getLoginUser().getName());
         useremail.setText(globalVars.getLoginUser().getEmail());
         Glide.with(UserPage.this).load(globalVars.getLoginUser().getHeadImage()).into(ivUserPic);
@@ -98,10 +106,7 @@ public class UserPage extends Page {
         });
         clUserProduct.setOnClickListener(view -> {});
 
-        clHome.setOnClickListener(v -> goHomePage());
-        btnTradePlatform.setOnClickListener(v -> goTradePage());
-        clFavorite.setOnClickListener(v -> goFavorite());
-        clPrivate.setOnClickListener(v -> goPrivateMenu());
+
 
     }
 

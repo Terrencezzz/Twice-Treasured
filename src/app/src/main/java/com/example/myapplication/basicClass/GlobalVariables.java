@@ -10,6 +10,7 @@ public class GlobalVariables {
     private static GlobalVariables instance;
     private User loginUser;
     private ArrayList<Category> categoryList;
+    private UserState state;
 
     private GlobalVariables(){};
 
@@ -34,6 +35,18 @@ public class GlobalVariables {
 
     public void setCategoryList(ArrayList<Category> categoryList) {
         this.categoryList = categoryList;
+    }
+
+    public void setState(UserState state) {
+        this.state = state;
+    }
+
+    public void addLoginUser(User loginUser) {
+        state.addLoginUser(loginUser);
+    }
+
+    public void removeLoginUser() {
+        state.removeLoginUser();
     }
 
 }

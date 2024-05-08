@@ -69,4 +69,9 @@ public abstract class Page extends AppCompatActivity {
      *  You can move to Notification Page with this function
      * */
     public void goNotification(){goToActivity(Notification.class);}
+
+    /**
+     *  You can move to Intro Page with this function
+     * */
+    public void goIntroPage(){goToActivity(IntroPage.class);}
 }

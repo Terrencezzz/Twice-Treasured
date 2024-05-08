@@ -22,6 +22,8 @@ import com.example.myapplication.basicClass.Database;
 import com.example.myapplication.basicClass.GlobalVariables;
 import com.example.myapplication.basicClass.Product;
 import com.example.myapplication.basicClass.User;
+import com.example.myapplication.basicClass.UserLoggedInState;
+import com.example.myapplication.basicClass.UserLoggedOutState;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,9 +47,10 @@ public class HomePage extends Page {
     private ConstraintLayout clMe;
     private ConstraintLayout clFavorite;
     private Button btnTradePlatform;
-    private  TextView btnViewmore;
+    private TextView btnViewmore;
     private TextView input;
     private TextView txtUserName;
+    private ImageView btnLogout;
 
     FirebaseDatabase database;
     GlobalVariables globalVars;
@@ -70,35 +73,24 @@ public class HomePage extends Page {
         btnViewmore = findViewById(R.id.btnViewmore);
         input = findViewById(R.id.input);
         txtUserName = findViewById(R.id.txtUserName);
+        btnLogout = findViewById(R.id.btnLogout);
 
         initLoginUser();
         initCategory();
         initRecommend();
 
-        clMe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goUserPage();
-            }
-        });
+        clMe.setOnClickListener(v -> goUserPage());
 
-        btnTradePlatform.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goTradePage();
-            }
-        });
+        btnTradePlatform.setOnClickListener(v -> goTradePage());
 
-        clFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goFavorite();
-            }
-        });
+        clFavorite.setOnClickListener(v -> goFavorite());
 
-        clPrivate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { goPrivateMenu();}
+        clPrivate.setOnClickListener(v -> goPrivateMenu());
+
+        btnLogout.setOnClickListener(view -> {
+            globalVars.setState(new UserLoggedOutState());
+            globalVars.removeLoginUser();
+            goIntroPage();
         });
 
         btnNotification.setOnClickListener(view -> {
@@ -142,7 +134,9 @@ public class HomePage extends Page {
                         users.add(issue.getValue(User.class));
                     }
                     if(users.size()>0){
-                        globalVars.setLoginUser(users.get(0));
+                        //globalVars.setLoginUser(users.get(0));
+                        globalVars.setState(new UserLoggedInState());
+                        globalVars.addLoginUser(users.get(0));
                         txtUserName.setText(globalVars.getLoginUser().getName());
                     }
 
