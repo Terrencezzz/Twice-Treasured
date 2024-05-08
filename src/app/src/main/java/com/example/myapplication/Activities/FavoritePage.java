@@ -187,7 +187,7 @@ public class FavoritePage extends Page {
         btnDelete.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
-    // 从 Firebase 数据库加载收藏产品列表
+    // Load favorite products list from Firebase database
     private void loadFavoriteProducts(FavoriteProductsListener listener) {
         List<Product> favoriteProducts = new ArrayList<>();
         favoriteRef.orderByChild("userID").equalTo(currentUser.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -195,7 +195,7 @@ public class FavoritePage extends Page {
             public void onDataChange(DataSnapshot snapshot) {
                 int totalFavorites = (int) snapshot.getChildrenCount();
                 if (totalFavorites == 0) {
-                    // 如果没有收藏产品，直接返回空列表
+                    // If there are no favorite products, return an empty list directly
                     listener.onProductsLoaded(favoriteProducts);
                     return;
                 }
@@ -219,7 +219,7 @@ public class FavoritePage extends Page {
 
                             @Override
                             public void onCancelled(DatabaseError error) {
-                                // 处理潜在错误
+                                // Handle potential errors
                                 if (loadedCount.incrementAndGet() == totalFavorites) {
                                     listener.onProductsLoaded(favoriteProducts);
                                 }
@@ -235,15 +235,16 @@ public class FavoritePage extends Page {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // 处理潜在错误
+                // Handle potential errors
                 listener.onProductsLoaded(favoriteProducts);
             }
         });
     }
 
-private interface FavoriteProductsListener {
-    void onProductsLoaded(List<Product> favoriteProducts);
-}
+    private interface FavoriteProductsListener {
+        void onProductsLoaded(List<Product> favoriteProducts);
+    }
+
 
 
 

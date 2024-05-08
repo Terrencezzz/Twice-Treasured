@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public abstract class Page extends AppCompatActivity {
 
+
     protected void goToActivity(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);

@@ -8,10 +8,10 @@ public class Favorite implements Serializable {
     private String productID;
     private boolean favoriteStatus;
 
-    // 默认构造函数
+    // Default constructor
     public Favorite() {}
 
-    // 全参数构造函数
+    // Constructor with all parameters
     public Favorite(String favoriteID, String userID, String productID, boolean favoriteStatus) {
         this.favoriteID = favoriteID;
         this.userID = userID;
@@ -19,7 +19,7 @@ public class Favorite implements Serializable {
         this.favoriteStatus = favoriteStatus;
     }
 
-    // Getter 和 Setter 方法
+    // Getter and Setter methods
     public String getFavoriteID() {
         return favoriteID;
     }

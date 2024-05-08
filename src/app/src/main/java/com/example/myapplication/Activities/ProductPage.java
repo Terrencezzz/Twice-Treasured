@@ -41,14 +41,14 @@ public class ProductPage extends AppCompatActivity {
         favoriteRef = Database.getDatabase().getReference().child("Favorite");
         userRef = Database.getDatabase().getReference().child("User");
 
-        // 获取后退按钮
+        // Get the back button
         ImageView btnBack = findViewById(R.id.btnproductDetailPageBack);
         btnBack.setOnClickListener(v -> finish());
 
-        // 获取传递的产品信息
+        // Get the passed product information
         Product product = (Product) getIntent().getSerializableExtra("product");
 
-        // 获取布局视图组件
+        // Get layout view components
         ImageView imageProduct = findViewById(R.id.imgProduct);
         TextView textProductTitle = findViewById(R.id.txtName);
         TextView textProductPrice = findViewById(R.id.txtPrice);
@@ -58,25 +58,25 @@ public class ProductPage extends AppCompatActivity {
         TextView textSellerName = findViewById(R.id.textSellerName);
         TextView textCityInfo = findViewById(R.id.textCityInfo);
 
-        // 检查产品对象和图像链接是否有效
+        // Check if product object and image link are valid
         if (product != null && product.getImgLink() != null) {
-            // 使用 Glide 库加载图像
+            // Load image using Glide library
             Glide.with(this)
                     .load(product.getImgLink())
-                    .placeholder(R.drawable.white_background) // 使用占位符图像
-                    .error(R.drawable.error_img) // 错误图像
+                    .placeholder(R.drawable.white_background) // Use placeholder image
+                    .error(R.drawable.error_img) // Error image
                     .into(imageProduct);
 
-            // 设置文本视图内容
+            // Set text view content
             textProductTitle.setText(product.getName());
             textProductPrice.setText("$ " + product.getPrice());
             textProductDescription.setText(product.getDescription());
             textProductCondition.setText("Condition: " + product.getCondition());
             textCityInfo.setText("Location: " + product.getLocation());
 
-            // 检查 ownerID 是否为空
+            // Check if ownerID is not empty
             if (product.getOwnerID() != null) {
-                // 根据 ownerID 获取卖家信息
+                // Get seller information based on ownerID
                 userRef.child(product.getOwnerID()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
@@ -87,7 +87,7 @@ public class ProductPage extends AppCompatActivity {
                             if (sellerImageUrl != null && !sellerImageUrl.isEmpty()) {
                                 Glide.with(ProductPage.this)
                                         .load(sellerImageUrl)
-                                        .apply(new RequestOptions().circleCrop()) // 应用圆形裁剪
+                                        .apply(new RequestOptions().circleCrop()) // Apply circular cropping
                                         .placeholder(R.drawable.white_background)
                                         .error(R.drawable.error_img)
                                         .into(imageSellerProfile);
@@ -109,13 +109,14 @@ public class ProductPage extends AppCompatActivity {
             textProductTitle.setText("No Product Information");
         }
 
-        // 收藏按钮
+        // Favorite button
         productFavorite = findViewById(R.id.product_detail_favorite);
         checkFavoriteStatus(currentUser, product);
         productFavorite.setOnClickListener(v -> toggleFavoriteStatus(currentUser, product));
     }
 
-        private void addToFavorites (User user, Product product){
+
+    private void addToFavorites (User user, Product product){
             String favoriteID = favoriteRef.push().getKey();
             Favorite favorite = new Favorite(favoriteID, user.getId(), product.getProductID(), true);
             favoriteRef.child(favoriteID).setValue(favorite)

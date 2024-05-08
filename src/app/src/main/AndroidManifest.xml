@@ -22,8 +22,6 @@
         <activity
             android:name=".Activities.UserDetailPage"
             android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".Activities.SearchResultPage" -->
-        <!-- android:exported="false" /> -->
         <activity
             android:name=".Activities.ProductPage"
             android:exported="false" />

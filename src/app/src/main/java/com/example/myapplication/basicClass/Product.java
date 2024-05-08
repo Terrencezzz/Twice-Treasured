@@ -114,7 +114,6 @@ public class Product implements Comparable<Product>, Serializable{
     public void setName(String name) {
         this.name = name;
     }
-
     public String getOwnerID() {
         return ownerID;
     }

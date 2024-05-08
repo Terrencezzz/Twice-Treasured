@@ -162,10 +162,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    // 更新收藏产品列表
+    // Update the favorite products list
     public void setFavoriteItemList(List<Product> newFavoriteItemList) {
+        // Set the favoriteItemList with a new list if it's not null, otherwise initialize it as an empty list
         this.favoriteItemList = newFavoriteItemList != null ? new ArrayList<>(newFavoriteItemList) : new ArrayList<>();
+        // Notify the adapter of the data change
         notifyDataSetChanged();
     }
+
 
 }
