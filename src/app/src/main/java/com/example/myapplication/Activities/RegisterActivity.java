@@ -102,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userReference.setValue(userMap);
 
                     Intent intent = new Intent(RegisterActivity.this, HomePage.class);
+                    intent.putExtra("email",txtEmail);
                     startActivity(intent);
                     finish();
                 }

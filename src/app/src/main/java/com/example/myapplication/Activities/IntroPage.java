@@ -22,19 +22,16 @@ public class IntroPage extends Page {
     private void setButton(){
 
         TextView btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goRegisterPage();
-            }
-        });
+        btnRegister.setOnClickListener(view -> goRegisterPage());
 
         TextView btnLogin = findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(view -> goLoginPage());
+
+        TextView btnSkipLogin = findViewById(R.id.btnSkipLogin);
+        btnSkipLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                goLoginPage();
+                goHomePage();
             }
         });
     }
