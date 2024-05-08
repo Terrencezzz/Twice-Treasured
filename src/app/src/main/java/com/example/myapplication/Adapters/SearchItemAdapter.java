@@ -2,6 +2,7 @@ package com.example.myapplication.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Activities.ProductPage;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Product;
 
@@ -23,7 +25,6 @@ import java.util.List;
  * Adapter class for displaying search results in a RecyclerView.
  */
 public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.ProductViewHolder> {
-
 
     private Context context;
     private final List<Product> productList;
@@ -55,17 +56,19 @@ public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.Pr
         holder.textDescription.setText(product.getDescription());
         holder.textLocation.setText(product.getLocation());
 
-        // Set click listeners to return to homepage
-        View.OnClickListener returnToHomeListener = v -> {
-            if (context instanceof Activity) {
-                ((Activity) context).finish(); // End this activity
-            }
+        // Click listener for launching ProductPage
+        View.OnClickListener productPageListener = v -> {
+            Intent intent = new Intent(context, ProductPage.class);
+            intent.putExtra("product", product);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         };
 
-        holder.imageProduct.setOnClickListener(returnToHomeListener);
-        holder.textPrice.setOnClickListener(returnToHomeListener);
-        holder.textDescription.setOnClickListener(returnToHomeListener);
-        holder.textLocation.setOnClickListener(returnToHomeListener);
+        // Set click listeners to navigate to product detail page
+        holder.imageProduct.setOnClickListener(productPageListener);
+        holder.textPrice.setOnClickListener(productPageListener);
+        holder.textDescription.setOnClickListener(productPageListener);
+        holder.textLocation.setOnClickListener(productPageListener);
     }
 
     @Override
@@ -91,4 +94,3 @@ public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.Pr
         }
     }
 }
-

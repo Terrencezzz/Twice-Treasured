@@ -66,7 +66,6 @@ public class SearchResultPage extends AppCompatActivity {
 
         // If the user clicks on the category picture, search for the corresponding category
         if (categoryName != null && !categoryName.isEmpty()) {
-
             // call the search method
             resultProductOfSearch(categoryName);
         }
@@ -111,7 +110,6 @@ public class SearchResultPage extends AppCompatActivity {
 
     // Search Firebase for products matching user input string
     private void resultProductOfSearch(String searchString) {
-        // Dummy data for demonstration
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Product");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
