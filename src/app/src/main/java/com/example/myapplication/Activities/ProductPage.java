@@ -30,6 +30,7 @@ public class ProductPage extends AppCompatActivity {
     private ImageView productFavorite;
     private boolean isFavorited;
     private String favoriteID;
+    private Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,19 @@ public class ProductPage extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
 
         // Get the passed product information
-        Product product = (Product) getIntent().getSerializableExtra("product");
+        product = (Product) getIntent().getSerializableExtra("product");
 
-        // Get layout view components
+        if (product != null) {
+            displayProductDetails(product);
+        }
+
+        // Favorite button
+        productFavorite = findViewById(R.id.product_detail_favorite);
+        checkFavoriteStatus(currentUser, product);
+        productFavorite.setOnClickListener(v -> toggleFavoriteStatus(currentUser, product));
+    }
+
+    private void displayProductDetails(Product product) {
         ImageView imageProduct = findViewById(R.id.imgProduct);
         TextView textProductTitle = findViewById(R.id.txtName);
         TextView textProductPrice = findViewById(R.id.txtPrice);
@@ -108,25 +119,18 @@ public class ProductPage extends AppCompatActivity {
         } else {
             textProductTitle.setText("No Product Information");
         }
-
-        // Favorite button
-        productFavorite = findViewById(R.id.product_detail_favorite);
-        checkFavoriteStatus(currentUser, product);
-        productFavorite.setOnClickListener(v -> toggleFavoriteStatus(currentUser, product));
     }
 
 
-    private void addToFavorites (User user, Product product){
-            String favoriteID = favoriteRef.push().getKey();
-            Favorite favorite = new Favorite(favoriteID, user.getId(), product.getProductID(), true);
-            favoriteRef.child(favoriteID).setValue(favorite)
-                    .addOnSuccessListener(aVoid -> {
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(this, "Favorite Error：" + e.getMessage(), Toast.LENGTH_LONG).show());
-        }
 
         // Check favorite status
         private void checkFavoriteStatus (User user, Product product){
+
+            if (user == null) {
+                updateFavoriteButton(false); // 改动：访客模式下直接设置为未收藏状态
+                return;
+            }
+
             favoriteRef.orderByChild("userID").equalTo(user.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -157,6 +161,11 @@ public class ProductPage extends AppCompatActivity {
 
         // Toggle favorite status
         private void toggleFavoriteStatus (User user, Product product){
+            if (user == null) {
+                Toast.makeText(this, "Please log in to add to favorite", Toast.LENGTH_LONG).show(); // 访客模式下提示用户登录
+                return;
+            }
+
             if (isFavorited) {
                 favoriteRef.child(favoriteID).child("favoriteStatus").setValue(false)
                         .addOnSuccessListener(aVoid -> {

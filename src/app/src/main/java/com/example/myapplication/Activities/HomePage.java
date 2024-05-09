@@ -24,6 +24,7 @@ import com.example.myapplication.basicClass.Product;
 import com.example.myapplication.basicClass.User;
 import com.example.myapplication.basicClass.UserLoggedInState;
 import com.example.myapplication.basicClass.UserLoggedOutState;
+import com.example.myapplication.basicClass.UserState;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,14 +55,22 @@ public class HomePage extends Page {
 
     FirebaseDatabase database;
     GlobalVariables globalVars;
+    private TextView btnFavorite;
+    private ImageView imageViewFavorite;
+    private RecyclerView rvRecommend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        btnFavorite = findViewById(R.id.textView16);
+        imageViewFavorite = findViewById(R.id.imageView12);
+        rvRecommend = findViewById(R.id.rvRecommend);
+
         database = Database.getDatabase();
         globalVars = GlobalVariables.getInstance();
+        UserState userState = globalVars.getState();
 
         btnSearch = findViewById(R.id.btnSearch);
         btnNotification = findViewById(R.id.btnNotification);
@@ -69,7 +78,7 @@ public class HomePage extends Page {
         clHome = findViewById(R.id.clHome);
         clMe = findViewById(R.id.clMe);
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
-        clFavorite= findViewById(R.id.clFavorite);
+        clFavorite = findViewById(R.id.clFavorite);
         btnViewmore = findViewById(R.id.btnViewmore);
         input = findViewById(R.id.input);
         txtUserName = findViewById(R.id.txtUserName);
@@ -108,32 +117,60 @@ public class HomePage extends Page {
                 startActivity(intent); // Go to SearchResultPage
             }
         });
+
+        if (userState instanceof UserLoggedInState) {
+            txtUserName.setText(globalVars.getLoginUser().getName());
+        } else {
+            txtUserName.setText("Visitor");
+        }
+
+        // When "Favorite" text or icon is clicked, show the login page
+        View.OnClickListener favoriteClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (globalVars.isVisitorMode()) {
+                    // Visitor mode - show login page
+                    Intent intent = new Intent(HomePage.this, LoginPage.class);
+                    startActivity(intent);
+                } else {
+                    // Logged-in mode - go to favorite page
+                    Intent intent = new Intent(HomePage.this, FavoritePage.class);
+                    startActivity(intent);
+                }
+            }
+        };
+
+
+        btnFavorite.setOnClickListener(favoriteClickListener);
+        imageViewFavorite.setOnClickListener(favoriteClickListener);
+
     }
+
     /**
-     *  Reload username
-     * */
+     * Reload username
+     */
     @Override
     protected void onStart() {
         super.onStart();
-        if(globalVars.getLoginUser()!=null){
+        if (globalVars.getLoginUser() != null) {
             txtUserName.setText(globalVars.getLoginUser().getName());
         }
     }
 
     private void initLoginUser() {
         String userEmail = getIntent().getStringExtra("email");
-        DatabaseReference  db = database.getReference("User");
+        DatabaseReference db = database.getReference("User");
         Query query = db.orderByChild("email").equalTo(userEmail);
         ArrayList<User> users = new ArrayList<>();
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     users.clear();
-                    for (DataSnapshot issue:snapshot.getChildren()){
+                    for (DataSnapshot issue : snapshot.getChildren()) {
                         users.add(issue.getValue(User.class));
                     }
-                    if(users.size()>0){
+                    if (users.size() > 0) {
                         //globalVars.setLoginUser(users.get(0));
                         globalVars.setState(new UserLoggedInState());
                         globalVars.addLoginUser(users.get(0));
@@ -154,26 +191,26 @@ public class HomePage extends Page {
 
 
     private void initRecommend() {
-        DatabaseReference  db =database.getReference("Product");
+        DatabaseReference db = database.getReference("Product");
         ProgressBar pbRecommend = findViewById(R.id.pbRecommend);
         pbRecommend.setVisibility(View.VISIBLE);
         ArrayList<Product> products = new ArrayList<>();
         /*
-        * Need Add Query Condition
-        * */
+         * Need Add Query Condition
+         * */
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.exists()){
-                    for (DataSnapshot issue:snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
                         products.add(issue.getValue(Product.class));
                     }
 
-                    if(products.size()>0){
+                    if (products.size() > 0) {
                         RecyclerView rvRecommend = findViewById(R.id.rvRecommend);
-                        rvRecommend.setLayoutManager(new LinearLayoutManager(HomePage.this,LinearLayoutManager.HORIZONTAL,false));
-                        RecyclerView.Adapter<RecommendAdapter.ViewHolder> adapter  = new RecommendAdapter(products, HomePage.this);
+                        rvRecommend.setLayoutManager(new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false));
+                        RecyclerView.Adapter<RecommendAdapter.ViewHolder> adapter = new RecommendAdapter(products, HomePage.this);
                         rvRecommend.setAdapter(adapter);
                     }
 
@@ -190,7 +227,7 @@ public class HomePage extends Page {
     }
 
     private void initCategory() {
-        DatabaseReference  db =database.getReference("Category");
+        DatabaseReference db = database.getReference("Category");
         ProgressBar pbCategory = findViewById(R.id.pbCategory);
         pbCategory.setVisibility(View.VISIBLE);
         ArrayList<Category> categories = new ArrayList<>();
@@ -198,14 +235,14 @@ public class HomePage extends Page {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.exists()){
-                    for (DataSnapshot issue:snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
                         categories.add(issue.getValue(Category.class));
                     }
-                    if(categories.size()>0){
+                    if (categories.size() > 0) {
                         RecyclerView rvCategory = findViewById(R.id.rvCategory);
-                        rvCategory.setLayoutManager(new GridLayoutManager(HomePage.this,4));
-                        RecyclerView.Adapter<CategoryAdapter.ViewHolder> adapter  = new CategoryAdapter(categories);
+                        rvCategory.setLayoutManager(new GridLayoutManager(HomePage.this, 4));
+                        RecyclerView.Adapter<CategoryAdapter.ViewHolder> adapter = new CategoryAdapter(categories);
                         rvCategory.setAdapter(adapter);
                     }
 

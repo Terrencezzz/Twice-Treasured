@@ -104,7 +104,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <!-- 城市信息 -->
+            <!-- location info -->
             <TextView
                 android:id="@+id/textCityInfo"
                 android:layout_width="wrap_content"

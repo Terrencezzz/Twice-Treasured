@@ -12,7 +12,9 @@ public class GlobalVariables {
     private ArrayList<Category> categoryList;
     private UserState state;
 
-    private GlobalVariables(){};
+    private GlobalVariables(){
+        this.state = new UserLoggedOutState();
+    };
 
     public static synchronized GlobalVariables getInstance() {
         if (instance == null) {
@@ -37,6 +39,10 @@ public class GlobalVariables {
         this.categoryList = categoryList;
     }
 
+    public UserState getState() {
+        return state;
+    }
+
     public void setState(UserState state) {
         this.state = state;
     }
@@ -47,6 +53,15 @@ public class GlobalVariables {
 
     public void removeLoginUser() {
         state.removeLoginUser();
+    }
+
+    /**
+     * Determine if the user is in visitor mode.
+     *
+     * @return true if the user is in visitor mode, false otherwise.
+     */
+    public boolean isVisitorMode() {
+        return state instanceof UserLoggedOutState;
     }
 
 }
