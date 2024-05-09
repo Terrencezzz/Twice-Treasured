@@ -24,7 +24,10 @@ import com.example.myapplication.basicClass.Database;
 import com.example.myapplication.basicClass.GlobalVariables;
 import com.example.myapplication.basicClass.User;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -56,7 +59,7 @@ public class UserPage extends Page {
 
     private ActivityResultLauncher<String> mGetContent;
     private String imageUri;
-
+    private String sellerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +73,7 @@ public class UserPage extends Page {
         clHome = findViewById(R.id.clHome);
         clMe = findViewById(R.id.clMe);
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
-        clFavorite= findViewById(R.id.clFavorite);
+        clFavorite = findViewById(R.id.clFavorite);
         ivUserPic = findViewById(R.id.ivUserPic);
         username = findViewById(R.id.username);
         useremail = findViewById(R.id.useremail);
@@ -86,13 +89,14 @@ public class UserPage extends Page {
         clFavorite.setOnClickListener(v -> goFavorite());
         clPrivate.setOnClickListener(v -> goPrivateMenu());
 
-        if(globalVars.getLoginUser() == null)
-            return;
-
-        username.setText(globalVars.getLoginUser().getName());
-        useremail.setText(globalVars.getLoginUser().getEmail());
-        Glide.with(UserPage.this).load(globalVars.getLoginUser().getHeadImage()).into(ivUserPic);
-
+        String ownerID = getIntent().getStringExtra("ownerID");
+        if (ownerID != null) {
+            sellerID = ownerID;
+            loadUserProfile(ownerID);
+        } else if (globalVars.getLoginUser() != null) {
+            sellerID = globalVars.getLoginUser().getId();
+            loadUserProfile(sellerID);
+        }
 
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), this::handleImageSelection);
         cvUserPic.setOnClickListener(view -> mGetContent.launch("image/*"));
@@ -104,7 +108,8 @@ public class UserPage extends Page {
             startActivity(intent);
             //do not use finish() here, otherwise it cannot back to here
         });
-        clUserProduct.setOnClickListener(view -> {});
+        clUserProduct.setOnClickListener(view -> {
+        });
 
 
 
@@ -126,15 +131,50 @@ public class UserPage extends Page {
                                 Glide.with(UserPage.this).load(imageUri).into(ivUserPic);//user data asynchronous update, thus use imageUri directly
                                 database.getReference().child("User").child(globalVars.getLoginUser().getId()).child("headImage").setValue(imageUri);
                                 pbUserPage.setVisibility(View.GONE);
-                                showToast(UserPage.this,"New profile pic is all set!");
+                                showToast(UserPage.this, "New profile pic is all set!");
                             }
                         });
 
 
                     })
-                    .addOnFailureListener(e -> showToast(UserPage.this,"Oops! Something is wrong! Details:"+e.getMessage()));
+                    .addOnFailureListener(e -> showToast(UserPage.this, "Oops! Something is wrong! Details:" + e.getMessage()));
         } else {
-            showToast(UserPage.this,"Sorry, you haven't picked a pic yet.");
+            showToast(UserPage.this, "Sorry, you haven't picked a pic yet.");
         }
     }
+
+    private void loadUserProfile(String userID) {
+        // Load user profile data from Firebase Realtime Database
+        Database.getDatabase().getReference().child("User").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Retrieve user object from dataSnapshot
+                User user = dataSnapshot.getValue(User.class);
+                if (user != null) {
+                    // Update UI with user profile data
+                    username.setText(user.getName());
+                    useremail.setText(user.getEmail());
+                    // Load user profile image using Glide library
+                    Glide.with(UserPage.this).load(user.getHeadImage()).into(ivUserPic);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Show error message if failed to load user profile
+                showToast(UserPage.this, "Failed to load user profile: " + databaseError.getMessage());
+            }
+        });
+    }
+
+
+    private void goSellerFavoritePage() {
+        // Redirect to Seller's Favorite Page
+        Intent intent = new Intent(UserPage.this, FavoritePage.class);
+        // Pass seller's ID to FavoritePage
+        intent.putExtra("ownerID", sellerID);
+        startActivity(intent);
+    }
+
+
 }

@@ -142,7 +142,6 @@
                     android:id="@+id/textSellerDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_alignParentRight="true"
                     android:layout_alignBaseline="@id/textSellerInfo"
                     android:text="Seller Details"

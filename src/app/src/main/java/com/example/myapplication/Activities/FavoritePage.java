@@ -207,10 +207,7 @@ public class FavoritePage extends Page {
 
     // Load favorite products list from Firebase database
     private void loadFavoriteProducts(FavoriteProductsListener listener) {
-//        if (currentUser == null) {
-//            pbLoading.setVisibility(View.GONE);
-//            return;
-//        }
+
         List<Product> favoriteProducts = new ArrayList<>();
         favoriteRef.orderByChild("userID").equalTo(currentUser.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

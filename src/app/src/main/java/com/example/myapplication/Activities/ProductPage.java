@@ -2,6 +2,7 @@ package com.example.myapplication.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -68,6 +69,7 @@ public class ProductPage extends AppCompatActivity {
         ImageView imageSellerProfile = findViewById(R.id.imageSellerProfile);
         TextView textSellerName = findViewById(R.id.textSellerName);
         TextView textCityInfo = findViewById(R.id.textCityInfo);
+        TextView textSellerDetails = findViewById(R.id.textSellerDetails);
 
         // Check if product object and image link are valid
         if (product != null && product.getImgLink() != null) {
@@ -113,6 +115,14 @@ public class ProductPage extends AppCompatActivity {
                         Log.e("ProductPage", "Firebase Read Error: " + error.getMessage());
                     }
                 });
+
+                textSellerDetails.setOnClickListener(v -> {
+                    Intent intent = new Intent(ProductPage.this, UserPage.class);
+                    intent.putExtra("ownerID", product.getOwnerID());
+                    startActivity(intent);
+                });
+
+
             } else {
                 textSellerName.setText("Unknown Seller");
             }
@@ -127,7 +137,7 @@ public class ProductPage extends AppCompatActivity {
         private void checkFavoriteStatus (User user, Product product){
 
             if (user == null) {
-                updateFavoriteButton(false); // 改动：访客模式下直接设置为未收藏状态
+                updateFavoriteButton(false);
                 return;
             }
 
@@ -162,7 +172,7 @@ public class ProductPage extends AppCompatActivity {
         // Toggle favorite status
         private void toggleFavoriteStatus (User user, Product product){
             if (user == null) {
-                Toast.makeText(this, "Please log in to add to favorite", Toast.LENGTH_LONG).show(); // 访客模式下提示用户登录
+                Toast.makeText(this, "Please log in to add to favorite", Toast.LENGTH_LONG).show();
                 return;
             }
 
