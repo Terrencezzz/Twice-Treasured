@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.example.myapplication.basicClass.GlobalVariables;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
 
 
 public class Post extends AppCompatActivity {
@@ -137,6 +139,12 @@ public class Post extends AppCompatActivity {
         String price = ((TextView) findViewById(R.id.productPrice)).getText().toString().trim();
         String category = categorySpinner.getSelectedItem().toString();
         String condition = conditionSpinner.getSelectedItem().toString();
+
+        // Check if user is logged in
+        if (GlobalVariables.getInstance().getLoginUser() == null) {
+            showToast("Please log in before posting product.");
+            return;
+        }
 
         // Detect whether the user input box is empty and the validity of the selection field
         if (!validateInputs(name, description, price, category, condition)) {
