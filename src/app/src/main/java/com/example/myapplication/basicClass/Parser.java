@@ -8,9 +8,9 @@ public class Parser {
     private Tokenizer tokenizerLocation;
     private Tokenizer tokenizerCategory;
     private Tokenizer tokenizerName;
-    boolean location = false;
-    boolean category = false;
-    boolean name = false;
+    boolean locationCheck = false;
+    boolean categoryCheck = false;
+    boolean nameCheck = false;
 
     // Initialize tokenizers for location, category, and name with the input text
     public Parser(String text) {
@@ -25,12 +25,12 @@ public class Parser {
         while (tokenizerLocation.hasNext()) {
             Token.Type type = tokenizerLocation.current().getType();
             if (type == Token.Type.LOCATION) {
-                location = true;
+                locationCheck = true;
                 String location = tokenizerLocation.current().getToken();
                 ArrayList<Product> products = avlTree.convertToArrayList();
                 for (Product product : products) {
                     String check = product.getLocation().toLowerCase();
-                    if (check.equals(location)) {
+                    if (check.contains(location) || location.contains(check)) {
                         container.insert(product);
                     }
                 }
@@ -39,7 +39,7 @@ public class Parser {
                 tokenizerLocation.next();
             }
         }
-        if (!location) {
+        if (!locationCheck) {
             return parseName(avlTree);
         }
         else {
@@ -52,7 +52,7 @@ public class Parser {
         while (tokenizerName.hasNext()) {
             Token.Type type = tokenizerName.current().getType();
             if (type == Token.Type.NAME) {
-                name = true;
+                nameCheck = true;
                 String name = tokenizerName.current().getToken();
                 ArrayList<Product> products = avlTree.convertToArrayList();
                 for (Product product : products) {
@@ -77,10 +77,11 @@ public class Parser {
             }
         }
 
-        if (container.isEmpty()) {
+        if (locationCheck && !categoryCheck) {
             return avlTree;
         }
-        else return container;
+
+        return container;
     }
 
 
@@ -89,7 +90,7 @@ public class Parser {
         while (tokenizerCategory.hasNext()) {
             Token.Type type = tokenizerCategory.current().getType();
             if (type == Token.Type.Category) {
-                category = true;
+                categoryCheck = true;
                 String category = tokenizerCategory.current().getToken();
                 ArrayList<Product> products = avlTree.convertToArrayList();
                 for (Product product : products) {

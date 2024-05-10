@@ -40,11 +40,13 @@ public class Tokenizer {
         }
 
         input = checkTypo(input);
+        String missCheck = checkMiss(input);
+        String duplicateCheck = checkDuplicate(input);
 
-        if (locationList.contains(input)) {
+        if (locationList.contains(input) || missCheck.equals("location") || duplicateCheck.equals("location")) {
             currentToken = new Token(input, Token.Type.LOCATION);
         }
-        else if (categoryList.contains(input)) {
+        else if (categoryList.contains(input) || missCheck.equals("category") || duplicateCheck.equals("category")) {
             currentToken = new Token(input, Token.Type.Category);
         }
         else if (ignoreList.contains(input)) {
@@ -91,5 +93,43 @@ public class Tokenizer {
             }
         }
         return input;
+    }
+
+    private String checkMiss(String input) {
+        for (String string : locationList) {
+            if (string.length() > input.length()) {
+                if (string.contains(input) && string.length() - input.length() <= 2) {
+                    return "location";
+                }
+            }
+        }
+
+        for (String string : categoryList) {
+            if (string.length() > input.length()) {
+                if (string.contains(input) && string.length() - input.length() <= 2) {
+                    return "category";
+                }
+            }
+        }
+        return "other";
+    }
+
+    private String checkDuplicate(String input) {
+        for (String string : locationList) {
+            if (string.length() < input.length()) {
+                if (input.contains(string)) {
+                    return "location";
+                }
+            }
+        }
+
+        for (String string : categoryList) {
+            if (string.length() < input.length()) {
+                if (input.contains(string)) {
+                    return "category";
+                }
+            }
+        }
+        return "other";
     }
 }
