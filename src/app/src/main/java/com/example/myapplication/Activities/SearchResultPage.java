@@ -1,32 +1,16 @@
 package com.example.myapplication.Activities;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.graphics.Color;
-
 import com.example.myapplication.Adapters.SearchItemAdapter;
 import com.example.myapplication.R;
-import com.example.myapplication.basicClass.Parser;
-import com.example.myapplication.basicClass.Product;
-import com.example.myapplication.basicClass.Tokenizer;
-import com.example.myapplication.common.AVLTree;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 public class SearchResultPage extends AppCompatActivity {
     private ImageView btnBack; // Back button
@@ -38,18 +22,19 @@ public class SearchResultPage extends AppCompatActivity {
 
     private boolean isPriceDropdown = false;
     private boolean isConditionDropdown = false;
+    private SearchService searchService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result_page);
+        searchService = new SearchService();
         initViews();
         setupToggleIcons();
     }
 
     // Initialize Views
     private void initViews() {
-        // Find and assign views
         btnBack = findViewById(R.id.btnBack);
         btnPrice = findViewById(R.id.btnPrice);
         btnCondition = findViewById(R.id.btnCondition);
@@ -66,24 +51,19 @@ public class SearchResultPage extends AppCompatActivity {
 
         // If the user clicks on the category picture, search for the corresponding category
         if (categoryName != null && !categoryName.isEmpty()) {
-            // call the search method
-            resultProductOfSearch(categoryName);
+            ResultProductOfSearch(categoryName);
         }
         // If the user enters search content on the homepage, call the search method
         else if (HomeSearchString != null && !HomeSearchString.isEmpty()) {
             searchField.setText(HomeSearchString);
-            resultProductOfSearch(HomeSearchString);
+            ResultProductOfSearch(HomeSearchString);
         }
-
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userInput = searchField.getText().toString(); // Get user input and convert to string
-                resultProductOfSearch(userInput); // Call the search method, passing in user input
-            }
+        // When the user clicks on the btnSearch, the search will be based on the string entered by the user.
+        btnSearch.setOnClickListener(view -> {
+            String userInput = searchField.getText().toString();
+            ResultProductOfSearch(userInput);
         });
 
-        // Back button click listener
         btnBack.setOnClickListener(view -> finish());
     }
 
@@ -107,34 +87,12 @@ public class SearchResultPage extends AppCompatActivity {
         });
     }
 
-
-    // Search Firebase for products matching user input string
-    private void resultProductOfSearch(String searchString) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Product");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                AVLTree<Product> avlTree = new AVLTree<>();
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                    Product product = dataSnapshot.getValue(Product.class);
-                    avlTree.insert(product);
-                }
-                Parser parser = new Parser(searchString);
-                avlTree = parser.parseEXP(avlTree);
-
-                recyclerViewProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
-                searchItemAdapter = new SearchItemAdapter(getApplicationContext(), avlTree.convertToArrayList());
-                recyclerViewProducts.setAdapter(searchItemAdapter);
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+    // Use SearchService to fetch products and update UI
+    private void ResultProductOfSearch(String searchString) {
+        searchService.FindProduct(searchString, products -> {
+            recyclerViewProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+            searchItemAdapter = new SearchItemAdapter(getApplicationContext(), products);
+            recyclerViewProducts.setAdapter(searchItemAdapter);
         });
-
     }
-
-
 }
