@@ -57,7 +57,7 @@ public class Parser {
                 ArrayList<Product> products = avlTree.convertToArrayList();
                 for (Product product : products) {
                     String check = product.getName().toLowerCase();
-                    if (name.contains(check) || check.contains(name)) {
+                    if (name.contains(check) || check.contains(name) || checkNameTypo(name, check)) {
                         container.insert(product);
                     }
                 }
@@ -105,5 +105,16 @@ public class Parser {
             }
         }
         return container;
+    }
+
+    private boolean checkNameTypo(String input, String check) {
+        if (input.length() == check.length()) {
+            int record = 0;
+            for (int i = 0; i < input.length(); i++) {
+                if (check.charAt(i) != input.charAt(i)) record++;
+            }
+            return record <= 2;
+        }
+        return false;
     }
 }
