@@ -103,7 +103,7 @@ public class HomePage extends Page {
         });
 
         btnNotification.setOnClickListener(view -> {
-            Intent intent = new Intent(HomePage.this, Notification.class);
+            Intent intent = new Intent(HomePage.this, NotificationPage.class);
             startActivity(intent);
             //do not use finish() here, otherwise it cannot back to here
         });
