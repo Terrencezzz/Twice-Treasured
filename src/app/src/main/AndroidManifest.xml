@@ -17,7 +17,7 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.Notification"
+            android:name=".Activities.NotificationPage"
             android:exported="false" />
         <activity
             android:name=".Activities.UserDetailPage"
