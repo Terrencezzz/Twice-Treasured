@@ -36,8 +36,8 @@ public class SearchResultPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result_page);
         searchService = new SearchService();
-        initSearchString();
         initViews();
+        initSearchString();
         setupToggleIcons();
     }
 
@@ -50,11 +50,15 @@ public class SearchResultPage extends AppCompatActivity {
 
         if (categoryName != null && !categoryName.isEmpty()) {
             SearchString = categoryName;
-            ResultProductOfSearch(SearchString);
         } else if (HomeSearchString != null && !HomeSearchString.isEmpty()) {
             SearchString = HomeSearchString;
-            ResultProductOfSearch(SearchString);
+        } else {
+            SearchString = "";  // Set default to empty string
         }
+
+        // Update the search field text and perform the search
+        searchField.setText(SearchString);
+        ResultProductOfSearch(SearchString);
     }
     // Initialize Views
     private void initViews() {
