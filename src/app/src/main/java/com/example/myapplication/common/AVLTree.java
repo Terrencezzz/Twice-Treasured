@@ -299,28 +299,25 @@ public class AVLTree<T extends Comparable<? super T>> {
     }
 
     private void inOrderTraversalAscending(AVLNode<T> currentNode, ArrayList<T> resultList) {
-        // Perform in-order traversal of the AVL tree and add elements to the result list
         if (currentNode == null) {
-            return;
+            return; // Base case: if the current node is null, return to avoid further action.
         }
-        inOrderTraversalAscending(currentNode.leftChild, resultList);
-        // Add current node's key and handle duplicates
-        for (int i = 0; i < currentNode.getCount(); i++) {  // Assuming getCount returns 1 + number of duplicates
-            resultList.add(currentNode.key);
-        }
-        inOrderTraversalAscending(currentNode.rightChild, resultList);
+        inOrderTraversalAscending(currentNode.leftChild, resultList);   // Recursively visit the left subtree.
+        resultList.add(currentNode.key);            // Add the key of the current node to the result list.
+        resultList.addAll(currentNode.duplicates);  // Add all duplicates of the current node to the result list.
+        inOrderTraversalAscending(currentNode.rightChild, resultList);  // Recursively visit the right subtree.
     }
 
     private void inOrderTraversalDescending(AVLNode<T> currentNode, ArrayList<T> resultList) {
         if (currentNode == null) {
-            return;
+            return; // Base case: if the current node is null, return to avoid further action.
         }
-        inOrderTraversalDescending(currentNode.rightChild, resultList);
-        for (int i = 0; i < currentNode.getCount(); i++) {
-            resultList.add(currentNode.key);
-        }
-        inOrderTraversalDescending(currentNode.leftChild, resultList);
+        inOrderTraversalDescending(currentNode.rightChild, resultList); // Recursively visit the right subtree first for descending order.
+        resultList.add(currentNode.key);            // Add the key of the current node to the result list.
+        resultList.addAll(currentNode.duplicates);  // Add all duplicates of the current node to the result list.
+        inOrderTraversalDescending(currentNode.leftChild, resultList);  // Recursively visit the left subtree.
     }
+
 
     public ArrayList<T> searchByPredicate(Predicate<T> predicate) {
         ArrayList<T> results = new ArrayList<>();
