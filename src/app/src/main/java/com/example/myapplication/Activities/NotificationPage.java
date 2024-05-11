@@ -16,14 +16,18 @@ import com.example.myapplication.basicClass.Category;
 import com.example.myapplication.basicClass.Database;
 import com.example.myapplication.basicClass.GlobalVariables;
 import com.example.myapplication.basicClass.Notification;
+import com.example.myapplication.basicClass.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class NotificationPage extends Page {
 
@@ -38,7 +42,6 @@ public class NotificationPage extends Page {
 
         database = Database.getDatabase();
         globalVars = GlobalVariables.getInstance();
-
         notification_btnBack = findViewById(R.id.notification_btnBack);
 
         notification_btnBack.setOnClickListener(View-> finish());
@@ -48,17 +51,27 @@ public class NotificationPage extends Page {
 
     private void initNotiList() {
 
+        User user = globalVars.getLoginUser();
+        if(user == null)
+            return;
+
         DatabaseReference db = database.getReference("Notification");
+        Query query = db.orderByChild("UserID").equalTo(user.getId());
+
         ArrayList<Notification> notifications = new ArrayList<>();
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if (snapshot.exists()) {
+                    notifications.clear();
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         notifications.add(issue.getValue(Notification.class));
                     }
                     if (notifications.size() > 0) {
+
+                        Collections.sort(notifications, Comparator.comparingInt(Notification::getNotiStatus));
+
                         RecyclerView rvNotification = findViewById(R.id.rvNotification);
                         rvNotification.setLayoutManager(new LinearLayoutManager(NotificationPage.this,LinearLayoutManager.VERTICAL,false));
                         RecyclerView.Adapter<NotificationAdapter.viewholder> adapter = new NotificationAdapter(notifications);
@@ -73,6 +86,14 @@ public class NotificationPage extends Page {
 
             }
         });
+
+    }
+
+    public void readNotice(String notiID){
+
+        database = Database.getDatabase();
+        DatabaseReference notification = database.getReference().child("Notification").child(notiID);
+        notification.child("NotiStatus").setValue(1);
 
     }
 }

@@ -7,6 +7,8 @@ public class Notification {
     private String NotiContents;
     private int NotiStatus;
 
+    private String CreateTime;
+
     public Notification() {
     }
 
@@ -48,5 +50,13 @@ public class Notification {
 
     public void setNotiTitle(String notiTitle) {
         NotiTitle = notiTitle;
+    }
+
+    public String getCreateTime() {
+        return CreateTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        CreateTime = createTime;
     }
 }
