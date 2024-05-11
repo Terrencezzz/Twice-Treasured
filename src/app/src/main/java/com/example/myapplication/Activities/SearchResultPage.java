@@ -25,19 +25,24 @@ public class SearchResultPage extends AppCompatActivity {
     private SearchService searchService;
     String SearchString = "";
 
+    private enum SortState {
+        NONE, ASCENDING, DESCENDING
+    }
+    private SortState priceSortState = SortState.NONE;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result_page);
         searchService = new SearchService();
-        initViews();
         initSearchString();
+        initViews();
         setupToggleIcons();
     }
 
     // Initialize search string based on input from other activities or default
     private void initSearchString() {
-        String SearchString = "";
         // Get the product category clicked by the user
         String categoryName = getIntent().getStringExtra("CategoryName");
         // Get the user input string passed from HomePage
@@ -61,6 +66,9 @@ public class SearchResultPage extends AppCompatActivity {
         searchField = findViewById(R.id.searchField);
         btnSearch = findViewById(R.id.btnSearch);
 
+        // Ensure no icon is displayed initially for the price button
+        btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
         // Setup search button to update SearchString and perform search
         btnSearch.setOnClickListener(view -> {
             SearchString = searchField.getText().toString();
@@ -73,11 +81,24 @@ public class SearchResultPage extends AppCompatActivity {
     private void setupToggleIcons() {
         // Toggle button for price
         btnPrice.setOnClickListener(v -> {
-            isPriceDropdown = !isPriceDropdown; // Toggles the state of price dropdown
-            // Set the icon based on dropdown state
-            btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-                    isPriceDropdown ? R.drawable.baseline_arrow_drop_up_24 : R.drawable.baseline_arrow_drop_down_24, 0);
-            // Implement functionality to show or hide the dropdown here
+            // Cycle through the sort states
+            switch (priceSortState) {
+                case NONE:
+                    priceSortState = SortState.ASCENDING;
+                    btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_arrow_drop_up_24, 0);
+                    ResultProductsAscendingOrder(SearchString);
+                    break;
+                case ASCENDING:
+                    priceSortState = SortState.DESCENDING;
+                    btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_arrow_drop_down_24, 0);
+                    ResultProductsDescendingOrder(SearchString);
+                    break;
+                case DESCENDING:
+                    priceSortState = SortState.NONE;
+                    btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                    ResultProductOfSearch(SearchString);
+                    break;
+            }
         });
 
         // Toggle button for condition
