@@ -269,6 +269,20 @@ public class AVLTree<T extends Comparable<? super T>> {
         return resultList;
     }
 
+    // InorderTraversal and conversion to ascending ArrayList
+    public ArrayList<T> convertToAscendingArrayList() {
+        ArrayList<T> resultList = new ArrayList<>();
+        inOrderTraversalAscending(root, resultList);
+        return resultList;
+    }
+
+    // InorderTraversal and conversion to descending ArrayList
+    public ArrayList<T> convertToDescendingArrayList() {
+        ArrayList<T> resultList = new ArrayList<>();
+        inOrderTraversalDescending(root, resultList);
+        return resultList;
+    }
+
     private void preOrderTraversal(AVLNode<T> currentNode, ArrayList<T> resultList) {
         // Perform pre-order traversal of the AVL tree and add elements to the result list
         if (currentNode == null) {
@@ -284,19 +298,29 @@ public class AVLTree<T extends Comparable<? super T>> {
         preOrderTraversal(currentNode.rightChild, resultList);
     }
 
-    private void inOrderTraversal(AVLNode<T> currentNode, ArrayList<T> resultList) {
+    private void inOrderTraversalAscending(AVLNode<T> currentNode, ArrayList<T> resultList) {
         // Perform in-order traversal of the AVL tree and add elements to the result list
         if (currentNode == null) {
             return;
         }
-        inOrderTraversal(currentNode.leftChild, resultList);
+        inOrderTraversalAscending(currentNode.leftChild, resultList);
         // Add current node's key and handle duplicates
         for (int i = 0; i < currentNode.getCount(); i++) {  // Assuming getCount returns 1 + number of duplicates
             resultList.add(currentNode.key);
         }
-        inOrderTraversal(currentNode.rightChild, resultList);
+        inOrderTraversalAscending(currentNode.rightChild, resultList);
     }
 
+    private void inOrderTraversalDescending(AVLNode<T> currentNode, ArrayList<T> resultList) {
+        if (currentNode == null) {
+            return;
+        }
+        inOrderTraversalDescending(currentNode.rightChild, resultList);
+        for (int i = 0; i < currentNode.getCount(); i++) {
+            resultList.add(currentNode.key);
+        }
+        inOrderTraversalDescending(currentNode.leftChild, resultList);
+    }
 
     public ArrayList<T> searchByPredicate(Predicate<T> predicate) {
         ArrayList<T> results = new ArrayList<>();

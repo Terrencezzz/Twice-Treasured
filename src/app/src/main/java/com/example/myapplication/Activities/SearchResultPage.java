@@ -23,6 +23,7 @@ public class SearchResultPage extends AppCompatActivity {
     private boolean isPriceDropdown = false;
     private boolean isConditionDropdown = false;
     private SearchService searchService;
+    String SearchString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +31,26 @@ public class SearchResultPage extends AppCompatActivity {
         setContentView(R.layout.activity_search_result_page);
         searchService = new SearchService();
         initViews();
+        initSearchString();
         setupToggleIcons();
     }
 
+    // Initialize search string based on input from other activities or default
+    private void initSearchString() {
+        String SearchString = "";
+        // Get the product category clicked by the user
+        String categoryName = getIntent().getStringExtra("CategoryName");
+        // Get the user input string passed from HomePage
+        String HomeSearchString = getIntent().getStringExtra("HomeSearchString");
+
+        if (categoryName != null && !categoryName.isEmpty()) {
+            SearchString = categoryName;
+            ResultProductOfSearch(SearchString);
+        } else if (HomeSearchString != null && !HomeSearchString.isEmpty()) {
+            SearchString = HomeSearchString;
+            ResultProductOfSearch(SearchString);
+        }
+    }
     // Initialize Views
     private void initViews() {
         btnBack = findViewById(R.id.btnBack);
@@ -43,25 +61,10 @@ public class SearchResultPage extends AppCompatActivity {
         searchField = findViewById(R.id.searchField);
         btnSearch = findViewById(R.id.btnSearch);
 
-        // Get the product category clicked by the user
-        String categoryName = getIntent().getStringExtra("CategoryName");
-
-        // Get the user input string passed from HomePage
-        String HomeSearchString = getIntent().getStringExtra("HomeSearchString");
-
-        // If the user clicks on the category picture, search for the corresponding category
-        if (categoryName != null && !categoryName.isEmpty()) {
-            ResultProductOfSearch(categoryName);
-        }
-        // If the user enters search content on the homepage, call the search method
-        else if (HomeSearchString != null && !HomeSearchString.isEmpty()) {
-            searchField.setText(HomeSearchString);
-            ResultProductOfSearch(HomeSearchString);
-        }
-        // When the user clicks on the btnSearch, the search will be based on the string entered by the user.
+        // Setup search button to update SearchString and perform search
         btnSearch.setOnClickListener(view -> {
-            String userInput = searchField.getText().toString();
-            ResultProductOfSearch(userInput);
+            SearchString = searchField.getText().toString();
+            ResultProductOfSearch(SearchString);
         });
 
         btnBack.setOnClickListener(view -> finish());
@@ -95,4 +98,23 @@ public class SearchResultPage extends AppCompatActivity {
             recyclerViewProducts.setAdapter(searchItemAdapter);
         });
     }
+
+    // Get and display products in ascending order
+    private void ResultProductsAscendingOrder(String searchString) {
+        searchService.FindProductsAscendingOrder(searchString, products -> {
+            recyclerViewProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+            searchItemAdapter = new SearchItemAdapter(getApplicationContext(), products);
+            recyclerViewProducts.setAdapter(searchItemAdapter);
+        });
+    }
+
+    // Get and display products in descending order
+    private void ResultProductsDescendingOrder(String searchString) {
+        searchService.FindProductsDescendingOrder(searchString, products -> {
+            recyclerViewProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+            searchItemAdapter = new SearchItemAdapter(getApplicationContext(), products);
+            recyclerViewProducts.setAdapter(searchItemAdapter);
+        });
+    }
+
 }
