@@ -14,7 +14,7 @@ import com.example.myapplication.R;
 
 public class SearchResultPage extends AppCompatActivity {
     private ImageView btnBack; // Back button
-    private TextView btnPrice, btnCondition, btnDateListed;
+    private TextView btnPrice, btnCondition, btnUsed;
     private RecyclerView recyclerViewProducts;
     private SearchItemAdapter searchItemAdapter;
     private EditText searchField; // User input field to search
@@ -65,13 +65,13 @@ public class SearchResultPage extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         btnPrice = findViewById(R.id.btnPrice);
         btnCondition = findViewById(R.id.btnCondition);
-        btnDateListed = findViewById(R.id.btnDateListed);
+        btnUsed = findViewById(R.id.btnUsed);
         recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
         searchField = findViewById(R.id.searchField);
         btnSearch = findViewById(R.id.btnSearch);
 
         // Ensure no icon is displayed initially for the price button
-        btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_blank_24, 0);;
 
         // Setup search button to update SearchString and perform search
         btnSearch.setOnClickListener(view -> {
@@ -99,20 +99,34 @@ public class SearchResultPage extends AppCompatActivity {
                     break;
                 case DESCENDING:
                     priceSortState = SortState.NONE;
-                    btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                    btnPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_blank_24, 0);
                     ResultProductOfSearch(SearchString);
                     break;
             }
         });
 
-        // Toggle button for condition
         btnCondition.setOnClickListener(v -> {
-            isConditionDropdown = !isConditionDropdown; // Toggles the state of condition dropdown
-            // Set the icon based on dropdown state
-            btnCondition.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-                    isConditionDropdown ? R.drawable.baseline_arrow_drop_up_24 : R.drawable.baseline_arrow_drop_down_24, 0);
-            // Implement functionality to show or hide the dropdown here
+            isConditionDropdown = !isConditionDropdown; // Toggles the state
+            if (isConditionDropdown) {
+                // Use orange_button to indicate selected status
+                btnCondition.setTextColor(getResources().getColor(R.color.orange_button));
+            } else {
+                // Use black to indicate the unselected state
+                btnCondition.setTextColor(getResources().getColor(R.color.black));
+            }
         });
+
+        btnUsed.setOnClickListener(v -> {
+            isConditionDropdown = !isConditionDropdown; // Toggles the state
+            if (isConditionDropdown) {
+                // Use orange_button to indicate selected status
+                btnUsed.setTextColor(getResources().getColor(R.color.orange_button));
+            } else {
+                // Use black to indicate the unselected state
+                btnUsed.setTextColor(getResources().getColor(R.color.black));
+            }
+        });
+
     }
 
     // Use SearchService to fetch products and update UI
