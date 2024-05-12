@@ -110,9 +110,11 @@ public class SearchResultPage extends AppCompatActivity {
             if (isConditionDropdown) {
                 // Use orange_button to indicate selected status
                 btnCondition.setTextColor(getResources().getColor(R.color.orange_button));
+                ResultNewProducts(SearchString);
             } else {
                 // Use black to indicate the unselected state
                 btnCondition.setTextColor(getResources().getColor(R.color.black));
+                ResultProductOfSearch(SearchString);
             }
         });
 
@@ -121,9 +123,11 @@ public class SearchResultPage extends AppCompatActivity {
             if (isConditionDropdown) {
                 // Use orange_button to indicate selected status
                 btnUsed.setTextColor(getResources().getColor(R.color.orange_button));
+                ResultUsedProducts(SearchString);
             } else {
                 // Use black to indicate the unselected state
                 btnUsed.setTextColor(getResources().getColor(R.color.black));
+                ResultProductOfSearch(SearchString);
             }
         });
 
@@ -150,6 +154,24 @@ public class SearchResultPage extends AppCompatActivity {
     // Get and display products in descending order
     private void ResultProductsDescendingOrder(String searchString) {
         searchService.FindProductsDescendingOrder(searchString, products -> {
+            recyclerViewProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+            searchItemAdapter = new SearchItemAdapter(getApplicationContext(), products);
+            recyclerViewProducts.setAdapter(searchItemAdapter);
+        });
+    }
+
+    // Display new products in the RecyclerView
+    private void ResultNewProducts(String searchString) {
+        searchService.FindNewProduct(searchString, products -> {
+            recyclerViewProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+            searchItemAdapter = new SearchItemAdapter(getApplicationContext(), products);
+            recyclerViewProducts.setAdapter(searchItemAdapter);
+        });
+    }
+
+    // Display used products in the RecyclerView
+    private void ResultUsedProducts(String searchString) {
+        searchService.FindUsedProduct(searchString, products -> {
             recyclerViewProducts.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
             searchItemAdapter = new SearchItemAdapter(getApplicationContext(), products);
             recyclerViewProducts.setAdapter(searchItemAdapter);
