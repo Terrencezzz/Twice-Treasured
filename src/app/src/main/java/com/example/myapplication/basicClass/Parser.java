@@ -58,7 +58,10 @@ public class Parser {
                 for (Product product : products) {
                     String check = product.getName().toLowerCase();
                     if (name.contains(check) || check.contains(name) || checkNameTypo(name, check)) {
-                        container.insert(product);
+                        ArrayList<Product> productArrayList = container.convertToArrayList();
+                        if (!productArrayList.contains(product)) {
+                            container.insert(product);
+                        }
                     }
                 }
             }

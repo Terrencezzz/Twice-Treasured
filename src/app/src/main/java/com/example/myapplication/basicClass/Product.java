@@ -14,6 +14,7 @@ public class Product implements Comparable<Product>, Serializable{
     private String status;
     private String imgLink;
     private String ownerID;
+
     private String categoryID;
     private String location;
 
@@ -138,6 +139,13 @@ public class Product implements Comparable<Product>, Serializable{
     @Override
     public int compareTo(Product other) {
         return Integer.compare(Integer.parseInt(this.price), Integer.parseInt(other.price));
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + productID.hashCode();
+        return result;
     }
 }
 
