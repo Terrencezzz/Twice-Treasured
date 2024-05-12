@@ -43,7 +43,7 @@ public class SearchService {
         });
     }
 
-    // Method to find new products based on a search string and process them through AVLTree
+    // Find new products based on a search string and process them through AVLTree
     public void FindNewProduct(String searchString, Consumer<ArrayList<Product>> callback) {
         loadData(snapshot -> {
             AVLTree<Product> avlTree = processNewProducts(snapshot, searchString);
@@ -51,7 +51,7 @@ public class SearchService {
         });
     }
 
-    // Method to find used products based on a search string and process them through AVLTree
+    // Find used products based on a search string and process them through AVLTree
     public void FindUsedProduct(String searchString, Consumer<ArrayList<Product>> callback) {
         loadData(snapshot -> {
             AVLTree<Product> avlTree = processUsedProducts(snapshot, searchString);
@@ -100,7 +100,7 @@ public class SearchService {
         return parser.parseEXP(avlTree);
     }
 
-
+    // Sort products by price in ascending order
     public void FindProductsAscendingOrder(String searchString, Consumer<ArrayList<Product>> callback) {
         loadData(snapshot -> {
             AVLTree<Product> avlTree = processProducts(snapshot, searchString);
@@ -109,6 +109,7 @@ public class SearchService {
         });
     }
 
+    // Sort products by price in descending order
     public void FindProductsDescendingOrder(String searchString, Consumer<ArrayList<Product>> callback) {
         loadData(snapshot -> {
             AVLTree<Product> avlTree = processProducts(snapshot, searchString);
@@ -116,4 +117,41 @@ public class SearchService {
             callback.accept(sortedList);
         });
     }
+
+    // Sort products with condition New in ascending order by price
+    public void FindNewProductsAscendingOrder(String searchString, Consumer<ArrayList<Product>> callback) {
+        loadData(snapshot -> {
+            AVLTree<Product> avlTree = processNewProducts(snapshot, searchString);
+            ArrayList<Product> sortedList = avlTree.convertToAscendingArrayList();
+            callback.accept(sortedList);
+        });
+    }
+
+    // Sort products with condition New in descending order by price
+    public void FindNewProductsDescendingOrder(String searchString, Consumer<ArrayList<Product>> callback) {
+        loadData(snapshot -> {
+            AVLTree<Product> avlTree = processNewProducts(snapshot, searchString);
+            ArrayList<Product> sortedList = avlTree.convertToDescendingArrayList();
+            callback.accept(sortedList);
+        });
+    }
+
+    // Sort products with condition "Used" in ascending order of price
+    public void FindUsedProductsAscendingOrder(String searchString, Consumer<ArrayList<Product>> callback) {
+        loadData(snapshot -> {
+            AVLTree<Product> avlTree = processUsedProducts(snapshot, searchString);
+            ArrayList<Product> sortedList = avlTree.convertToAscendingArrayList();
+            callback.accept(sortedList);
+        });
+    }
+
+    // Sort products with condition "Used" in descending order by price
+    public void FindUsedProductsDescendingOrder(String searchString, Consumer<ArrayList<Product>> callback) {
+        loadData(snapshot -> {
+            AVLTree<Product> avlTree = processUsedProducts(snapshot, searchString);
+            ArrayList<Product> sortedList = avlTree.convertToDescendingArrayList();
+            callback.accept(sortedList);
+        });
+    }
+
 }
