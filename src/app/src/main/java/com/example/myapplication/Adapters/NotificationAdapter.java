@@ -56,6 +56,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         if(readStatus>0){
             holder.noti_view_unread.setVisibility(View.GONE);
         }
+        if(notification.getNotiType().equals("1")){
+            holder.noti_view_icon.setImageResource(R.drawable.icon_notice_safe);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,14 +88,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     public class viewholder extends RecyclerView.ViewHolder{
         TextView noti_view_title,noti_view_content;
-        ImageView noti_view_unread;
+        ImageView noti_view_unread,noti_view_icon;
         public viewholder(@NonNull View itemView) {
             super(itemView);
 
             noti_view_title = itemView.findViewById(R.id.noti_view_title);
             noti_view_content = itemView.findViewById(R.id.noti_view_content);
             noti_view_unread = itemView.findViewById(R.id.noti_view_unread);
-
+            noti_view_icon = itemView.findViewById(R.id.noti_view_icon);
         }
     }
 }

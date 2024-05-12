@@ -1,62 +1,80 @@
 package com.example.myapplication.basicClass;
 
 public class Notification {
-    private String NotiID;
-    private String UserID;
-    private String NotiTitle;
-    private String NotiContents;
-    private int NotiStatus;
+    private String notiID;
+    private String userID;
+    private String notiTitle;
+    private String notiContents;
+    private int notiStatus;
 
-    private String CreateTime;
+    private String createTime;
+    private String notiType;
+    private String notiProductID;
 
     public Notification() {
     }
 
     public String getNotiID() {
-        return NotiID;
+        return notiID;
     }
 
     public void setNotiID(String notiID) {
-        NotiID = notiID;
+        this.notiID = notiID;
     }
 
     public String getUserID() {
-        return UserID;
+        return userID;
     }
 
     public void setUserID(String userID) {
-        UserID = userID;
-    }
-
-    public String getNotiContents() {
-        return NotiContents;
-    }
-
-    public void setNotiContents(String notiContents) {
-        NotiContents = notiContents;
-    }
-
-    public int getNotiStatus() {
-        return NotiStatus;
-    }
-
-    public void setNotiStatus(int notiStatus) {
-        NotiStatus = notiStatus;
+        this.userID = userID;
     }
 
     public String getNotiTitle() {
-        return NotiTitle;
+        return notiTitle;
     }
 
     public void setNotiTitle(String notiTitle) {
-        NotiTitle = notiTitle;
+        this.notiTitle = notiTitle;
+    }
+
+    public String getNotiContents() {
+        return notiContents;
+    }
+
+    public void setNotiContents(String notiContents) {
+        this.notiContents = notiContents;
+    }
+
+    public int getNotiStatus() {
+        return notiStatus;
+    }
+
+    public void setNotiStatus(int notiStatus) {
+        this.notiStatus = notiStatus;
     }
 
     public String getCreateTime() {
-        return CreateTime;
+        return createTime;
     }
 
     public void setCreateTime(String createTime) {
-        CreateTime = createTime;
+        this.createTime = createTime;
+    }
+
+    public String getNotiType() {
+        return notiType;
+    }
+
+    public void setNotiType(String notiType) {
+        this.notiType = notiType;
+    }
+
+    public String getNotiProductID() {
+        return notiProductID;
+    }
+
+    public void setNotiProductID(String notiProductID) {
+        this.notiProductID = notiProductID;
     }
 }

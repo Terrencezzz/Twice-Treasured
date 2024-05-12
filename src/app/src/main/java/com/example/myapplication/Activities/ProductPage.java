@@ -16,6 +16,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Database;
 import com.example.myapplication.basicClass.Favorite;
 import com.example.myapplication.basicClass.GlobalVariables;
+import com.example.myapplication.basicClass.Notice;
+import com.example.myapplication.basicClass.NoticeFactory;
 import com.example.myapplication.basicClass.Product;
 import com.example.myapplication.basicClass.User;
 import com.google.firebase.database.DataSnapshot;
@@ -192,6 +194,10 @@ public class ProductPage extends AppCompatActivity {
                             Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
                             updateFavoriteButton(true);
                             isFavorited = true;
+                            //try to add favorite notice
+                            NoticeFactory factory = new NoticeFactory();
+                            Notice userNotice = factory.createNotice("Favorite");
+                            userNotice.addNotice(product.getProductID());
                         })
                         .addOnFailureListener(e -> Toast.makeText(this, "Failed to add to favorites: " + e.getMessage(), Toast.LENGTH_LONG).show());
             }

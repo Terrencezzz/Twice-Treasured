@@ -56,8 +56,7 @@ public class NotificationPage extends Page {
             return;
 
         DatabaseReference db = database.getReference("Notification");
-        Query query = db.orderByChild("UserID").equalTo(user.getId());
-
+        Query query = db.orderByChild("userID").equalTo(user.getId());
         ArrayList<Notification> notifications = new ArrayList<>();
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,7 +70,6 @@ public class NotificationPage extends Page {
                     if (notifications.size() > 0) {
 
                         Collections.sort(notifications, Comparator.comparingInt(Notification::getNotiStatus));
-
                         RecyclerView rvNotification = findViewById(R.id.rvNotification);
                         rvNotification.setLayoutManager(new LinearLayoutManager(NotificationPage.this,LinearLayoutManager.VERTICAL,false));
                         RecyclerView.Adapter<NotificationAdapter.viewholder> adapter = new NotificationAdapter(notifications);
@@ -93,7 +91,7 @@ public class NotificationPage extends Page {
 
         database = Database.getDatabase();
         DatabaseReference notification = database.getReference().child("Notification").child(notiID);
-        notification.child("NotiStatus").setValue(1);
+        notification.child("notiStatus").setValue(1);
 
     }
 }

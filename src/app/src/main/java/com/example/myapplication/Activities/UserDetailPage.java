@@ -35,6 +35,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Database;
 import com.example.myapplication.basicClass.GlobalVariables;
 import com.example.myapplication.basicClass.LocationResultListener;
+import com.example.myapplication.basicClass.Notice;
+import com.example.myapplication.basicClass.NoticeFactory;
 import com.example.myapplication.basicClass.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
@@ -123,18 +125,14 @@ public class UserDetailPage extends Page {
                     FirebaseUser fbUser = auth.getCurrentUser();
                     String newPassword = editPwd.getText().toString();
                     fbUser.updatePassword(newPassword)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    user.child("password").setValue(newPassword);
-                                }
+                            .addOnSuccessListener(aVoid -> {
+                                user.child("password").setValue(newPassword);
+                                //send pwd change notice
+                                NoticeFactory factory = new NoticeFactory();
+                                Notice userNotice = factory.createNotice("User");
+                                userNotice.addNotice(globalVars.getLoginUser().getId());
                             })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    showToast(UserDetailPage.this,"Password failed to update, detail:"+e.getMessage());
-                                }
-                            });
+                            .addOnFailureListener(e -> showToast(UserDetailPage.this,"Password failed to update, detail:"+e.getMessage()));
 
 
                 }
