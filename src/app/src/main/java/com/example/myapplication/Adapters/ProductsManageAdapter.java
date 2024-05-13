@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Activities.ProductEditorPage;
 import com.example.myapplication.Activities.ProductPage;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Product;
@@ -22,6 +23,7 @@ public class ProductsManageAdapter extends RecyclerView.Adapter<ProductsManageAd
     private Context mContext;
     private List<Product> productList;
     private LayoutInflater inflater;
+
 
     public ProductsManageAdapter(Context context, List<Product> products) {
         this.mContext = context;
@@ -41,29 +43,36 @@ public class ProductsManageAdapter extends RecyclerView.Adapter<ProductsManageAd
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         // Bind data to the ViewHolder
         Product product = productList.get(position);
-        holder.tvDescription.setText(product.getDescription());
-        holder.tvPrice.setText(mContext.getString(R.string.price_format, product.getPrice()));
-        // Load product image using Glide library
+        holder.tvDescription.setText(product.getDescription()); // Set description text
+        holder.tvPrice.setText(mContext.getString(R.string.price_format, product.getPrice())); // Set price text using formatted string
+
         // Load product image using Glide library
         Glide.with(mContext)
-                .load(product.getImgLink())
+                .load(product.getImgLink()) // Load image from provided link
                 .placeholder(R.drawable.product_page_default_img) // Placeholder for loading image
                 .error(R.drawable.product_page_default_img) // Default image to show if loading fails
-                .into(holder.ivProductImage);
+                .into(holder.ivProductImage); // Set image into ImageView
 
-        // 设置点击事件监听器
+        // Set click event listener
         View.OnClickListener listener = v -> {
             Intent intent = new Intent(mContext, ProductPage.class);
-            intent.putExtra("product", product);
-            mContext.startActivity(intent);
+            intent.putExtra("product", product); // Pass product object to ProductPage
+            mContext.startActivity(intent); // Start ProductPage activity
         };
 
-        // 为图片和文本视图添加点击事件
+        // Add click event to image and text views
         holder.ivProductImage.setOnClickListener(listener);
         holder.tvDescription.setOnClickListener(listener);
         holder.tvPrice.setOnClickListener(listener);
 
+        // Specific edit button click event
+        holder.btnEdit.setOnClickListener(v -> {
+            Intent editIntent = new Intent(mContext, ProductEditorPage.class);
+            editIntent.putExtra("product", product); // Pass product object to ProductEditorPage
+            mContext.startActivity(editIntent); // Start ProductEditorPage activity
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -95,5 +104,8 @@ public class ProductsManageAdapter extends RecyclerView.Adapter<ProductsManageAd
             tvPrice = itemView.findViewById(R.id.my_product_price);
             btnEdit = itemView.findViewById(R.id.edit_button);
         }
+
+
+
     }
 }

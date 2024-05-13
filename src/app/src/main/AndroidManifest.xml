@@ -74,6 +74,12 @@
             android:name=".Activities.ProductsManagePage"
             android:exported="true">
         </activity>
+
+        <activity
+            android:name=".Activities.ProductEditorPage"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

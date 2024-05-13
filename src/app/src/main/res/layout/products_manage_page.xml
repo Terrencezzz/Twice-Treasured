@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="My Products"
+        android:text="Manage My Products"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
