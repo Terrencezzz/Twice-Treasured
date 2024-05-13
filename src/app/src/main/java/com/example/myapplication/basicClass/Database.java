@@ -33,6 +33,7 @@ public class Database {
 
     /**
      * Lazy singleton pattern used in database connection
+     * Lazy singleton pattern used in database connection
      */
     public static synchronized FirebaseDatabase getDatabase() {
         if (database == null) {
@@ -46,11 +47,14 @@ public class Database {
 
     /**
      * Method to upload Product JSON data to Firebase
+     * Method to upload Product JSON data to Firebase
+     * @param context The context of the application.
+     * @param assetFileName The filename of the JSON asset.
      */
     public static void uploadJsonToFirebase(Context context, String assetFileName) {
         DatabaseReference productRef = getDatabase().getReference("Product");
 
-        // 使用Gson读取JSON文件并解析为Product对象列表
+        // Read JSON file using Gson and parse it into a list of Product objects
         Gson gson = new Gson();
         AssetManager assetManager = context.getAssets();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(assetManager.open(assetFileName)))) {
@@ -58,7 +62,7 @@ public class Database {
             }.getType();
             List<Product> productList = gson.fromJson(reader, productListType);
 
-            // 将Product对象列表上传到Firebase
+            // Upload the list of Product objects to Firebase
             for (Product product : productList) {
                 productRef.child(product.getProductID()).setValue(product);
             }
@@ -67,6 +71,4 @@ public class Database {
             e.printStackTrace();
         }
     }
-
-
 }

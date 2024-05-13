@@ -24,7 +24,6 @@ public class ProductsManageAdapter extends RecyclerView.Adapter<ProductsManageAd
     private List<Product> productList;
     private LayoutInflater inflater;
 
-
     public ProductsManageAdapter(Context context, List<Product> products) {
         this.mContext = context;
         this.productList = products;

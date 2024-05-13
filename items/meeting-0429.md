@@ -1,5 +1,5 @@
 # [G09]
-## Team Meeting [03] - Week [8] - [2024-04-23] (7.30pm-9.30pm)
+## Team Meeting [04] - Week [8] - [2024-04-23] (7.30pm-9.30pm)
 **Absent: Scott**
 <br>
 **Lead/scribe: Wanzhong Wu**
