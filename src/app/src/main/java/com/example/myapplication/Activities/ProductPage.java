@@ -78,8 +78,8 @@ public class ProductPage extends AppCompatActivity {
             // Load image using Glide library
             Glide.with(this)
                     .load(product.getImgLink())
-                    .placeholder(R.drawable.white_background) // Use placeholder image
-                    .error(R.drawable.error_img) // Error image
+                    .placeholder(R.drawable.product_page_default_img) // Use placeholder image
+                    .error(R.drawable.product_page_default_img) // Error image
                     .into(imageProduct);
 
             // Set text view content
@@ -103,8 +103,8 @@ public class ProductPage extends AppCompatActivity {
                                 Glide.with(ProductPage.this)
                                         .load(sellerImageUrl)
                                         .apply(new RequestOptions().circleCrop()) // Apply circular cropping
-                                        .placeholder(R.drawable.white_background)
-                                        .error(R.drawable.error_img)
+                                        .placeholder(R.drawable.default_seller_img)
+                                        .error(R.drawable.default_seller_img)
                                         .into(imageSellerProfile);
                             }
                         } else {

@@ -72,9 +72,15 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         // Bind product data to UI elements
         holder.productDescription.setText(product.getDescription());
         holder.productPrice.setText("$ " + product.getPrice());
-        Glide.with(holder.itemView.getContext()).load(product.getImgLink()).into(holder.productImage);
 
-        // 为产品描述、价格、图片设置点击事件监听器
+        // Load product image using Glide library
+        Glide.with(holder.itemView.getContext())
+                .load(product.getImgLink())
+                .placeholder(R.drawable.product_page_default_img) // Placeholder for loading image
+                .error(R.drawable.product_page_default_img) // Default image to show if loading fails
+                .into(holder.productImage);
+
+
         View.OnClickListener clickListener = v -> productClickListener.onProductClick(product);
         holder.productDescription.setOnClickListener(clickListener);
         holder.productPrice.setOnClickListener(clickListener);

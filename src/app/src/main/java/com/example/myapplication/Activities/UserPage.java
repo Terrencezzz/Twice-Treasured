@@ -107,7 +107,12 @@ public class UserPage extends Page {
             startActivity(intent);
             //do not use finish() here, otherwise it cannot back to here
         });
-        clUserProduct.setOnClickListener(view -> {
+
+        clUserProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProductsManagePage();
+            }
         });
 
 
@@ -167,11 +172,10 @@ public class UserPage extends Page {
     }
 
 
-    private void goSellerFavoritePage() {
-        // Redirect to Seller's Favorite Page
-        Intent intent = new Intent(UserPage.this, FavoritePage.class);
-        // Pass seller's ID to FavoritePage
-        intent.putExtra("ownerID", sellerID);
+    private void goToProductsManagePage() {
+        Intent intent = new Intent(UserPage.this, ProductsManagePage.class);
+        // Optional: You can pass additional data if needed
+        intent.putExtra("userID", sellerID);  // Assuming 'sellerID' holds the ID of the current user
         startActivity(intent);
     }
 

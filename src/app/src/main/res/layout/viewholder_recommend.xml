@@ -35,6 +35,8 @@
                 android:layout_marginStart="16dp"
                 android:text="name"
                 android:textColor="@color/black"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
