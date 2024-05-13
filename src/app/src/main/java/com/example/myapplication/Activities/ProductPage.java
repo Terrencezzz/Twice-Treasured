@@ -61,12 +61,12 @@ public class ProductPage extends AppCompatActivity {
         //Chat With Seller Button
         chatWithSellerBtn = findViewById(R.id.btnChatWithSeller);
         chatWithSellerBtn.setOnClickListener(v -> {
-            if (!product.getOwnerID().equals(currentUser.getId())) {
+            if (currentUser != null && !product.getOwnerID().equals(currentUser.getId())) {
                 Intent intent = new Intent(getApplicationContext(), PrivateChat.class);
                 intent.putExtra("userId", product.getOwnerID());
                 startActivity(intent);
             } else  {
-                Toast.makeText(getApplicationContext(), "Cannot Message Yourself", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Cannot Message", Toast.LENGTH_SHORT).show();
             }
         });
 

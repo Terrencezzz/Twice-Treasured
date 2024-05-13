@@ -93,7 +93,6 @@ public class PrivateChat extends AppCompatActivity {
         loginUser = globalVars.getLoginUser();
 
         //receiverEmailText.setText(otherUser.getEmail());
-
         //create Id for the environment by sorting the users Ids alphabetically
 
         String[] userIds = {globalVars.getLoginUser().getId(), otherUser.getId()};
@@ -101,22 +100,26 @@ public class PrivateChat extends AppCompatActivity {
 
         environmentId = "msg" + userIds[0] + userIds[1];
 
-        openNewOrExistingEnvironment();
+        //find the name for the other User
+        DatabaseReference userRef = database.getReference("User");
+        userRef.child(otherUser.getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()) {
+                    User user = task.getResult().getValue(User.class);
+                    if (user != null && user.getName() != null) {
+                        otherUser.setName(user.getName());
+                        receiverEmailText.setText(otherUser.getName());
+                    }
+                }
+            }
+        });
 
+
+        openNewOrExistingEnvironment();
 
         DatabaseReference environmentRef = reference.child(environmentId);
 
-
-
-        /**
-        recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
-
-        // Setup the adapter and layout manager for RecyclerView
-        adapter = new UserAdapter(messagesList);
-        recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewMessages.setAdapter(adapter);
-
-        */
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,29 +144,6 @@ public class PrivateChat extends AppCompatActivity {
                             editTextMessage.setText("");
                         }
                     });
-
-                    //get a unique key for the message
-                    /**String messageId = messagesRef.push().getKey();
-
-                    messagesRef.child(messageId).setValue(messageBuble)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                editTextMessage.setText("");
-                                            }
-                                        }
-                                    });
-                    */
-
-
-
-
-
-                    //messagesList.add(message); // Add message to the list
-                    //adapter.notifyDataSetChanged(); // Notify adapter that data has changed
-                    //editTextMessage.setText(""); // Clear the input field
-                    //recyclerViewMessages.scrollToPosition(messagesList.size() - 1); // Scroll to the last message
                 }
             }
         });
