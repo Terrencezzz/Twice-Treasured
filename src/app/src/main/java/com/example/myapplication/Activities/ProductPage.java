@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class ProductPage extends AppCompatActivity {
     private boolean isFavorited;
     private String favoriteID;
     private Product product;
+    private Button chatWithSellerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,18 @@ public class ProductPage extends AppCompatActivity {
         if (product != null) {
             displayProductDetails(product);
         }
+
+        //Chat With Seller Button
+        chatWithSellerBtn = findViewById(R.id.btnChatWithSeller);
+        chatWithSellerBtn.setOnClickListener(v -> {
+            if (!product.getOwnerID().equals(currentUser.getId())) {
+                Intent intent = new Intent(getApplicationContext(), PrivateChat.class);
+                intent.putExtra("userId", product.getOwnerID());
+                startActivity(intent);
+            } else  {
+                Toast.makeText(getApplicationContext(), "Cannot Message Yourself", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Favorite button
         productFavorite = findViewById(R.id.product_detail_favorite);

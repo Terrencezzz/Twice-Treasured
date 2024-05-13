@@ -89,11 +89,10 @@ public class PrivateChat extends AppCompatActivity {
 
         //Get details of other user from intent
         otherUser.setId(getIntent().getStringExtra("userId"));
-        otherUser.setEmail(getIntent().getStringExtra("userEmail"));
 
         loginUser = globalVars.getLoginUser();
 
-        receiverEmailText.setText(otherUser.getEmail());
+        //receiverEmailText.setText(otherUser.getEmail());
 
         //create Id for the environment by sorting the users Ids alphabetically
 
@@ -225,10 +224,15 @@ public class PrivateChat extends AppCompatActivity {
         MessageEnvironment updatedEnvironment = snapshot.getValue(MessageEnvironment.class);
         if (messageEnvironment != null) {
             if (messageEnvironment.getMessageList() != null && messageAdapter != null) {
-                messageAdapter.setMessageList(updatedEnvironment.getMessageList());
-                messageAdapter.notifyDataSetChanged();
-                //scroll to the most recent message
-                recyclerViewMessages.scrollToPosition(messageAdapter.getItemCount() - 1);
+                assert updatedEnvironment != null;
+                if (updatedEnvironment.getMessageList() != null) {
+                    messageAdapter.setMessageList(updatedEnvironment.getMessageList());
+                    messageAdapter.notifyDataSetChanged();
+                    //scroll to the most recent message
+                    if (messageAdapter.getItemCount() > 0) {
+                        recyclerViewMessages.scrollToPosition(messageAdapter.getItemCount() - 1);
+                    }
+                }
             }
         }
     }
