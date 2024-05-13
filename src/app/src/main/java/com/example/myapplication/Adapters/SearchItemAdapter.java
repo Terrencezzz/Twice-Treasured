@@ -51,8 +51,13 @@ public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.Pr
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         // Bind data to the views in each item of the RecyclerView.
         Product product = productList.get(position);
-        Glide.with(context).load(product.getImgLink()).into(holder.imageProduct);
-        holder.textPrice.setText(product.getPrice());
+        Glide.with(context)
+                .load(product.getImgLink())
+                .placeholder(R.drawable.product_page_default_img)
+                .into(holder.imageProduct);
+
+        String priceWithCurrency = "$ " + product.getPrice();
+        holder.textPrice.setText(priceWithCurrency);
         holder.textDescription.setText(product.getDescription());
         holder.textLocation.setText(product.getLocation());
 
