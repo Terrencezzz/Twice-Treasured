@@ -106,9 +106,6 @@ public class PrivateChat extends AppCompatActivity {
 
 
         DatabaseReference environmentRef = reference.child(environmentId);
-        DatabaseReference messagesRef = environmentRef.child("messages");
-
-
 
 
 
@@ -171,6 +168,20 @@ public class PrivateChat extends AppCompatActivity {
                 }
             }
         });
+
+        //Add a ValueEventListener() so that the user can see message when they are sent.
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                updateEnvironment(snapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("Warning", "loadFailed");
+            }
+        };
+        environmentRef.addValueEventListener(eventListener);
     }
 
     void openNewOrExistingEnvironment() {
@@ -189,6 +200,9 @@ public class PrivateChat extends AppCompatActivity {
 
                     // Create Recycler
                     setUpRecycler(messageEnvironment);
+
+
+
                 }
             }
         });
@@ -202,6 +216,21 @@ public class PrivateChat extends AppCompatActivity {
         }
         recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewMessages.setAdapter(messageAdapter);
+        recyclerViewMessages.scrollToPosition(messageAdapter.getItemCount() - 1);
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    void updateEnvironment(DataSnapshot snapshot) {
+        MessageEnvironment updatedEnvironment = snapshot.getValue(MessageEnvironment.class);
+        if (messageEnvironment != null) {
+            if (messageEnvironment.getMessageList() != null && messageAdapter != null) {
+                messageAdapter.setMessageList(updatedEnvironment.getMessageList());
+                messageAdapter.notifyDataSetChanged();
+                //scroll to the most recent message
+                recyclerViewMessages.scrollToPosition(messageAdapter.getItemCount() - 1);
+            }
+        }
     }
 
 

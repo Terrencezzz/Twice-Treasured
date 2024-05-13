@@ -77,4 +77,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             relativeLayout = itemView.findViewById(R.id.message_recycler_send_relative_Layout);
         }
     }
+
+    public void setMessageList(List<MessageBuble> messageList) {
+        this.messageList = messageList;
+    }
 }
