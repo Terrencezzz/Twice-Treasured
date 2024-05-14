@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.ProgressDialog;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -49,6 +50,7 @@ public class Post extends AppCompatActivity {
     private StorageReference storageReference = storage.getReference();
     private ActivityResultLauncher<String> mGetContent;
     private String imageUri;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +121,11 @@ public class Post extends AppCompatActivity {
         }
         if (price.isEmpty()) {
             showToast("Please enter a price for the product.");
+            return false;
+        }
+        // Check if price is an integer
+        if (!price.matches("\\d+")) {
+            showToast("Please enter an integer price.");
             return false;
         }
         if (category.equals("Select Product Category")) {
@@ -195,13 +202,22 @@ public class Post extends AppCompatActivity {
     }
 
     private void uploadImageToFirebase(Uri uri) {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading image...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         StorageReference fileRef = storageReference.child("uploads/" + System.currentTimeMillis() + ".jpg");
         fileRef.putFile(uri)
                 .addOnSuccessListener(taskSnapshot -> {
+                    progressDialog.dismiss();
                     showToast("Image Upload Successful");
                     fileRef.getDownloadUrl().addOnSuccessListener(downloadUri -> imageUri = downloadUri.toString());
                 })
-                .addOnFailureListener(e -> showToast("Image Upload Failed"));
+                .addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    showToast("Image Upload Failed");
+                });
     }
 
     // Map category name to category ID string
