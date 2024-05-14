@@ -47,6 +47,8 @@ public class PrivateMenuActivity extends Page {
     private User currentUser;
     List<User> usersList;
     ChatMenuAdapter chatMenuAdapter;
+    FirebaseDatabase database;
+
 
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +59,15 @@ public class PrivateMenuActivity extends Page {
         clHome = findViewById(R.id.clHome);
         clMe = findViewById(R.id.clMe);
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
-        clFavorite= findViewById(R.id.clFavorite);
+        clFavorite = findViewById(R.id.clFavorite);
         recyclerViewChatMenu = findViewById(R.id.menu_recycler_view);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference messagesData = database.getReference("Messages");
+        GlobalVariables globalVariables = GlobalVariables.getInstance();
+        currentUser = globalVariables.getLoginUser();
+        usersList = new ArrayList<>();
+
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = database.getReference("User").child(currentUser.getId());
 
 
         clMe.setOnClickListener(new View.OnClickListener() {
@@ -93,91 +99,64 @@ public class PrivateMenuActivity extends Page {
         });
 
 
-        GlobalVariables globalVariables = GlobalVariables.getInstance();
-        currentUser = globalVariables.getLoginUser();
+        chatMenuAdapter = new ChatMenuAdapter(getApplicationContext(), usersList);
+        recyclerViewChatMenu.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerViewChatMenu.setAdapter(chatMenuAdapter);
 
-        usersList = new ArrayList<>();
-        generateUserList(currentUser);
-        setUpRecycler(usersList);
 
-        ValueEventListener eventListener = new ValueEventListener() {
+        ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                updateView(snapshot);
-            }
+                if (snapshot.child("messageIds").exists()) {
+                    usersList.clear();
+                    for (DataSnapshot dataSnapshot : snapshot.child("messageIds").getChildren()) {
+                        String id = dataSnapshot.getValue(String.class);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w("Warning", "load failed");
-            }
-        };
-        messagesData.addValueEventListener(eventListener);
-    }
+                        database.getReference("MessageEnvironments").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot snapshotOfId : snapshot.child("userIds").getChildren()) {
+                                    String id = snapshotOfId.getValue(String.class);
+                                    if (!id.equals(currentUser.getId())) {
+                                        database.getReference("User").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                User user = snapshot.getValue(User.class);
+                                                if (user != null) {
+                                                    usersList.add(user);
+                                                }
+                                                chatMenuAdapter.notifyDataSetChanged();
+                                            }
 
-    void generateUserList(User user) {
-        DatabaseReference messagesRef = FirebaseDatabase.getInstance().getReference("MessageEnvironments");
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
 
-        messagesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    if (data != null) {
-                        MessageEnvironment messageEnvironment = data.getValue(MessageEnvironment.class);
-                        List<String> userIds = messageEnvironment.getUserIds();
-                        int i = 0;
-                        while (i < 2 ) {
-                            if (userIds.get(i).equals(currentUser.getId())) {
-                                if (i == 0) {
-                                    addUserFromFirebase(userIds.get(1));
-                                    Log.d("debug", userIds.get(1));
-                                } if (i == 1) {
-                                    addUserFromFirebase(userIds.get(0));
-                                    Log.d("debug", userIds.get(0));
+                                            }
+                                        });
+                                    }
                                 }
                             }
-                            i++;
-                        }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
                     }
+                } else {
+                    usersList.clear();
+                    chatMenuAdapter.notifyDataSetChanged();
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
-
-    }
-
-    void addUserFromFirebase(String userId) {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("User");
-
-        userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    usersList.add(snapshot.getValue(User.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-
-    void setUpRecycler(List<User> usersList) {
-        if (usersList.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "yay", Toast.LENGTH_SHORT).show();
-            chatMenuAdapter = new ChatMenuAdapter(getApplicationContext(),
-                    new ArrayList<User>());
-        } else {
-            chatMenuAdapter = new ChatMenuAdapter(getApplicationContext(), usersList);
-        }
-        recyclerViewChatMenu.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewChatMenu.setAdapter(chatMenuAdapter);
+        };
+        userRef.addValueEventListener(userListener);
     }
 }

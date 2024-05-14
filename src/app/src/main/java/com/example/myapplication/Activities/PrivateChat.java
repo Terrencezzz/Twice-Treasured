@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import com.example.myapplication.Adapters.MessageAdapter;
@@ -126,6 +127,10 @@ public class PrivateChat extends AppCompatActivity {
                 String message = editTextMessage.getText().toString().trim(); // Get text from EditText
                 if (!message.isEmpty()) {
 
+                    if (messageEnvironment.getMessageList().isEmpty()) {
+                        addMessageIdToUsers();
+                    }
+
                     //update the information regarding most recent message in firebase.
                     messageEnvironment.setRecentMessageTimestamp(CommonHelper.getCurrentTimestamp());
                     messageEnvironment.setRecentSenderId(loginUser.getId());
@@ -137,7 +142,6 @@ public class PrivateChat extends AppCompatActivity {
 
                     messageEnvironment.addMessage(messageBuble);
 
-                    //Log.e("checkMessage", messageEnvironment.getMessageList().get(0).toString());
                     reference.child(environmentId).setValue(messageEnvironment).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -217,68 +221,13 @@ public class PrivateChat extends AppCompatActivity {
         }
     }
 
-
-
-
-
-
-
-
-   /** void openNewOrExistingEnvironment() {
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //if there isn't a path for MessageEnvironments in the database, create one
-                if (!snapshot.exists()) {
-                    DatabaseReference newEnvironmentRef = reference.push();
-                    newEnvironmentRef.setValue(true).addOnCompleteListener(task -> {
-                        if(task.isSuccessful()) {
-                            environmentId = newEnvironmentRef.getKey();
-                            setupEnvironment();
-                        } else {
-                            Toast.makeText(PrivateChat.this, "Failed to create node",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else setupEnvironment();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.err.println("Database error: " + error.getMessage());
-            }
-        });
+    void addMessageIdToUsers() {
+        //get database reference for users
+        DatabaseReference  userRef = database.getReference("User");
+        for (String userId : messageEnvironment.getUserIds()) {
+            userRef.child(userId).child("messageIds").child(environmentId).setValue(environmentId);
+        }
     }
-
-    */
-
-    /**
-    void openNewOrExistingEnvironment() {
-        database.getReference("MessageEnvironments").child(environmentId).get()
-                .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
-                        messageEnvironment = task.getResult().getValue(MessageEnvironment.class);
-                        if (messageEnvironment == null) {
-                            List<String> userIds = new ArrayList<>();
-                            userIds.add(globalVars.getLoginUser().getId());
-                            userIds.add(otherUser.getId());
-                            messageEnvironment = new MessageEnvironment(
-                                    environmentId,
-                                    userIds,
-                                    CommonHelper.getCurrentTimestamp(),
-                                    ""
-                            );
-                        }
-
-
-                    }
-                    Toast.makeText(PrivateChat.this, "Fail!", Toast.LENGTH_SHORT).show();
-                });
-    }
-     */
-
-
-
 }
 
 

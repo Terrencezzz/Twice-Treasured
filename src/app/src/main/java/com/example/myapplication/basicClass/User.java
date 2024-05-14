@@ -10,6 +10,7 @@ public class User {
     private String password;
     private String headImage;
     private String location;
+    private List<String> messageIdList;
 
     public User() {
 
@@ -22,6 +23,7 @@ public class User {
         this.password = password;
         this.headImage = headImage;
         this.location = location;
+        this.messageIdList = new ArrayList<>();
     }
 
     public String getId() {
@@ -70,5 +72,16 @@ public class User {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void addMessageId(String messageId) {
+        if (this.messageIdList == null) {
+            this.messageIdList = new ArrayList<>();
+        }
+
+        this.messageIdList.add(messageId);
+    }
+    public List<String> getMessageIds() {
+        return messageIdList;
     }
 }

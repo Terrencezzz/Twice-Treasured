@@ -12,12 +12,6 @@
         android:layout_alignBottom="@id/details_holder"
         />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"
-        android:layout_alignTop="@id/details_holder"
-        />
 
 
     <LinearLayout
