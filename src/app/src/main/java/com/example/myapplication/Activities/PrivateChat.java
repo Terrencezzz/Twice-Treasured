@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +35,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -124,39 +127,46 @@ public class PrivateChat extends AppCompatActivity {
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String message = editTextMessage.getText().toString().trim(); // Get text from EditText
-                if (!message.isEmpty()) {
-
-                    if (messageEnvironment.getMessageList().isEmpty()) {
-                        addMessageIdToUsers();
-                    }
-
-                    //update the information regarding most recent message in firebase.
-                    messageEnvironment.setRecentMessageTimestamp(CommonHelper.getCurrentTimestamp());
-                    messageEnvironment.setRecentSenderId(loginUser.getId());
-
-                    MessageBuble messageBuble = new MessageBuble(message,
-                            loginUser.getId(),
-                            CommonHelper.getCurrentTimestamp());
-
-
-                    messageEnvironment.addMessage(messageBuble);
-
-                    reference.child(environmentId).setValue(messageEnvironment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                final String messageText = editTextMessage.getText().toString().trim();
+                if (!messageText.isEmpty()) {
+                    DatabaseReference environmentRef = reference.child(environmentId);
+                    environmentRef.runTransaction(new Transaction.Handler() {
+                        @NonNull
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            editTextMessage.setText("");
+                        public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                            MessageEnvironment mEnv = currentData.getValue(MessageEnvironment.class);
+                            if (mEnv == null) {
+                                return Transaction.success(currentData); // or initialize it if it's null
+                            }
+
+                            MessageBuble newMessage = new MessageBuble(messageText, loginUser.getId(), CommonHelper.getCurrentTimestamp());
+                            mEnv.addMessage(newMessage); // Add message safely within transaction
+                            currentData.setValue(mEnv); // Set the new state of the environment
+
+                            return Transaction.success(currentData);
+                        }
+
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                            if (committed) {
+                                editTextMessage.setText(""); // Clear the text box only on successful commit
+                            } else {
+                                Toast.makeText(PrivateChat.this, "Failed to send message", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
             }
         });
 
+
         //Add a ValueEventListener() so that the user can see message when they are sent.
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 updateEnvironment(snapshot);
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference("MessageEnvironments");
             }
 
             @Override
