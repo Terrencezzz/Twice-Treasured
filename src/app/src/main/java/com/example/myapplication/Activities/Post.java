@@ -181,7 +181,10 @@ public class Post extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String location = snapshot.getValue(String.class);
-                Product product = new Product(name, productId, category, description, price, condition, uploadDate, "Available", imageUri, owner, categoryId, location);
+                if (location != null) {
+                    location = location.toLowerCase(); // Convert location to lowercase
+                }
+                Product product = new Product(name, productId, category, description, price, condition, uploadDate, "ONSALE", imageUri, owner, categoryId, location);
                 mDatabase.child("Product").child(productId).setValue(product)
                         .addOnSuccessListener(aVoid -> {
                             showToast("Product added successfully!");
