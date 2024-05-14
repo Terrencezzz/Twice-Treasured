@@ -189,32 +189,40 @@ public class HomePage extends Page {
 
     }
 
-
     private void initRecommend() {
         DatabaseReference db = database.getReference("Product");
+        String userLocation = "canberra"; // Default location
+        User loginUser = GlobalVariables.getInstance().getLoginUser();
+
+        if (loginUser != null) {
+            String userLocationFromUser = loginUser.getLocation();
+            if (userLocationFromUser != null && !userLocationFromUser.isEmpty()) {
+                userLocation = userLocationFromUser.toLowerCase();
+            }
+        }
+
         ProgressBar pbRecommend = findViewById(R.id.pbRecommend);
         pbRecommend.setVisibility(View.VISIBLE);
         ArrayList<Product> products = new ArrayList<>();
 
-        // Add a query to filter products by location
-        Query query = db.orderByChild("location").equalTo("canberra");
+        // Query products based on user location
+        Query query = db.orderByChild("location").equalTo(userLocation);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 if (snapshot.exists()) {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         products.add(issue.getValue(Product.class));
                     }
-
                     if (products.size() > 0) {
-                        RecyclerView rvRecommend = findViewById(R.id.rvRecommend);
-                        rvRecommend.setLayoutManager(new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false));
-                        RecyclerView.Adapter<RecommendAdapter.ViewHolder> adapter = new RecommendAdapter(products, HomePage.this);
-                        rvRecommend.setAdapter(adapter);
+                        displayProducts(products);
+                    } else {
+                        // If no products found for user location, query for Canberra products
+                        queryCanberraProducts();
                     }
-
-                    pbRecommend.setVisibility(View.GONE);
+                } else {
+                    // If no products found for user location, query for Canberra products
+                    queryCanberraProducts();
                 }
             }
 
@@ -224,6 +232,40 @@ public class HomePage extends Page {
             }
         });
     }
+
+    private void queryCanberraProducts() {
+        DatabaseReference db = database.getReference("Product");
+        ArrayList<Product> products = new ArrayList<>();
+        Query query = db.orderByChild("location").equalTo("canberra");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        products.add(issue.getValue(Product.class));
+                    }
+                    if (products.size() > 0) {
+                        displayProducts(products);
+                    }
+                }
+                ProgressBar pbRecommend = findViewById(R.id.pbRecommend);
+                pbRecommend.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void displayProducts(ArrayList<Product> products) {
+        RecyclerView rvRecommend = findViewById(R.id.rvRecommend);
+        rvRecommend.setLayoutManager(new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false));
+        RecyclerView.Adapter<RecommendAdapter.ViewHolder> adapter = new RecommendAdapter(products, HomePage.this);
+        rvRecommend.setAdapter(adapter);
+    }
+
 
     private void initCategory() {
         DatabaseReference db = database.getReference("Category");
