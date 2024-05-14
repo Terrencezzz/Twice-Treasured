@@ -195,10 +195,10 @@ public class HomePage extends Page {
         ProgressBar pbRecommend = findViewById(R.id.pbRecommend);
         pbRecommend.setVisibility(View.VISIBLE);
         ArrayList<Product> products = new ArrayList<>();
-        /*
-         * Need Add Query Condition
-         * */
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        // Add a query to filter products by location
+        Query query = db.orderByChild("location").equalTo("canberra");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -223,7 +223,6 @@ public class HomePage extends Page {
 
             }
         });
-
     }
 
     private void initCategory() {
