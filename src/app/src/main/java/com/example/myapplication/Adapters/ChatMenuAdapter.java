@@ -1,6 +1,7 @@
 package com.example.myapplication.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Activities.PrivateChat;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.MessageBuble;
+import com.example.myapplication.basicClass.MessageEnvironment;
 import com.example.myapplication.basicClass.User;
 
 import java.util.List;
@@ -50,6 +53,14 @@ public class ChatMenuAdapter extends RecyclerView.Adapter<ChatMenuAdapter.UserVi
         holder.userName.setText(user.getName());
         holder.userEmail.setText(user.getEmail());
         //holder.userImage.setImageURI((Uri.parse(user.getHeadImage())));
+
+        //Allow user to open chat
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PrivateChat.class);
+            intent.putExtra("userId", user.getId());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
 
     }
 

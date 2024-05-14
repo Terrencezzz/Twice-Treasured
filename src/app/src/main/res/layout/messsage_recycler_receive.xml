@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/message_recycler_receive_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:gravity="left">
     <TextView
-        android:id="@+id/bubble_send"
+        android:id="@+id/bubble_receive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Placeholder"
@@ -16,11 +17,12 @@
         android:paddingVertical="5dp"
         />
     <TextView
+        android:id="@+id/receive_timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="sent time"
         android:textSize="10sp"
-        android:layout_below="@id/bubble_send"
+        android:layout_below="@id/bubble_receive"
         android:paddingHorizontal="10dp"
         android:textColor="@color/gray"/>
 
