@@ -5,5 +5,5 @@
     <string name="btn_private">Chat</string>
     <string name="back_button">Back</string>
     <string name="chat_with_seller">Chat with Seller</string>
-    <string name="price_format">$ %1$s</string>
+
 </resources>

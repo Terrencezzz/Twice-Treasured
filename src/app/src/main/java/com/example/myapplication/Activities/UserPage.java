@@ -159,7 +159,10 @@ public class UserPage extends Page {
                     username.setText(user.getName());
                     useremail.setText(user.getEmail());
                     // Load user profile image using Glide library
-                    Glide.with(UserPage.this).load(user.getHeadImage()).into(ivUserPic);
+                    Glide.with(UserPage.this)
+                            .load(user.getHeadImage())
+                            .error(R.drawable.default_seller_img)
+                            .into(ivUserPic);
                 }
             }
 

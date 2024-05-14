@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,6 +62,7 @@ public class ProductsManagePage extends AppCompatActivity {
         returnButton.setOnClickListener(v -> finish());
     }
 
+    // Load products owned by the current user
     private void loadUserOwnedProducts() {
         String currentUserId = GlobalVariables.getInstance().getLoginUser().getId(); // Get current user's ID
         DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("Product"); // Get reference to "Product" node in Firebase database
@@ -92,6 +94,7 @@ public class ProductsManagePage extends AppCompatActivity {
                 });
     }
 
+    // Setup bottom navigation buttons
     private void setupBottomNavigation() {
         homeButton.setOnClickListener(v -> goHomePage());
         favoriteButton.setOnClickListener(v -> goFavoritePage());
@@ -100,34 +103,33 @@ public class ProductsManagePage extends AppCompatActivity {
         meButton.setOnClickListener(v -> goUserPage());
     }
 
+    // Navigate to the Home page
     private void goHomePage() {
-        // Intent to navigate to the Home page
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
     }
 
+    // Navigate to the Favorite page
     private void goFavoritePage() {
-        // Intent to navigate to the Favorite page
         Intent intent = new Intent(this, FavoritePage.class);
         startActivity(intent);
     }
 
+    // Navigate to the Trade Platform page
     private void goTradePlatformPage() {
-        // Intent to navigate to the Trade Platform page
         Intent intent = new Intent(this, Post.class);
         startActivity(intent);
     }
 
+    // Navigate to the Private Menu or Chat page
     private void goPrivateMenuPage() {
-        // Intent to navigate to the Private Menu or Chat page
         Intent intent = new Intent(this, PrivateMenuActivity.class);
         startActivity(intent);
     }
 
+    // Navigate to the User Profile page
     private void goUserPage() {
-        // Intent to navigate to the User Profile page
         Intent intent = new Intent(this, UserPage.class);
         startActivity(intent);
     }
-
 }

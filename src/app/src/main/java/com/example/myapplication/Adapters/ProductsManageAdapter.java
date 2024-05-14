@@ -43,7 +43,8 @@ public class ProductsManageAdapter extends RecyclerView.Adapter<ProductsManageAd
         // Bind data to the ViewHolder
         Product product = productList.get(position);
         holder.tvDescription.setText(product.getDescription()); // Set description text
-        holder.tvPrice.setText(mContext.getString(R.string.price_format, product.getPrice())); // Set price text using formatted string
+        String priceWithCurrency="$ "+product.getPrice();
+        holder.tvPrice.setText(priceWithCurrency);
 
         // Load product image using Glide library
         Glide.with(mContext)
@@ -104,7 +105,6 @@ public class ProductsManageAdapter extends RecyclerView.Adapter<ProductsManageAd
             btnEdit = itemView.findViewById(R.id.edit_button);
         }
 
-
-
     }
 }
+
