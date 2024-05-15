@@ -25,10 +25,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * This activity allows users to manage their own products. Users can view a list of products they have posted
  * for sale and perform actions such as editing or deleting these products. It also provides bottom navigation to
  * easily navigate to other sections of the app.
+ *
  * @author Xiaojie Zhou (u7769944)
  */
 public class ProductsManagePage extends AppCompatActivity {
@@ -37,21 +39,14 @@ public class ProductsManagePage extends AppCompatActivity {
     private ProductsManageAdapter productsManageAdapter;
     private List<Product> productList;
     private ImageButton returnButton;
-    private ImageView homeButton, favoriteButton, chatButton, meButton;
-    private Button tradePlatformButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.products_manage_page); // Set the layout for this activity
 
-        ImageButton returnButton = findViewById(R.id.returnButton); // Find the ImageButton with ID returnButton
+        returnButton = findViewById(R.id.returnButton); // Find the ImageButton with ID returnButton
         recyclerView = findViewById(R.id.product_management_list); // Find the RecyclerView with ID product_management_list
-        homeButton = findViewById(R.id.imageView11);
-        favoriteButton = findViewById(R.id.imageView12);
-        tradePlatformButton = findViewById(R.id.btnTradePlatform);
-        chatButton = findViewById(R.id.imageView13);
-        meButton = findViewById(R.id.imageView14);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Create a LinearLayoutManager
         recyclerView.setLayoutManager(layoutManager); // Set the RecyclerView's layout manager
@@ -61,8 +56,6 @@ public class ProductsManagePage extends AppCompatActivity {
         recyclerView.setAdapter(productsManageAdapter); // Set the adapter for the RecyclerView
 
         loadUserOwnedProducts(); // Call method to load user-owned products
-
-        setupBottomNavigation();
 
         returnButton.setOnClickListener(v -> finish());
     }
@@ -99,42 +92,5 @@ public class ProductsManagePage extends AppCompatActivity {
                 });
     }
 
-    // Setup bottom navigation buttons
-    private void setupBottomNavigation() {
-        homeButton.setOnClickListener(v -> goHomePage());
-        favoriteButton.setOnClickListener(v -> goFavoritePage());
-        tradePlatformButton.setOnClickListener(v -> goTradePlatformPage());
-        chatButton.setOnClickListener(v -> goPrivateMenuPage());
-        meButton.setOnClickListener(v -> goUserPage());
-    }
 
-    // Navigate to the Home page
-    private void goHomePage() {
-        Intent intent = new Intent(this, HomePage.class);
-        startActivity(intent);
-    }
-
-    // Navigate to the Favorite page
-    private void goFavoritePage() {
-        Intent intent = new Intent(this, FavoritePage.class);
-        startActivity(intent);
-    }
-
-    // Navigate to the Trade Platform page
-    private void goTradePlatformPage() {
-        Intent intent = new Intent(this, Post.class);
-        startActivity(intent);
-    }
-
-    // Navigate to the Private Menu or Chat page
-    private void goPrivateMenuPage() {
-        Intent intent = new Intent(this, PrivateMenuActivity.class);
-        startActivity(intent);
-    }
-
-    // Navigate to the User Profile page
-    private void goUserPage() {
-        Intent intent = new Intent(this, UserPage.class);
-        startActivity(intent);
-    }
 }
