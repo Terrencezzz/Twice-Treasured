@@ -88,14 +88,12 @@ public class UserPage extends Page {
         clFavorite.setOnClickListener(v -> goFavorite());
         clPrivate.setOnClickListener(v -> goPrivateMenu());
 
-        String ownerID = getIntent().getStringExtra("ownerID");
-        if (ownerID != null) {
-            sellerID = ownerID;
-            loadUserProfile(ownerID);
-        } else if (globalVars.getLoginUser() != null) {
+
+        sellerID = getIntent().getStringExtra("ownerID");
+        if (sellerID == null && globalVars.getLoginUser() != null) {
             sellerID = globalVars.getLoginUser().getId();
-            loadUserProfile(sellerID);
         }
+        loadUserProfile(sellerID);
 
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), this::handleImageSelection);
         cvUserPic.setOnClickListener(view -> mGetContent.launch("image/*"));
@@ -114,8 +112,6 @@ public class UserPage extends Page {
                 goToProductsManagePage();
             }
         });
-
-
 
     }
 

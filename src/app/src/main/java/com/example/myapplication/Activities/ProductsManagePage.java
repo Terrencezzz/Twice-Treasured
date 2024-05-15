@@ -25,7 +25,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This activity allows users to manage their own products. Users can view a list of products they have posted
+ * for sale and perform actions such as editing or deleting these products. It also provides bottom navigation to
+ * easily navigate to other sections of the app.
+ * @author Xiaojie Zhou (u7769944)
+ */
 public class ProductsManagePage extends AppCompatActivity {
 
     private RecyclerView recyclerView;

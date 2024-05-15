@@ -2,6 +2,11 @@ package com.example.myapplication.common;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents a node in an AVL tree.
+ * It stores a key, maintains a list of duplicate keys, and tracks the height of the node.
+ * @author Xiaojie Zhou (u7769944)
+ */
 public class AVLNode<T extends Comparable<? super T>> {
     T key; // Key of the node
     ArrayList<T> duplicates; // List to store duplicate keys
@@ -26,6 +31,10 @@ public class AVLNode<T extends Comparable<? super T>> {
     // Getter method for the key
     public T getKey() {
         return key;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     // Getter method for duplicates list

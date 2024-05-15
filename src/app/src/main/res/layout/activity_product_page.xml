@@ -191,15 +191,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"/>
 
-        <ImageView
-            android:id="@+id/product_detail_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/product_detail_share_24"
-            android:layout_toRightOf="@id/product_detail_favorite"
-            android:layout_marginLeft="16dp"
-            android:layout_centerVertical="true"/>
-
         <Button
             android:id="@+id/btnChatWithSeller"
             android:layout_width="wrap_content"

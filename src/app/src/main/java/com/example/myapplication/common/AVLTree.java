@@ -151,7 +151,7 @@ public class AVLTree<T extends Comparable<? super T>> {
         return node;
     }
 
-    private AVLNode<T> findMaxNode(AVLNode<T> node) {
+    public AVLNode<T> findMaxNode(AVLNode<T> node) {
         // Find and return the node with the maximum key value
         if (node == null) {
             return null;
@@ -174,91 +174,6 @@ public class AVLTree<T extends Comparable<? super T>> {
             return search(currentNode.leftChild, target);
         } else {
             return currentNode;
-        }
-    }
-
-    public void searchGreaterThan(AVLNode<T> currentNode, T threshold, ArrayList<T> results) {
-        // Search for nodes with key values greater than the threshold
-        if (currentNode == null) {
-            return;
-        }
-        int compareResult = currentNode.key.compareTo(threshold);
-        if (compareResult > 0) {
-            results.add(currentNode.key);
-            // Add duplicates if present
-            if (!currentNode.duplicates.isEmpty()) {
-                results.addAll(currentNode.duplicates);
-            }
-            // Recursively search in both left and right subtrees
-            searchGreaterThan(currentNode.leftChild, threshold, results);
-            searchGreaterThan(currentNode.rightChild, threshold, results);
-        } else {
-            // If the current node's key is not greater than the threshold, search only in the right subtree
-            searchGreaterThan(currentNode.rightChild, threshold, results);
-        }
-    }
-
-    public void searchGreaterOrEqualTo(AVLNode<T> currentNode, T threshold, ArrayList<T> results) {
-        // Search for nodes with key values greater than or equal to the threshold
-        if (currentNode == null) {
-            return;
-        }
-        int compareResult = currentNode.key.compareTo(threshold);
-        if (compareResult >= 0) {
-            results.add(currentNode.key);
-            // Add duplicates if present
-            if (!currentNode.duplicates.isEmpty()) {
-                results.addAll(currentNode.duplicates);
-            }
-            // Recursively search in both left and right subtrees
-            searchGreaterOrEqualTo(currentNode.leftChild, threshold, results);
-            searchGreaterOrEqualTo(currentNode.rightChild, threshold, results);
-        } else {
-            // If the current node's key is not greater than or equal to the threshold, search only in the right subtree
-            searchGreaterOrEqualTo(currentNode.rightChild, threshold, results);
-        }
-    }
-
-
-    public void searchLessThan(AVLNode<T> currentNode, T threshold, ArrayList<T> results) {
-        // Search for nodes with key values less than the threshold
-        if (currentNode == null) {
-            return;
-        }
-        int compareResult = currentNode.key.compareTo(threshold);
-        if (compareResult < 0) {
-            results.add(currentNode.key);
-            // Add duplicates if present
-            if (!currentNode.duplicates.isEmpty()) {
-                results.addAll(currentNode.duplicates);
-            }
-            // Recursively search in both right and left subtrees
-            searchLessThan(currentNode.rightChild, threshold, results);
-            searchLessThan(currentNode.leftChild, threshold, results);
-        } else {
-            // If the current node's key is not less than the threshold, search only in the left subtree
-            searchLessThan(currentNode.leftChild, threshold, results);
-        }
-    }
-
-    public void searchLessOrEqualTo(AVLNode<T> currentNode, T threshold, ArrayList<T> results) {
-        // Search for nodes with key values less than or equal to the threshold
-        if (currentNode == null) {
-            return;
-        }
-        int compareResult = currentNode.key.compareTo(threshold);
-        if (compareResult <= 0) {
-            results.add(currentNode.key);
-            // Add duplicates if present
-            if (!currentNode.duplicates.isEmpty()) {
-                results.addAll(currentNode.duplicates);
-            }
-            // Recursively search in both right and left subtrees
-            searchLessOrEqualTo(currentNode.rightChild, threshold, results);
-            searchLessOrEqualTo(currentNode.leftChild, threshold, results);
-        } else {
-            // If the current node's key is not less than or equal to the threshold, search only in the left subtree
-            searchLessOrEqualTo(currentNode.leftChild, threshold, results);
         }
     }
 
@@ -316,13 +231,6 @@ public class AVLTree<T extends Comparable<? super T>> {
         resultList.add(currentNode.key);            // Add the key of the current node to the result list.
         resultList.addAll(currentNode.duplicates);  // Add all duplicates of the current node to the result list.
         inOrderTraversalDescending(currentNode.leftChild, resultList);  // Recursively visit the left subtree.
-    }
-
-
-    public ArrayList<T> searchByPredicate(Predicate<T> predicate) {
-        ArrayList<T> results = new ArrayList<>();
-        searchByPredicate(root, predicate, results);
-        return results;
     }
 
     private void searchByPredicate(AVLNode<T> node, Predicate<T> predicate, ArrayList<T> results) {

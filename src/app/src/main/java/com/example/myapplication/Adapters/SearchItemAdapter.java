@@ -22,7 +22,9 @@ import java.util.List;
 
 
 /**
- * Adapter class for displaying search results in a RecyclerView.
+ * This class serves as an adapter for displaying search results in a RecyclerView.
+ * It handles the layout and binding of search result items.
+ * @author Xiaojie Zhou (u7769944)
  */
 public class SearchItemAdapter extends RecyclerView.Adapter<SearchItemAdapter.ProductViewHolder> {
 

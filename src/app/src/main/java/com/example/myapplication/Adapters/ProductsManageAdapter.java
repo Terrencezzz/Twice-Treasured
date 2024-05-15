@@ -17,7 +17,11 @@ import com.example.myapplication.Activities.ProductPage;
 import com.example.myapplication.R;
 import com.example.myapplication.basicClass.Product;
 import java.util.List;
-
+/**
+ * This class serves as an adapter for managing products in a RecyclerView.
+ * It handles displaying product information and enabling editing.
+ * Author: Xiaojie Zhou (u7769944)
+ */
 public class ProductsManageAdapter extends RecyclerView.Adapter<ProductsManageAdapter.ProductViewHolder> {
 
     private Context mContext;

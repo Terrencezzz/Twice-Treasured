@@ -2,6 +2,12 @@ package com.example.myapplication.basicClass;
 
 import java.io.Serializable;
 
+/**
+ * This class represents a Favorite object.
+ * It stores information about a user's favorite product, including the favorite ID,
+ * user ID, product ID, and the status of whether it's marked as a favorite or not.
+ * @author Xiaojie Zhou (u7769944)
+ */
 public class Favorite implements Serializable {
     private String favoriteID;
     private String userID;
