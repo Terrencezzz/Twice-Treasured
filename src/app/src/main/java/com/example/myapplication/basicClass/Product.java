@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * This page is for the product constructor
- * @author Wanzhong Wu, Qin, u7769944
+ * @author Wanzhong Wu u7769944, Lingjie Qin u7756873
  */
 public class Product implements Comparable<Product>, Serializable{
     private String name;

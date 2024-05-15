@@ -13,6 +13,10 @@ import com.example.myapplication.basicClass.Product;
 
 import java.util.ArrayList;
 
+/**
+ * This page is for displaying product search and sorting results
+ * @author Lingjie Qin u7756873, Xiaojie Zhou u7769944
+ */
 
 public class SearchResultPage extends AppCompatActivity {
     private ImageView btnBack; // Back button

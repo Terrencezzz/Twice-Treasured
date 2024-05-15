@@ -40,6 +40,7 @@ import java.util.ArrayList;
 /**
  * This is a home page, after you login you come to this page.
  * This page will contain the search and some advertisements.
+ * @author Wen Li u7706423, Lingjie Qin u7756873, Xiaojie Zhou u7769944
  */
 public class HomePage extends Page {
 

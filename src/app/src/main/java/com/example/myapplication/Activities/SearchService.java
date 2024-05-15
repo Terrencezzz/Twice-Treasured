@@ -12,6 +12,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+/**
+ * This SearchService is for using AVLTree to search for products, sort by price, sort by condition
+ * @author Lingjie Qin u7756873
+ */
+
 public class SearchService {
 
     private final DatabaseReference reference;

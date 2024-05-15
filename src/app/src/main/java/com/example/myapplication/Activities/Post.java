@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.service.autofill.UserData;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -42,8 +41,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * This page is for posting product
- * @author Qin, Wanzhong Wu
+ * This page is for posting product and setting
+ * the initial attributes of the product (such as name, price, description, etc.)
+ * @author Lingjie Qin u7756873, Wanzhong Wu u7642453
  */
 
 public class Post extends AppCompatActivity {
