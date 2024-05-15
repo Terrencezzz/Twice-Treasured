@@ -49,6 +49,10 @@ public class NotificationPage extends Page {
         initNotiList();
     }
 
+    /***
+     * Initial Notification and display
+     * @author Wen Li @u7706423
+     */
     private void initNotiList() {
 
         User user = globalVars.getLoginUser();
@@ -87,6 +91,10 @@ public class NotificationPage extends Page {
 
     }
 
+    /**
+     * Set Notification status read
+     * @author Wen Li @u7706423
+     */
     public void readNotice(String notiID){
 
         database = Database.getDatabase();

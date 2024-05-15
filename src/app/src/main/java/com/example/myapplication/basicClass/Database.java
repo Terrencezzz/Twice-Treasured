@@ -33,7 +33,7 @@ public class Database {
 
     /**
      * Lazy singleton pattern used in database connection
-     * Lazy singleton pattern used in database connection
+     * @author Wen Li @u7706423
      */
     public static synchronized FirebaseDatabase getDatabase() {
         if (database == null) {

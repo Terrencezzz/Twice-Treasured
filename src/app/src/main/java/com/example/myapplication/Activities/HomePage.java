@@ -166,6 +166,10 @@ public class HomePage extends Page {
         }
     }
 
+    /**
+     * Initial Login User Info
+     * @author Wen Li @u7706423
+     * */
     private void initLoginUser() {
         String userEmail = getIntent().getStringExtra("email");
         DatabaseReference db = database.getReference("User");
