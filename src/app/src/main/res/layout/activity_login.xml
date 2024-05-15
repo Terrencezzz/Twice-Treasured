@@ -72,10 +72,11 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Forget Password?"
-                android:textSize="16sp"
                 android:layout_marginTop="32dp"
-                android:textAlignment="center"/>
+                android:text="Forget Password?"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/login"
@@ -99,8 +100,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="30dp">
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/github"

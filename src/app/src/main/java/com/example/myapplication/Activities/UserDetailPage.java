@@ -1,8 +1,7 @@
 package com.example.myapplication.Activities;
 
-import static com.example.myapplication.common.CommonHelper.getLastLocation;
-import static com.example.myapplication.common.CommonHelper.refreshLoginUser;
-import static com.example.myapplication.common.CommonHelper.showToast;
+
+import static com.example.myapplication.common.CommonHelper.*;
 import static com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -15,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -38,6 +38,7 @@ import com.example.myapplication.basicClass.LocationResultListener;
 import com.example.myapplication.basicClass.Notice;
 import com.example.myapplication.basicClass.NoticeFactory;
 import com.example.myapplication.basicClass.User;
+import com.example.myapplication.basicClass.UserLoggedOutState;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -47,8 +48,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -65,7 +69,6 @@ public class UserDetailPage extends Page {
     FirebaseAuth auth;
     StorageReference storageReference;
     GlobalVariables globalVars;
-
     private ImageView ivUserPic;
     private EditText editName;
     private EditText editUID;
@@ -112,45 +115,17 @@ public class UserDetailPage extends Page {
         pbUserDetail = findViewById(R.id.pbUserDetail);
         user_detail_pic = findViewById(R.id.user_detail_pic);
         user_detail_btnBack = findViewById(R.id.user_detail_btnBack);
-
-
-
         btnSave.setOnClickListener(view -> {
-            if(Validate()){
-
-                DatabaseReference user = database.getReference().child("User").child(globalVars.getLoginUser().getId());
-                user.child("name").setValue(editName.getText().toString());
-                user.child("location").setValue(editLocation.getText().toString());
-                if(!editPwd.getText().toString().equals("")) {
-                    FirebaseUser fbUser = auth.getCurrentUser();
-                    String newPassword = editPwd.getText().toString();
-                    fbUser.updatePassword(newPassword)
-                            .addOnSuccessListener(aVoid -> {
-                                user.child("password").setValue(newPassword);
-                                //send pwd change notice
-                                NoticeFactory factory = new NoticeFactory();
-                                Notice userNotice = factory.createNotice("User");
-                                userNotice.addNotice(globalVars.getLoginUser().getId());
-                            })
-                            .addOnFailureListener(e -> showToast(UserDetailPage.this,"Password failed to update, detail:"+e.getMessage()));
-
-
-                }
-
-                //Synchronous loginUser
-                refreshLoginUser(()->{
-                        ReloadPage();
-                        showToast(UserDetailPage.this,"Successfully updated.");
-                });
-
+            if (Validate()) {
+                showAlertDialog(UserDetailPage.this,"Security Alert","Confirm modification of information?",
+                        "Confirm",(dialog, which) -> {
+                            updateUserInfo();
+                        },"Cancel", (dialog, which) -> dialog.dismiss());
             }
         });
         btnCancel.setOnClickListener(view -> goUserPage());
         user_detail_btnBack.setOnClickListener(view -> goUserPage());
         btnRelocation.setOnClickListener(view -> {
-//            getLastLocation(UserDetailPage.this, UserDetailPage.this, address -> {
-//                editLocation.setText(address.getLocality());
-//            });
             getLocation();
 
         });
@@ -160,11 +135,17 @@ public class UserDetailPage extends Page {
         editPwd.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable editable) {clRPwd.setVisibility(View.VISIBLE);}
+            public void afterTextChanged(Editable editable) {
+                clRPwd.setVisibility(View.VISIBLE);
+            }
+
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
 
         });
@@ -174,42 +155,72 @@ public class UserDetailPage extends Page {
         ReloadPage();
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == LOCATION_PERMISSION_REQUEST_CODE){
-            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                //getLastLocation(UserDetailPage.this, UserDetailPage.this, address -> editLocation.setText(address.getLocality()));
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
-            }else{
-                showToast(UserDetailPage.this,"Required permission");
+            } else {
+                showToast(UserDetailPage.this, "Required permission");
             }
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private Boolean Validate(){
+    private void updateUserInfo(){
+        DatabaseReference user = database.getReference().child("User").child(globalVars.getLoginUser().getId());
+        user.child("name").setValue(editName.getText().toString());
+        user.child("location").setValue(editLocation.getText().toString());
+        if (!editPwd.getText().toString().equals("")) {
+            FirebaseUser fbUser = auth.getCurrentUser();
+            String newPassword = editPwd.getText().toString();
+            fbUser.updatePassword(newPassword)
+                    .addOnSuccessListener(aVoid -> {
+                        user.child("password").setValue(newPassword);
+                        //send pwd change notice
+                        NoticeFactory factory = new NoticeFactory();
+                        Notice userNotice = factory.createNotice("User");
+                        userNotice.addNotice(globalVars.getLoginUser().getId());
+                        //force to log out
+                        showAlertDialog(UserDetailPage.this,"Security Alert","You have changed password, please re-login.",
+                        "OK", (dialog, which) -> {
+                            globalVars.setState(new UserLoggedOutState());
+                            globalVars.removeLoginUser();
+                            goIntroPage();
+                        },null,null);
+                    })
+                    .addOnFailureListener(e -> showToast(UserDetailPage.this, "Password failed to update, detail:" + e.getMessage()));
+        }
+        //Synchronous loginUser
+        refreshLoginUser(() -> {
+            ReloadPage();
+            showToast(UserDetailPage.this, "Successfully updated.");
+        });
+    }
+    private Boolean Validate() {
         User loginUser = globalVars.getLoginUser();
         boolean result = true;
         String userName = editName.getText().toString();
         String location = editLocation.getText().toString();
         String pwd = editPwd.getText().toString();
         String rPwd = editRPwd.getText().toString();
-        if(userName.equals("")){
-            showToast(UserDetailPage.this,"Sorry, name hasn't been filled correctly.");
+        if (userName.equals("")) {
+            showToast(UserDetailPage.this, "Sorry, name hasn't been filled correctly.");
             result = false;
         }
-        if(location.equals("")){
-            showToast(UserDetailPage.this,"Sorry, location hasn't been picked correctly.");
+        if (location.equals("")) {
+            showToast(UserDetailPage.this, "Sorry, location hasn't been picked correctly.");
             result = false;
         }
-        if(!pwd.equals("")){
-            if(pwd.length()<6){
-                showToast(UserDetailPage.this,"Sorry, pwd should have 6+ characters.");
+        if (!pwd.equals("")) {
+            if (pwd.length() < 6) {
+                showToast(UserDetailPage.this, "Sorry, pwd should have 6+ characters.");
                 result = false;
             }
-            if(!pwd.equals(rPwd)){
-                showToast(UserDetailPage.this,"Sorry, En-Pwd and Re-Pwd do not match .");
+            if (!pwd.equals(rPwd)) {
+                showToast(UserDetailPage.this, "Sorry, En-Pwd and Re-Pwd do not match .");
                 result = false;
             }
         }
@@ -217,10 +228,11 @@ public class UserDetailPage extends Page {
         return result;
 
     }
-    private void ReloadPage(){
+
+    private void ReloadPage() {
 
         User loginUser = globalVars.getLoginUser();
-        Glide.with(UserDetailPage.this).load(loginUser.getHeadImage()).into(ivUserPic);
+        Glide.with(UserDetailPage.this).load(loginUser.getHeadImage()).error(R.drawable.default_seller_img).into(ivUserPic);
         editName.setText(loginUser.getName());
         editUID.setText(loginUser.getId());
         editEmail.setText(loginUser.getEmail());
@@ -246,18 +258,18 @@ public class UserDetailPage extends Page {
                             Glide.with(UserDetailPage.this).load(imageUri).into(ivUserPic);//user data asynchronous update, thus use imageUri directly
                             database.getReference().child("User").child(globalVars.getLoginUser().getId()).child("headImage").setValue(imageUri);
                             pbUserDetail.setVisibility(View.GONE);
-                            showToast(UserDetailPage.this,"New profile pic is all set!");
+                            showToast(UserDetailPage.this, "New profile pic is all set!");
                         });
 
 
                     })
-                    .addOnFailureListener(e -> showToast(UserDetailPage.this,"Oops! Something is wrong! Details:"+e.getMessage()));
+                    .addOnFailureListener(e -> showToast(UserDetailPage.this, "Oops! Something is wrong! Details:" + e.getMessage()));
         } else {
-            showToast(UserDetailPage.this,"Sorry, you haven't picked a pic yet.");
+            showToast(UserDetailPage.this, "Sorry, you haven't picked a pic yet.");
         }
     }
 
-    private void getLocation(){
+    private void getLocation() {
         if (ContextCompat.checkSelfPermission(UserDetailPage.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             // Permission is granted
@@ -269,7 +281,8 @@ public class UserDetailPage extends Page {
                     .build();
             LocationCallback locationCallback = new LocationCallback() {
                 @Override
-                public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {}
+                public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {
+                }
 
             };
             LocationServices.getFusedLocationProviderClient(UserDetailPage.this)
@@ -290,11 +303,10 @@ public class UserDetailPage extends Page {
                                 editLocation.setText(cityName);
                             } else {
                                 // No location found
-                                showToast(UserDetailPage.this,"Location not available");
+                                showToast(UserDetailPage.this, "Location not available");
                             }
                         }
                     });
-
 
 
         } else {
@@ -304,6 +316,7 @@ public class UserDetailPage extends Page {
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
+
     private String getCityNameFromLocation(Location location) {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {

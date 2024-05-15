@@ -25,7 +25,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
+/**
+ * This activity displays detailed information about a product, including its name, price, description, condition,
+ * and image. Users can also add or remove the product from their favorites list, and they can initiate a chat with
+ * the seller if logged in. It also provides a link to view the seller's profile.
+ * Author: Xiaojie Zhou (u7769944)
+ */
 public class ProductPage extends AppCompatActivity {
     private DatabaseReference favoriteRef;
     private DatabaseReference userRef;
@@ -146,8 +151,6 @@ public class ProductPage extends AppCompatActivity {
             textProductTitle.setText("No Product Information");
         }
     }
-
-
 
         // Check favorite status
         private void checkFavoriteStatus (User user, Product product){

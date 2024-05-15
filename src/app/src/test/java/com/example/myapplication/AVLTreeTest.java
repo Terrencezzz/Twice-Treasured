@@ -5,6 +5,9 @@ import com.example.myapplication.common.AVLTree;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 public class AVLTreeTest {
 
     private AVLTree<Integer> tree;
@@ -67,6 +70,17 @@ public class AVLTreeTest {
         assertEquals(Integer.valueOf(10), tree.findMinimum());
     }
 
+    // Test to find the maximum value in the AVL tree.
+    @Test
+    public void testFindMaximum() {
+        tree.insert(40);
+        tree.insert(20);
+        tree.insert(10);
+        tree.insert(30);
+        tree.insert(60);
+        assertEquals(Integer.valueOf(60), tree.findMaxNode(tree.getRoot()).getKey());
+    }
+
     // Test the tree is empty initially and after removals.
     @Test
     public void testEmptyTree() {
@@ -74,6 +88,16 @@ public class AVLTreeTest {
         tree.insert(20);
         tree.remove(20);
         assertTrue(tree.isEmpty());
+    }
+
+    // Test clearing the tree.
+    @Test
+    public void testClearTree() {
+        tree.insert(20);
+        tree.insert(10);
+        tree.clear();
+        assertTrue(tree.isEmpty());
+        assertNull(tree.getRoot());
     }
 
     // Test searching functionality of the AVL tree.
@@ -85,4 +109,61 @@ public class AVLTreeTest {
         assertNotNull(tree.search(tree.getRoot(), 30));
         assertNull(tree.search(tree.getRoot(), 90));
     }
+
+    // Test converting tree to ascending ArrayList.
+    @Test
+    public void testConvertToAscendingArrayList() {
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(70);
+        tree.insert(20);
+        tree.insert(40);
+
+        ArrayList<Integer> list = tree.convertToAscendingArrayList();
+        assertEquals("[20, 30, 40, 50, 70]", list.toString());
+    }
+
+    // Test converting tree to descending ArrayList.
+    @Test
+    public void testConvertToDescendingArrayList() {
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(70);
+        tree.insert(20);
+        tree.insert(40);
+
+        ArrayList<Integer> list = tree.convertToDescendingArrayList();
+        assertEquals("[70, 50, 40, 30, 20]", list.toString());
+    }
+
+    // Test checking if the tree is balanced.
+    @Test
+    public void testIsBalanced() {
+        assertTrue(tree.isBalanced());
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(70);
+        assertTrue(tree.isBalanced());
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(60);
+        tree.insert(80);
+        assertTrue(tree.isBalanced());
+    }
+
+    // Test checking if the tree is a valid AVL tree.
+    @Test
+    public void testIsValidAVLTree() {
+        assertTrue(tree.isValidAVLTree());
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(70);
+        assertTrue(tree.isValidAVLTree());
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(60);
+        tree.insert(80);
+        assertTrue(tree.isValidAVLTree());
+    }
+
 }

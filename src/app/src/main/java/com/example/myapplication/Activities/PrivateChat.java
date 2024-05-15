@@ -141,17 +141,19 @@ public class PrivateChat extends AppCompatActivity {
                     MessageBuble messageBuble = new MessageBuble(message,
                             loginUser.getId(),
                             CommonHelper.getCurrentTimestamp());
+
                     messageEnvironment.addMessage(messageBuble);
+
                     reference.child(environmentId).setValue(messageEnvironment).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             editTextMessage.setText("");
+
                         }
                     });
                 }
             }
         });
-
 
 
         //Add a ValueEventListener() so that the user can see message when they are sent.

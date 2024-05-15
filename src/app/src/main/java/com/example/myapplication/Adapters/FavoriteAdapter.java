@@ -36,7 +36,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Adapter class for managing favorite products
+ * This class serves as an adapter for managing favorite products in a RecyclerView.
+ * It handles displaying favorite products, managing selection, and deleting selected items.
+ * @author Xiaojie Zhou (u7769944)
  */
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private List<Product> favoriteItemList;

@@ -37,6 +37,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+/**
+ * This activity allows users to edit product details, including name, price, description, category, condition,
+ * and image. Users can update the information and save it to the database.
+ * @author Xiaojie Zhou (u7769944)
+ */
 public class ProductEditorPage extends AppCompatActivity {
 
     private Product currentProduct;

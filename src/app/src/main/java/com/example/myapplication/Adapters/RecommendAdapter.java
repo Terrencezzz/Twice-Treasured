@@ -64,19 +64,6 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
             context.startActivity(intent);
         });
 
-        // Add click listener to add product to favorite list
-        holder.textAddToFavoriteList.setOnClickListener(v -> {
-            if (currentUser != null) {
-                String favoriteID = favoriteRef.push().getKey();
-                Favorite favorite = new Favorite(favoriteID, currentUser.getId(), product.getProductID(), true);
-                favoriteRef.child(favoriteID).setValue(favorite)
-                        .addOnSuccessListener(aVoid -> Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show())
-                        .addOnFailureListener(e -> Toast.makeText(context, "Failed to add to favorites: " + e.getMessage(), Toast.LENGTH_LONG).show());
-            } else {
-                Toast.makeText(context, "You must be logged in to add favorites", Toast.LENGTH_LONG).show();
-            }
-        });
-
     }
 
     @Override
@@ -86,13 +73,12 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.View
 
     public class ViewHolder extends  RecyclerView.ViewHolder{
         TextView txtName,txtPrice;
-        ImageView imgProduct,textAddToFavoriteList;
+        ImageView imgProduct;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtName);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             imgProduct = itemView.findViewById(R.id.imgProduct);
-            textAddToFavoriteList = itemView.findViewById(R.id.textAddToFavoriteList);
         }
 
         public void bind(Product product) {

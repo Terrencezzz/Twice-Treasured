@@ -40,6 +40,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <ImageView
+                android:id="@+id/btnLoginAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/btnLogout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_login" />
+
+            <ImageView
                 android:id="@+id/btnLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -257,13 +267,6 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/btnViewmore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="View more"
-                        android:textColor="@color/red"
-                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

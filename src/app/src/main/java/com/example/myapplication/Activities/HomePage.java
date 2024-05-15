@@ -1,5 +1,7 @@
 package com.example.myapplication.Activities;
 
+import static com.example.myapplication.common.CommonHelper.showAlertDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -48,10 +50,10 @@ public class HomePage extends Page {
     private ConstraintLayout clMe;
     private ConstraintLayout clFavorite;
     private Button btnTradePlatform;
-    private TextView btnViewmore;
     private TextView input;
     private TextView txtUserName;
     private ImageView btnLogout;
+    private ImageView btnLoginAgain;
 
     FirebaseDatabase database;
     GlobalVariables globalVars;
@@ -79,10 +81,10 @@ public class HomePage extends Page {
         clMe = findViewById(R.id.clMe);
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
         clFavorite = findViewById(R.id.clFavorite);
-        btnViewmore = findViewById(R.id.btnViewmore);
         input = findViewById(R.id.input);
         txtUserName = findViewById(R.id.txtUserName);
         btnLogout = findViewById(R.id.btnLogout);
+        btnLoginAgain = findViewById(R.id.btnLoginAgain);
 
         initLoginUser();
         initCategory();
@@ -97,9 +99,16 @@ public class HomePage extends Page {
         clPrivate.setOnClickListener(v -> goPrivateMenu());
 
         btnLogout.setOnClickListener(view -> {
-            globalVars.setState(new UserLoggedOutState());
-            globalVars.removeLoginUser();
-            goIntroPage();
+
+            showAlertDialog(HomePage.this,"Security Alert","Confirm to log out?",
+                    "Confirm",(dialog, which) -> {
+                        globalVars.setState(new UserLoggedOutState());
+                        globalVars.removeLoginUser();
+                        goIntroPage();
+                    },"Cancel", (dialog, which) -> dialog.dismiss());
+        });
+        btnLoginAgain.setOnClickListener(view ->{
+            goLoginPage();
         });
 
         btnNotification.setOnClickListener(view -> {
@@ -118,10 +127,10 @@ public class HomePage extends Page {
             }
         });
 
-        if (userState instanceof UserLoggedInState) {
-            txtUserName.setText(globalVars.getLoginUser().getName());
-        } else {
+        if (userState instanceof UserLoggedOutState) {
             txtUserName.setText("Visitor");
+            btnLogout.setVisibility(View.GONE);
+            btnLoginAgain.setVisibility(View.VISIBLE);
         }
 
         // When "Favorite" text or icon is clicked, show the login page
@@ -175,6 +184,8 @@ public class HomePage extends Page {
                         globalVars.setState(new UserLoggedInState());
                         globalVars.addLoginUser(users.get(0));
                         txtUserName.setText(globalVars.getLoginUser().getName());
+                        btnLogout.setVisibility(View.VISIBLE);
+                        btnLoginAgain.setVisibility(View.GONE);
                     }
 
                 }

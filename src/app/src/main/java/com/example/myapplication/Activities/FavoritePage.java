@@ -34,9 +34,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
 /**
- * In this page people can check their favorite products.
+ * This activity allows users to view their favorite products and manage them, including deleting selected items.
+ * @author Xiaojie Zhou u7769944
  */
 public class FavoritePage extends Page {
     // UI elements
@@ -69,6 +69,11 @@ public class FavoritePage extends Page {
 
         globalVars = GlobalVariables.getInstance();
         currentUser = globalVars.getLoginUser();
+        if (currentUser == null) {
+            finish();
+            return;
+        }
+
         favoriteRef = Database.getDatabase().getReference().child("Favorite");
         productRef = Database.getDatabase().getReference().child("Product");
 
@@ -207,6 +212,10 @@ public class FavoritePage extends Page {
 
     // Load favorite products list from Firebase database
     private void loadFavoriteProducts(FavoriteProductsListener listener) {
+        if (currentUser == null) {
+            listener.onProductsLoaded(new ArrayList<>());
+            return;
+        }
 
         List<Product> favoriteProducts = new ArrayList<>();
         favoriteRef.orderByChild("userID").equalTo(currentUser.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
