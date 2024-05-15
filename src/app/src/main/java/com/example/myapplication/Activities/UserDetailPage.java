@@ -1,8 +1,7 @@
 package com.example.myapplication.Activities;
 
-import static com.example.myapplication.common.CommonHelper.getLastLocation;
-import static com.example.myapplication.common.CommonHelper.refreshLoginUser;
-import static com.example.myapplication.common.CommonHelper.showToast;
+
+import static com.example.myapplication.common.CommonHelper.*;
 import static com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -15,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -38,6 +38,7 @@ import com.example.myapplication.basicClass.LocationResultListener;
 import com.example.myapplication.basicClass.Notice;
 import com.example.myapplication.basicClass.NoticeFactory;
 import com.example.myapplication.basicClass.User;
+import com.example.myapplication.basicClass.UserLoggedOutState;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -116,32 +117,10 @@ public class UserDetailPage extends Page {
         user_detail_btnBack = findViewById(R.id.user_detail_btnBack);
         btnSave.setOnClickListener(view -> {
             if (Validate()) {
-
-                DatabaseReference user = database.getReference().child("User").child(globalVars.getLoginUser().getId());
-                user.child("name").setValue(editName.getText().toString());
-                user.child("location").setValue(editLocation.getText().toString());
-                if (!editPwd.getText().toString().equals("")) {
-                    FirebaseUser fbUser = auth.getCurrentUser();
-                    String newPassword = editPwd.getText().toString();
-                    fbUser.updatePassword(newPassword)
-                            .addOnSuccessListener(aVoid -> {
-                                user.child("password").setValue(newPassword);
-                                //send pwd change notice
-                                NoticeFactory factory = new NoticeFactory();
-                                Notice userNotice = factory.createNotice("User");
-                                userNotice.addNotice(globalVars.getLoginUser().getId());
-                            })
-                            .addOnFailureListener(e -> showToast(UserDetailPage.this, "Password failed to update, detail:" + e.getMessage()));
-
-
-                }
-
-                //Synchronous loginUser
-                refreshLoginUser(() -> {
-                    ReloadPage();
-                    showToast(UserDetailPage.this, "Successfully updated.");
-                });
-
+                showAlertDialog(UserDetailPage.this,"Security Alert","Confirm modification of information?",
+                        "Confirm",(dialog, which) -> {
+                            updateUserInfo();
+                        },"Cancel", (dialog, which) -> dialog.dismiss());
             }
         });
         btnCancel.setOnClickListener(view -> goUserPage());
@@ -190,6 +169,36 @@ public class UserDetailPage extends Page {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    private void updateUserInfo(){
+        DatabaseReference user = database.getReference().child("User").child(globalVars.getLoginUser().getId());
+        user.child("name").setValue(editName.getText().toString());
+        user.child("location").setValue(editLocation.getText().toString());
+        if (!editPwd.getText().toString().equals("")) {
+            FirebaseUser fbUser = auth.getCurrentUser();
+            String newPassword = editPwd.getText().toString();
+            fbUser.updatePassword(newPassword)
+                    .addOnSuccessListener(aVoid -> {
+                        user.child("password").setValue(newPassword);
+                        //send pwd change notice
+                        NoticeFactory factory = new NoticeFactory();
+                        Notice userNotice = factory.createNotice("User");
+                        userNotice.addNotice(globalVars.getLoginUser().getId());
+                        //force to log out
+                        showAlertDialog(UserDetailPage.this,"Security Alert","You have changed password, please re-login.",
+                        "OK", (dialog, which) -> {
+                            globalVars.setState(new UserLoggedOutState());
+                            globalVars.removeLoginUser();
+                            goIntroPage();
+                        },null,null);
+                    })
+                    .addOnFailureListener(e -> showToast(UserDetailPage.this, "Password failed to update, detail:" + e.getMessage()));
+        }
+        //Synchronous loginUser
+        refreshLoginUser(() -> {
+            ReloadPage();
+            showToast(UserDetailPage.this, "Successfully updated.");
+        });
+    }
     private Boolean Validate() {
         User loginUser = globalVars.getLoginUser();
         boolean result = true;

@@ -5,12 +5,14 @@ import static com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -47,6 +49,27 @@ public class CommonHelper {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
     public static void showToast(Context context,String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Dialog
+     * */
+    public static void showAlertDialog(Context context, String title, String message,
+                                       String positiveButtonLabel, DialogInterface.OnClickListener positiveButtonClickListener,
+                                       String negativeButtonLabel, DialogInterface.OnClickListener negativeButtonClickListener) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setTitle(title);
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setCancelable(false);
+
+        alertDialogBuilder.setPositiveButton(positiveButtonLabel, positiveButtonClickListener);
+
+        if (negativeButtonLabel != null && negativeButtonClickListener != null) {
+            alertDialogBuilder.setNegativeButton(negativeButtonLabel, negativeButtonClickListener);
+        }
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public static void refreshLoginUser(OnDataUpdatedListener listener) {

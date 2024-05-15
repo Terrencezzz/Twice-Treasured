@@ -48,7 +48,6 @@ public class HomePage extends Page {
     private ConstraintLayout clMe;
     private ConstraintLayout clFavorite;
     private Button btnTradePlatform;
-    private TextView btnViewmore;
     private TextView input;
     private TextView txtUserName;
     private ImageView btnLogout;
@@ -79,7 +78,6 @@ public class HomePage extends Page {
         clMe = findViewById(R.id.clMe);
         btnTradePlatform = findViewById(R.id.btnTradePlatform);
         clFavorite = findViewById(R.id.clFavorite);
-        btnViewmore = findViewById(R.id.btnViewmore);
         input = findViewById(R.id.input);
         txtUserName = findViewById(R.id.txtUserName);
         btnLogout = findViewById(R.id.btnLogout);

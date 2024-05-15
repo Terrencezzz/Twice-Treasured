@@ -257,13 +257,6 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/btnViewmore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="View more"
-                        android:textColor="@color/red"
-                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
