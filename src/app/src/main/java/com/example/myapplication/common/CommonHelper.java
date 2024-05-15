@@ -52,7 +52,8 @@ public class CommonHelper {
     }
 
     /**
-     * Dialog
+     * Show dialog, custom button labels and button listeners
+     * @author Wen Li @u7706423
      * */
     public static void showAlertDialog(Context context, String title, String message,
                                        String positiveButtonLabel, DialogInterface.OnClickListener positiveButtonClickListener,
@@ -114,6 +115,8 @@ public class CommonHelper {
      *  2.You can change your location in Extended Controls(three dots)
      *  3.Do not forget to override onRequestPermissionsResult, mimic it in UserDetailPage.java
      *  4.address, Type of Address, you can get different types of results from address. e.g.getLocality(), getCountryName() etc.
+     *
+     *  @author Wen Li @u7706423
      * */
     public static void getLastLocation(Context context, Activity activity, LocationResultListener listener) {
         FusedLocationProviderClient fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(context);
@@ -156,6 +159,11 @@ public class CommonHelper {
                     {Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
+
+    /**
+     * Retrieve current timestamp
+     * @author Scott
+     * */
 
     public static String getCurrentTimestamp() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());

@@ -15,7 +15,9 @@ public class UserNotice implements Notice{
     private DatabaseReference mDatabase = database.getReference();
 
     /**
+     * Save User Notice into database
      * uid is UserID
+     * @author Wen Li @u7706423
      * */
     @Override
     public void addNotice(String uid) {

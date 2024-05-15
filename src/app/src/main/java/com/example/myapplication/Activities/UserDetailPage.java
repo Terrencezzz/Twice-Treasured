@@ -169,6 +169,10 @@ public class UserDetailPage extends Page {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    /**
+     * Encapsulate update info method
+     * @author Wen Li @u7706423
+     * */
     private void updateUserInfo(){
         DatabaseReference user = database.getReference().child("User").child(globalVars.getLoginUser().getId());
         user.child("name").setValue(editName.getText().toString());
