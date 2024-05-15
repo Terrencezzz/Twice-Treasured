@@ -26,6 +26,12 @@ public class Parser {
         this.tokenizerName = new Tokenizer(text);
     }
 
+    /**
+     * This function support this search functionality, it will keep checking the key words then
+     * it will cut the avlTree to get the result.
+     * @param avlTree
+     * @return an avlTree sorted by the location
+     */
     public AVLTree<Product> parseEXP(AVLTree<Product> avlTree) {
 
         AVLTree<Product> container = new AVLTree<>();
@@ -54,6 +60,11 @@ public class Parser {
         }
     }
 
+    /**
+     * This function is to track the keyword with "Name" type.
+     * @param avlTree
+     * @return an avlTree sorted by the name
+     */
     private AVLTree<Product> parseName(AVLTree<Product> avlTree) {
         AVLTree<Product> container = new AVLTree<>();
         while (tokenizerName.hasNext()) {
@@ -95,6 +106,11 @@ public class Parser {
     }
 
 
+    /**
+     * This function is to track the keyword with category type.
+     * @param avlTree
+     * @return an avlTree sorted by the category
+     */
     private AVLTree<Product> parseCategory(AVLTree<Product> avlTree) {
         AVLTree<Product> container = new AVLTree<>();
         while (tokenizerCategory.hasNext()) {
@@ -117,6 +133,12 @@ public class Parser {
         return container;
     }
 
+    /**
+     * This one is to handle the invalid search in parser level.
+     * @param input
+     * @param check
+     * @return is it a typo or not
+     */
     private boolean checkNameTypo(String input, String check) {
         if (input.length() == check.length()) {
             int record = 0;

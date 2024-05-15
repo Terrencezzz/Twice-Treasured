@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
  */
 public class Token {
 
+    // I create 4 types, if it's IGNORE, just skip it.
     public enum Type{LOCATION, Category, NAME, IGNORE};
 
     private final String token;

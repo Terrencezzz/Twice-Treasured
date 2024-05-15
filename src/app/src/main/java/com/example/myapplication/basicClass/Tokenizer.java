@@ -21,6 +21,9 @@ public class Tokenizer {
     }
 
 
+    /**
+     * This function aims to keep tracking the key word from the user input.
+     */
     public void next(){
         buffer = buffer.trim();
 
@@ -77,6 +80,12 @@ public class Tokenizer {
         }
     }
 
+
+    /**
+     * This function aims to check the typo such as "canberra" to "canbeera";
+     * @param input
+     * @return the correct input
+     */
     private String checkTypo(String input) {
         for (String string : locationList) {
             if (string.length() == input.length()) {
@@ -100,6 +109,13 @@ public class Tokenizer {
         return input;
     }
 
+
+    /**
+     * This function aims to check is the input miss some words. Then define it's belong to location
+     * or category.
+     * @param input
+     * @return "location" or "category"
+     */
     private String checkMiss(String input) {
         for (String string : locationList) {
             if (string.length() > input.length()) {
@@ -119,6 +135,12 @@ public class Tokenizer {
         return "other";
     }
 
+    /**
+     * This function has a bit wired idea, it will makes "canbera" become "canberr", then the result
+     * will be tracked by checkMiss();
+     * @param input
+     * @return something can be tracked by checkMiss();
+     */
     private String checkTypoWithMiss(String input) {
         for (String string : locationList) {
             if (string.length() - input.length() == 1) {
@@ -160,6 +182,12 @@ public class Tokenizer {
         return input;
     }
 
+    /**
+     * This function aims to check is there something like "canberraa", then define it's location or
+     * category.
+     * @param input
+     * @return "location" or "category"
+     */
     private String checkDuplicate(String input) {
         for (String string : locationList) {
             if (string.length() < input.length()) {
