@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * All the page can extend this page(maybe except PrivateChat)).
+ * @author Wanzhogn Wu
  */
 public abstract class Page extends AppCompatActivity {
 

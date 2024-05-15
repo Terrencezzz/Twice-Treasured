@@ -20,6 +20,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
+/**
+ * This page is for login
+ * @author Wanzhong Wu
+ */
 public class LoginPage extends AppCompatActivity {
 
     private Button register;

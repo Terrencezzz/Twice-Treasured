@@ -3,6 +3,10 @@ package com.example.myapplication.basicClass;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This page is for the user constructor
+ * @author Wanzhong Wu, Scott, Wen
+ */
 public class User {
     private String id;
     private String name;

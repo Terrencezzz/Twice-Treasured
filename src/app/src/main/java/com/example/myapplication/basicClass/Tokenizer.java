@@ -2,8 +2,12 @@ package com.example.myapplication.basicClass;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+
+
+/**
+ * This Tokenizer is aims to support parser
+ * @author Wanzhong Wu
+ */
 
 public class Tokenizer {
     private String buffer;

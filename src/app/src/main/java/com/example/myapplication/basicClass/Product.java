@@ -2,7 +2,10 @@ package com.example.myapplication.basicClass;
 
 import java.io.Serializable;
 
-
+/**
+ * This page is for the product constructor
+ * @author Wanzhong Wu, Qin, u7769944
+ */
 public class Product implements Comparable<Product>, Serializable{
     private String name;
     private String productID;

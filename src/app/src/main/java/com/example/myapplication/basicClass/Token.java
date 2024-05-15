@@ -2,6 +2,10 @@ package com.example.myapplication.basicClass;
 
 import androidx.annotation.NonNull;
 
+/**
+ * This is the Token page which support parser.
+ * @author Wanzhong Wu
+ */
 public class Token {
 
     public enum Type{LOCATION, Category, NAME, IGNORE};

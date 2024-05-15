@@ -41,7 +41,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-
+/**
+ * This page is for posting product
+ * @author Qin, Wanzhong Wu
+ */
 
 public class Post extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();

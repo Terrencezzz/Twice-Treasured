@@ -4,6 +4,13 @@ import com.example.myapplication.common.AVLTree;
 
 import java.util.ArrayList;
 
+
+
+/**
+ * @author Wanzhong Wu
+ * This is a parser for the search functionality
+ */
+
 public class Parser {
     private Tokenizer tokenizerLocation;
     private Tokenizer tokenizerCategory;

@@ -27,6 +27,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * This page is for registration
+ * @author Wanzhong Wu
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText email;
