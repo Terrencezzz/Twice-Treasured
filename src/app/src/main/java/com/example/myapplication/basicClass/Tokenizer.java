@@ -40,6 +40,7 @@ public class Tokenizer {
         }
 
         input = checkTypo(input);
+        input = checkTypoWithMiss(input);
         String missCheck = checkMiss(input);
         String duplicateCheck = checkDuplicate(input);
 
@@ -97,24 +98,7 @@ public class Tokenizer {
 
     private String checkMiss(String input) {
         for (String string : locationList) {
-            if (string.length() - input.length() == 1) {
-                int record = 0;
-                boolean find = false;
-                for (int i = 0; i < input.length(); i++) {
-                    if (!find) {
-                        if (string.charAt(i) != input.charAt(i)){
-                            record++;
-                            find = true;
-                        }
-                    }
-                    else {
-                        if (string.charAt(i+1) != input.charAt(i)) record++;
-                    }
-
-                }
-                if (record == 1) return "location";
-            }
-            else if (string.length() > input.length()) {
+            if (string.length() > input.length()) {
                 if (string.contains(input) && string.length() - input.length() <= 2) {
                     return "location";
                 }
@@ -123,29 +107,53 @@ public class Tokenizer {
 
         for (String string : categoryList) {
             if (string.length() > input.length()) {
-                if (string.length() - input.length() == 1) {
-                    int record = 0;
-                    boolean find = false;
-                    for (int i = 0; i < input.length(); i++) {
-                        if (!find) {
-                            if (string.charAt(i) != input.charAt(i)){
-                                record++;
-                                find = true;
-                            }
-                        }
-                        else {
-                            if (string.charAt(i+1) != input.charAt(i)) record++;
-                        }
-
-                    }
-                    if (record == 1) return "category";
-                }
-                else if (string.contains(input) && string.length() - input.length() <= 2) {
+                if (string.contains(input) && string.length() - input.length() <= 2) {
                     return "category";
                 }
             }
         }
         return "other";
+    }
+
+    private String checkTypoWithMiss(String input) {
+        for (String string : locationList) {
+            if (string.length() - input.length() == 1) {
+                int record = 0;
+                boolean find = false;
+                for (int i = 0; i < input.length(); i++) {
+                    if (!find) {
+                        if (string.charAt(i) != input.charAt(i)) {
+                            record++;
+                            find = true;
+                        }
+                    } else {
+                        if (string.charAt(i + 1) != input.charAt(i)) record++;
+                    }
+
+                }
+                if (record == 1) return string.substring(0, string.length() - 1);
+            }
+        }
+
+        for (String string : categoryList) {
+            if (string.length() - input.length() == 1) {
+                int record = 0;
+                boolean find = false;
+                for (int i = 0; i < input.length(); i++) {
+                    if (!find) {
+                        if (string.charAt(i) != input.charAt(i)) {
+                            record++;
+                            find = true;
+                        }
+                    } else {
+                        if (string.charAt(i + 1) != input.charAt(i)) record++;
+                    }
+
+                }
+                if (record == 1) return string.substring(0,string.length()-1);
+            }
+        }
+        return input;
     }
 
     private String checkDuplicate(String input) {

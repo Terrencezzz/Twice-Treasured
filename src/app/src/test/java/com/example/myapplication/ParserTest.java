@@ -162,6 +162,22 @@ public class ParserTest {
     }
 
     @Test
+    public void typoTest4() {
+        String input = "canbera";
+        Parser parser = new Parser(input);
+        AVLTree<Product> result = parser.parseEXP(total);
+
+        AVLTree<Product> expectResult = new AVLTree<>();
+        expectResult.insert(product1);
+        expectResult.insert(product3);
+
+        ArrayList<Product> resultInOrder = result.convertToAscendingArrayList();
+        ArrayList<Product> expectResultInOrder = expectResult.convertToAscendingArrayList();
+
+        Assert.assertEquals(resultInOrder, expectResultInOrder);
+    }
+
+    @Test
     public void nameTest() {
         String input = "I need a Coffee Maker";
         Parser parser = new Parser(input);
