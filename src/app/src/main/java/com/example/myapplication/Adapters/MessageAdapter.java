@@ -84,7 +84,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else return 1;
     }
 
-    class MessageViewHolderSender extends RecyclerView.ViewHolder{
+    public static class MessageViewHolderSender extends RecyclerView.ViewHolder{
         TextView messageText;
         TextView messageTimestamp;
         RelativeLayout relativeLayout;
@@ -95,7 +95,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             relativeLayout = itemView.findViewById(R.id.message_recycler_send_relative_Layout);
         }
     }
-    class MessageViewHolderReciever extends RecyclerView.ViewHolder{
+    public static class MessageViewHolderReciever extends RecyclerView.ViewHolder{
         TextView messageText;
         TextView messageTimestamp;
         RelativeLayout relativeLayout;

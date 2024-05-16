@@ -69,7 +69,7 @@ public class ChatMenuAdapter extends RecyclerView.Adapter<ChatMenuAdapter.UserVi
         return usersList.size();
     }
 
-    class UserViewHolder extends RecyclerView.ViewHolder {
+    public static class UserViewHolder extends RecyclerView.ViewHolder {
 
         TextView userName;
         TextView userEmail;
