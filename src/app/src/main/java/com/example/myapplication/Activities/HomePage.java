@@ -185,7 +185,6 @@ public class HomePage extends Page {
                         users.add(issue.getValue(User.class));
                     }
                     if (users.size() > 0) {
-                        //globalVars.setLoginUser(users.get(0));
                         globalVars.setState(new UserLoggedInState());
                         globalVars.addLoginUser(users.get(0));
                         txtUserName.setText(globalVars.getLoginUser().getName());

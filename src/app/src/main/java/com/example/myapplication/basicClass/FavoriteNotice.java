@@ -19,7 +19,8 @@ public class FavoriteNotice implements Notice{
 
     /**
      *  uid is ProductID
-     *  If valid favorite number >5, add notice to product Owner
+     *  If valid favorite number >=2, add notice to product Owner
+     *  @author Wen Li @u7706423
      * */
     @Override
     public void addNotice(String uid) {
@@ -39,7 +40,7 @@ public class FavoriteNotice implements Notice{
                             favorites.add(issue.getValue(Favorite.class));
                         }
                     }
-                    if(favorites.size()>1){ //check favoriteStatus==true && favorite number>5
+                    if(favorites.size()>=2){ //check favoriteStatus==true && favorite number>=2
                         ArrayList<Notification> notifications = new ArrayList<>();
                         DatabaseReference notice_db = database.getReference("Notification");
                         Query notice_query = notice_db.orderByChild("notiProductID").equalTo(uid);
@@ -49,7 +50,7 @@ public class FavoriteNotice implements Notice{
                                 if(snapshot.exists()){
                                     notifications.add(snapshot.getValue(Notification.class));
                                 }
-                                if(notifications.size()==0){  //check whether has been sent a notice already
+                                if(notifications.size()==0){  //check whether there has been sent a notice already
 
                                     DatabaseReference product_db = database.getReference("Product").child(uid);
                                     product_db.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,7 +89,11 @@ public class FavoriteNotice implements Notice{
 
 
     }
-
+    /**
+     * Save Favorite Notice into database
+     * uid is ProductID
+     * @author Wen Li @u7706423
+     * */
     private void generateNotice(String uid,String ownerId,String productName){
 
         String notiID = mDatabase.push().getKey();
@@ -98,7 +103,7 @@ public class FavoriteNotice implements Notice{
         notification.setNotiID(notiID);
         notification.setUserID(ownerId);
         notification.setNotiTitle("Favorite Number Reminder");
-        notification.setNotiContents("Congratulations! Your product "+productName+" has been favorited by more than 5 people!");
+        notification.setNotiContents("Congratulations! Your product "+productName+" has been favorite by at least 2 people!");
         notification.setNotiStatus(0);
         notification.setCreateTime(createTime);
         notification.setNotiType("2");

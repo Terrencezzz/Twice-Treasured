@@ -203,6 +203,11 @@ public class UserDetailPage extends Page {
             showToast(UserDetailPage.this, "Successfully updated.");
         });
     }
+
+    /**
+     * Check validation of all input
+     * @author Wen Li @u7706423
+     * */
     private Boolean Validate() {
         User loginUser = globalVars.getLoginUser();
         boolean result = true;
@@ -233,6 +238,10 @@ public class UserDetailPage extends Page {
 
     }
 
+    /**
+     * Reload page after modification or initialization
+     * @author Wen Li @u7706423
+     * */
     private void ReloadPage() {
 
         User loginUser = globalVars.getLoginUser();
