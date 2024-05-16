@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -91,10 +92,10 @@ public class HomePage extends Page {
         initCategory();
         initRecommend();
 
-        Boolean visiterMode = globalVars.isVisitorMode();
+
         clMe.setOnClickListener(v -> {
 
-            if (visiterMode) {
+            if (globalVars.isVisitorMode()) {
                 // Visitor mode - show login page
                 Intent intent = new Intent(HomePage.this, LoginPage.class);
                 startActivity(intent);
@@ -104,7 +105,7 @@ public class HomePage extends Page {
         });
 
         btnTradePlatform.setOnClickListener(v -> {
-            if (visiterMode) {
+            if (globalVars.isVisitorMode()) {
                 // Visitor mode - show login page
                 Intent intent = new Intent(HomePage.this, LoginPage.class);
                 startActivity(intent);
@@ -114,7 +115,7 @@ public class HomePage extends Page {
         });
 
         clFavorite.setOnClickListener(v -> {
-            if (visiterMode) {
+            if (globalVars.isVisitorMode()) {
                 // Visitor mode - show login page
                 Intent intent = new Intent(HomePage.this, LoginPage.class);
                 startActivity(intent);
@@ -124,7 +125,7 @@ public class HomePage extends Page {
         });
 
         clPrivate.setOnClickListener(v -> {
-            if (visiterMode) {
+            if (globalVars.isVisitorMode()) {
                 // Visitor mode - show login page
                 Intent intent = new Intent(HomePage.this, LoginPage.class);
                 startActivity(intent);
@@ -187,35 +188,44 @@ public class HomePage extends Page {
      * */
     private void initLoginUser() {
         String userEmail = getIntent().getStringExtra("email");
-        DatabaseReference db = database.getReference("User");
-        Query query = db.orderByChild("email").equalTo(userEmail);
-        ArrayList<User> users = new ArrayList<>();
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    users.clear();
-                    for (DataSnapshot issue : snapshot.getChildren()) {
-                        users.add(issue.getValue(User.class));
-                    }
-                    if (users.size() > 0) {
-                        globalVars.setState(new UserLoggedInState());
-                        globalVars.addLoginUser(users.get(0));
-                        txtUserName.setText(globalVars.getLoginUser().getName());
-                        btnLogout.setVisibility(View.VISIBLE);
-                        btnLoginAgain.setVisibility(View.GONE);
-                    }
+        if(userEmail != null) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomePage.this);
+            alertDialogBuilder.setTitle("Alert");
+            alertDialogBuilder.setMessage("Processing");
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
 
+            DatabaseReference db = database.getReference("User");
+            Query query = db.orderByChild("email").equalTo(userEmail);
+            ArrayList<User> users = new ArrayList<>();
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        users.clear();
+                        for (DataSnapshot issue : snapshot.getChildren()) {
+                            users.add(issue.getValue(User.class));
+                        }
+                        if (users.size() > 0) {
+                            globalVars.setState(new UserLoggedInState());
+                            globalVars.addLoginUser(users.get(0));
+                            txtUserName.setText(globalVars.getLoginUser().getName());
+                            btnLogout.setVisibility(View.VISIBLE);
+                            btnLoginAgain.setVisibility(View.GONE);
+                            alertDialog.dismiss();
+                        }
+
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                txtUserName.setText("Unknown User");
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    txtUserName.setText("Unknown User");
+                }
+            });
 
-
+        }
     }
 
     private void initRecommend() {
