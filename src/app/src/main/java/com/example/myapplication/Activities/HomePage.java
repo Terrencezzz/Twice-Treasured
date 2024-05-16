@@ -91,13 +91,47 @@ public class HomePage extends Page {
         initCategory();
         initRecommend();
 
-        clMe.setOnClickListener(v -> goUserPage());
+        Boolean visiterMode = globalVars.isVisitorMode();
+        clMe.setOnClickListener(v -> {
 
-        btnTradePlatform.setOnClickListener(v -> goTradePage());
+            if (visiterMode) {
+                // Visitor mode - show login page
+                Intent intent = new Intent(HomePage.this, LoginPage.class);
+                startActivity(intent);
+            }else {
+                goUserPage();
+            }
+        });
 
-        clFavorite.setOnClickListener(v -> goFavorite());
+        btnTradePlatform.setOnClickListener(v -> {
+            if (visiterMode) {
+                // Visitor mode - show login page
+                Intent intent = new Intent(HomePage.this, LoginPage.class);
+                startActivity(intent);
+            }else {
+                goTradePage();
+            }
+        });
 
-        clPrivate.setOnClickListener(v -> goPrivateMenu());
+        clFavorite.setOnClickListener(v -> {
+            if (visiterMode) {
+                // Visitor mode - show login page
+                Intent intent = new Intent(HomePage.this, LoginPage.class);
+                startActivity(intent);
+            }else {
+                goFavorite();
+            }
+        });
+
+        clPrivate.setOnClickListener(v -> {
+            if (visiterMode) {
+                // Visitor mode - show login page
+                Intent intent = new Intent(HomePage.this, LoginPage.class);
+                startActivity(intent);
+            }else {
+                goPrivateMenu();
+            }
+        });
 
         btnLogout.setOnClickListener(view -> {
 
@@ -133,27 +167,6 @@ public class HomePage extends Page {
             btnLogout.setVisibility(View.GONE);
             btnLoginAgain.setVisibility(View.VISIBLE);
         }
-
-        // When "Favorite" text or icon is clicked, show the login page
-        View.OnClickListener favoriteClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (globalVars.isVisitorMode()) {
-                    // Visitor mode - show login page
-                    Intent intent = new Intent(HomePage.this, LoginPage.class);
-                    startActivity(intent);
-                } else {
-                    // Logged-in mode - go to favorite page
-                    Intent intent = new Intent(HomePage.this, FavoritePage.class);
-                    startActivity(intent);
-                }
-            }
-        };
-
-        clMe.setOnClickListener(favoriteClickListener);
-        clPrivate.setOnClickListener(favoriteClickListener);
-        btnFavorite.setOnClickListener(favoriteClickListener);
-        imageViewFavorite.setOnClickListener(favoriteClickListener);
 
     }
 
