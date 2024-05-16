@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * This class saves details regarding the Message Environment between two users.
- *
+ * @author Scott Ferrageau de St Amand (u7303997)
  */
 
 

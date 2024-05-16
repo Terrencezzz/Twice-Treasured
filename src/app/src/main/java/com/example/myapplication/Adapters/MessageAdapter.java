@@ -18,6 +18,11 @@ import com.example.myapplication.basicClass.MessageBuble;
 
 import java.util.List;
 
+/**
+ * Adaptor to display a Messages user recyclerview in the Private Chat Activity.
+ * @author Scott Ferrageau de St Amand (u7303997)
+ */
+
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context context;

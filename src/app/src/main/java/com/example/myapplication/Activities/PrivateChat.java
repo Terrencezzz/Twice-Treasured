@@ -46,6 +46,7 @@ import com.google.firebase.database.ValueEventListener;
  * It features a simple layout with a message input area,
  * a send button, and a list to display the chat history,
  * and a back button to return to the previous page.
+ * @author Scott Ferrageau de St Amand (u7303997)
  */
 public class PrivateChat extends AppCompatActivity {
     private EditText editTextMessage; // Text field for inputting messages
@@ -104,7 +105,7 @@ public class PrivateChat extends AppCompatActivity {
 
         environmentId = "msg" + userIds[0] + userIds[1];
 
-        //find the name for the other User
+        //find the name for the other User and Set it to the Toolbar
         DatabaseReference userRef = database.getReference("User");
         userRef.child(otherUser.getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -129,7 +130,8 @@ public class PrivateChat extends AppCompatActivity {
             public void onClick(View v) {
                 String message = editTextMessage.getText().toString().trim(); // Get text from EditText
                 if (!message.isEmpty()) {
-
+                    //If there isn't a message already, add the Environment Id to each user so that
+                    // the recycler in ChatMenuActivity can update.
                     if (messageEnvironment.getMessageList().isEmpty()) {
                         addMessageIdToUsers();
                     }
@@ -138,12 +140,14 @@ public class PrivateChat extends AppCompatActivity {
                     messageEnvironment.setRecentMessageTimestamp(CommonHelper.getCurrentTimestamp());
                     messageEnvironment.setRecentSenderId(loginUser.getId());
 
+                    //create a new messageBuble
                     MessageBuble messageBuble = new MessageBuble(message,
                             loginUser.getId(),
                             CommonHelper.getCurrentTimestamp());
 
                     messageEnvironment.addMessage(messageBuble);
 
+                    //add the message to the database, and reset the message text box.
                     reference.child(environmentId).setValue(messageEnvironment).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -173,6 +177,11 @@ public class PrivateChat extends AppCompatActivity {
         environmentRef.addValueEventListener(eventListener);
     }
 
+    /**
+     * Method to be called when Activity is opened.
+     * Determines whether or not messages have already been exchanged between the
+     * users, and either opens the existing environment or creates a new one.
+     */
     void openNewOrExistingEnvironment() {
         reference.child(environmentId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -197,6 +206,10 @@ public class PrivateChat extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to setup the recycler when the Activity is started
+     * @param messageEnvironment
+     */
     void setUpRecycler(MessageEnvironment messageEnvironment) {
         if(messageEnvironment.getMessageList() == null){
             messageAdapter = new MessageAdapter(getApplicationContext(), loginUser.getId(), new ArrayList<MessageBuble>());
@@ -209,6 +222,10 @@ public class PrivateChat extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to update the the recycler when a new message is sent by either user.
+     * @param snapshot
+     */
     @SuppressLint("NotifyDataSetChanged")
     void updateEnvironment(DataSnapshot snapshot) {
         MessageEnvironment updatedEnvironment = snapshot.getValue(MessageEnvironment.class);
@@ -227,6 +244,10 @@ public class PrivateChat extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to add the Environment Id to both users, so that the recycler in
+     *  ChatMenuActivity is updated.
+     */
     void addMessageIdToUsers() {
         //get database reference for users
         DatabaseReference  userRef = database.getReference("User");

@@ -29,7 +29,8 @@ import com.google.firebase.database.ValueEventListener;
  * This activity displays detailed information about a product, including its name, price, description, condition,
  * and image. Users can also add or remove the product from their favorites list, and they can initiate a chat with
  * the seller if logged in. It also provides a link to view the seller's profile.
- * Author: Xiaojie Zhou (u7769944)
+ * @author  Xiaojie Zhou (u7769944),
+ *
  */
 public class ProductPage extends AppCompatActivity {
     private DatabaseReference favoriteRef;
@@ -63,7 +64,11 @@ public class ProductPage extends AppCompatActivity {
             displayProductDetails(product);
         }
 
-        //Chat With Seller Button
+        /**
+         * Implement the chatWith Seller button to open up the
+         * correct PrivateChat Environment
+         * @author Scott Ferrageau de St Amand (u7303997)
+         */
         chatWithSellerBtn = findViewById(R.id.btnChatWithSeller);
         chatWithSellerBtn.setOnClickListener(v -> {
             if (currentUser != null && !product.getOwnerID().equals(currentUser.getId())) {

@@ -33,6 +33,14 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
 
+/**
+ * This Activity displays all message Environments the current user has.
+ * When a User sends a private chat to another user, both users can use this page
+ * to accesst the private chat.
+ * @author Scott Ferrageau de St Amand (u7303997)
+ * Wen Li (u7706423) contributed to this Activity with the bottom toolbar.
+ */
+
 public class PrivateMenuActivity extends Page {
 
     private ConstraintLayout clPrivate;
@@ -103,21 +111,28 @@ public class PrivateMenuActivity extends Page {
         recyclerViewChatMenu.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerViewChatMenu.setAdapter(chatMenuAdapter);
 
-
+        /**
+         * Set up Event listener so that the recycler is updated when a new message environment is
+         * created with the User.
+         */
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child("messageIds").exists()) {
                     usersList.clear();
+                    //Iterate through all the message environments attached to the User.
                     for (DataSnapshot dataSnapshot : snapshot.child("messageIds").getChildren()) {
                         String id = dataSnapshot.getValue(String.class);
 
                         database.getReference("MessageEnvironments").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                //In each message Environment, find the userId of the other User.
                                 for (DataSnapshot snapshotOfId : snapshot.child("userIds").getChildren()) {
                                     String id = snapshotOfId.getValue(String.class);
                                     if (!id.equals(currentUser.getId())) {
+                                        //Using the other Users Id, extract their information from the database
+                                        // and add that user to the Recycler.
                                         database.getReference("User").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -136,7 +151,6 @@ public class PrivateMenuActivity extends Page {
                                     }
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
 

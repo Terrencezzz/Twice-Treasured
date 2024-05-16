@@ -2,25 +2,26 @@ package com.example.myapplication.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Activities.PrivateChat;
 import com.example.myapplication.R;
-import com.example.myapplication.basicClass.MessageBuble;
-import com.example.myapplication.basicClass.MessageEnvironment;
 import com.example.myapplication.basicClass.User;
 
 import java.util.List;
+
+/**
+ * Adaptor to display a Users Current chat activities in a recyclerview.
+ * Used in the ChatMenu Activity.
+ * @author Scott Ferrageau de St Amand (u7303997)
+ */
 
 public class ChatMenuAdapter extends RecyclerView.Adapter<ChatMenuAdapter.UserViewHolder> {
 
@@ -46,13 +47,11 @@ public class ChatMenuAdapter extends RecyclerView.Adapter<ChatMenuAdapter.UserVi
         if (usersList.isEmpty()) {
             holder.userName.setVisibility(View.GONE);
             holder.userEmail.setVisibility(View.GONE);
-            //holder.userImage.setVisibility(View.GONE);
         }
 
         User user = usersList.get(position);
         holder.userName.setText(user.getName());
         holder.userEmail.setText(user.getEmail());
-        //holder.userImage.setImageURI((Uri.parse(user.getHeadImage())));
 
         //Allow user to open chat
         holder.itemView.setOnClickListener(v -> {
@@ -81,7 +80,6 @@ public class ChatMenuAdapter extends RecyclerView.Adapter<ChatMenuAdapter.UserVi
             super(itemView);
             userName = itemView.findViewById(R.id.user_recycler_name);
             userEmail = itemView.findViewById(R.id.user_recycler_email);
-            //userImage = itemView.findViewById(R.id.menu_person_holder);
             relativeLayout = itemView.findViewById(R.id.chat_menu_recycler_relative_Layout);
         }
     }

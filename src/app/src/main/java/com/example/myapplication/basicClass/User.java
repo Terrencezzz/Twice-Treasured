@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * This page is for the user constructor
- * @author Wanzhong Wu, Scott, Wen
+ * @author Wanzhong Wu (u7642453), Scott Ferrageau de St Amand (u7303997) , Wen Li (u7706423)
  */
 public class User {
     private String id;

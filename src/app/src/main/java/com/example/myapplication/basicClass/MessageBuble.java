@@ -2,6 +2,11 @@ package com.example.myapplication.basicClass;
 
 import androidx.annotation.NonNull;
 
+/**
+ * Class to store information contained in private chat messages.
+ * @author Scott Ferrageau de St Amand (u7303997).
+ */
+
 public class MessageBuble {
     private String message, senderId, timestamp;
 
