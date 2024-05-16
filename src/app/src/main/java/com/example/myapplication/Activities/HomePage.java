@@ -150,7 +150,8 @@ public class HomePage extends Page {
             }
         };
 
-
+        clMe.setOnClickListener(favoriteClickListener);
+        clPrivate.setOnClickListener(favoriteClickListener);
         btnFavorite.setOnClickListener(favoriteClickListener);
         imageViewFavorite.setOnClickListener(favoriteClickListener);
 
