@@ -73,11 +73,16 @@ The key area(s) of responsibilities for each member
 3.**u7642453, Wanzhong Wu** I have 21.4% contribution, as follows: 
 
 - **Code Contribution in the final App**
-  - 1
-- **Code and App Design** 
-  - 1
+  - Feature
+    - B1 Login, F1 FB-Auth - [LoginPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/LoginPage.java?ref_type=heads),[RegisterActivity.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/RegisterActivity.java?	ref_type=heads)
+    - B5 Search, S1 Search-Invalid, S2 Search-Filter - [Token.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Token.java?ref_type=heads),[Tokenizer.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java?	ref_type=heads),[Parser.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java?ref_type=heads)
+    - B3 LoadShowData, B4 DataStream -[Post.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/Post.java?ref_type=heads)
+    - FB-Persist - [build.gradle.kts](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/build.gradle.kts?ref_type=heads)
 - **Others**
-  - 1
+  - APK packaging
+  - Create report slide
+  - Setup environment, connect firebase
+  - Design database
 
 4.**u7706423, Wen Li** I have <u>21.2%</u> contribution, as follows: 
 
@@ -126,12 +131,6 @@ The key area(s) of responsibilities for each member
 
 ## Application Description
 
-*[What is your application, what does it do? Include photos or diagrams if necessary]*
-
-*Here is a pet specific application example*
-
-*PetBook is a social media application specifically targetting pet owners... it provides... certified practitioners, such as veterians are indicated by a label next to their profile...*
-
 **Twice Treasured** is a platform designed for buying and selling new and second-hand items. With Twice Treasured, users can:
 
 - Browse and search for products of interest, and communicate with sellers anytime, anywhere.
@@ -160,36 +159,36 @@ The key area(s) of responsibilities for each member
 
 **Browsing and Searching for Items**
 
-![](media/report/search.png)
+![search](media/report/search.png)
 
 - Lily wants to buy a new dress, so she opens Twice Treasured and searches for second-hand branded dresses.
 
 **Communicating with Sellers and Favoriting Items**
 
-![](media/report/chat01.png)
+![chat01](media/report/chat01.png)
 
-![](media/report/product_detail_page.png)
+![product_detail_page](media/report/product_detail_page.png)
 
 - Lily finds a dress she likes and clicks the product link to view the details. She thinks it’s great and uses the “Chat with Seller” feature in the bottom right corner to negotiate the price. 
 - If Lily likes the item but wants to compare it with others, she can click the heart icon in the bottom left corner to favorite the item and easily find it later in her favorites list.
 
 **Post Items for Sale**
 
-![](media\report\post.png)
+![post](media/report/post.png)
 
 - While preparing to move  home, Lily finds the TV she seldom use. She decides to list the TV for sale on Twice Treasured. 
 
 **Notifications**
 
-![](media/report/notification.png)
+![notification](media/report/notification.png)
 
 - Within a day, Lily receives a notification from the system that two users are interested in her item and have favorited it.
 
  **Managing and Modifying Items**
 
-![](media/report/user%20page.png)
+![userpage](media/report/user%20page.png)
 
-![](media/report/manage%20product.png)
+![manageproduct](media/report/manage%20product.png)
 
 - A week passes and Lily’s dress hasn’t sold. She decides to lower the price to see if she can sell it more quickly.
 
@@ -197,7 +196,7 @@ The key area(s) of responsibilities for each member
 
 ### Application UML
 
-![](media\report\UML.png)
+![UML](media/report/UML.png)
 
 <hr>
 #### **go to media\report\UML.png to see the clearer picture**
@@ -218,19 +217,7 @@ This is an important section of your report and should include all technical dec
 
 ### Data Structures
 
-*[What data structures did your team utilise? Where and why?]*
-
-Here is a partial (short) example for the subsection `Data Structures`:*
-
 *I used the following data structures in my project:*
-
-1. *LinkedList*
-   * *Objective: used for storing xxxx for xxx feature.*
-   * *Code Locations: defined in [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and [class AnotherClass, lines l1-l2](url); processed using [dataStructureHandlerMethod](url) and ...
-   * *Reasons:*
-      * *It is more efficient than Arraylist for insertion with a time complexity O(1)*
-      * *We don't need to access the item by index for xxx feature because...*
-      * For the (part), the data ... (characteristics) ...
 
 2. *AVLTree*
     * The Parser class uses AVLTree to handle the filtering of product information, based on location, category and name tags.
@@ -240,7 +227,6 @@ Here is a partial (short) example for the subsection `Data Structures`:*
         * *Complex query logic can be implemented efficiently by dynamically building and updating AVLTree in different parsing stages.*
         * *AVLTree naturally maintains the order of elements during their operations, which makes range queries and minimum/maximum query operations very efficient.*
 
-3. ...
 
 <hr>
 
@@ -369,8 +355,12 @@ words.]*
    - Implementation: Once we get the user input, we will track key words and transfer them to each different type of token. During the processing, these functions will check if it's a typo or not, then it will correct it.
 2. [Search-Filter] Sort and filter a list of items returned from searches, with the use of suitable UI 
    components. <u>(easy)</u> 
-   - Code
-   - Implementation
+   - Code: 
+     - [FindNewProduct()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java#L51-57)
+     - [FindUsedProduct()]((https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java#L59-65))
+     - [FindProductsAscendingOrder()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java#L108-115)
+     - [FindProductsDescendingOrde()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java#L117-124)
+   - Implementation: Use `AVLTree's inOrderTraversalAscending` and `inOrderTraversalDescending ` to sort the prices of items in ascending/descending order. For condition filtering, the product is added to the AVL tree only when the product instance is not null and the product's condition is New/Used.
 
 **UI Design and Testing** 
 
@@ -399,8 +389,8 @@ words.]*
 5.[Data-Deletion] Implement Deletion for your chosen tree data structure, and the deletion must serve 
 a purpose within your application. <u>(medium)</u> 
 
-- Code
-- Implementation
+- Code:[AVLTree.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/AVLTree.java?ref_type=heads),[AVLNode.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/AVLNode.java?ref_type=heads)
+- Implementation: We decide to use `AVLtree `and compare the production by price, the reason is that it will be efficient to do the filter. Every times the user  search 	something, the application will put the product into the `avltree`, then use parser to "clip" the `avltree ` to get the result. Then after that, user can user the filter to show the 	production with a certain sequence without reloading the database again, this will increate the efficiency significantly.
 
 **Firebase Integration**
 
