@@ -6,11 +6,11 @@
 2. [Summary of Individual Contributions](#summary-of-individual-contributions)
 3. [Application Description](#application-description)
 4. [Application UML](#application-uml)
-5. [Application Design and Decisions](#application-design-and-decisions)
+5. [Application Design and Decisions](#Code Design and Decisions)
 6. [Summary of Known Errors and Bugs](#summary-of-known-errors-and-bugs)
 7. [Testing Summary](#testing-summary)
 8. [Implemented Features](#implemented-features)
-9. [Team Meetings](#team-meetings)
+9. [Team Meetings](#Meetings Records)
 10. [Conflict Resolution Protocol](#conflict-resolution-protocol)
 
 ## Administrative
@@ -74,9 +74,9 @@ The key area(s) of responsibilities for each member
 
 - **Code Contribution in the final App**
   - Feature
-    - B1 Login, F1 FB-Auth - [LoginPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/LoginPage.java?ref_type=heads),[RegisterActivity.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/RegisterActivity.java?	ref_type=heads)
-    - B5 Search, S1 Search-Invalid, S2 Search-Filter - [Token.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Token.java?ref_type=heads),[Tokenizer.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java?	ref_type=heads),[Parser.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java?ref_type=heads)
-    - B3 LoadShowData, B4 DataStream -[Post.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/Post.java?ref_type=heads)
+    - B1 Login, F1 FB-Auth - [LoginPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/LoginPage.java),[RegisterActivity.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/RegisterActivity.java)
+    - B5 Search, S1 Search-Invalid, S2 Search-Filter - [Token.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Token.java),[Tokenizer.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java),[Parser.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java)
+    - B3 LoadShowData, B4 DataStream -[Post.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/Post.java)
     - FB-Persist - [build.gradle.kts](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/build.gradle.kts?ref_type=heads)
 - **Others**
   - APK packaging
@@ -192,14 +192,20 @@ The key area(s) of responsibilities for each member
 
 - A week passes and Lily’s dress hasn’t sold. She decides to lower the price to see if she can sell it more quickly.
 
+![](media/report/userdetail.png)
+
+- After moving to a new place, Lily edits her profile and changes her location, avatar, nickname and other information.
+
 <hr> 
 
 ### Application UML
 
+***go to media/report/UML.png to see the clearer picture***
+
 ![UML](media/report/UML.png)
 
 <hr>
-#### **go to media\report\UML.png to see the clearer picture**
+
 
 ## Code Design and Decisions
 
@@ -287,10 +293,26 @@ Production Rules:
 
 ### <u>Tokenizers and Parsers</u>
 
-*[I use the parser when they user want to search something on whatever homepage or the search result page, first I will
-grab the data from the real time database and put it into an empty AVL tree, then I will use the parser to get the result
-from the AVL tree base on the use input. Tokenizers will be used inside the parser to classify user's input and track key
-words.]*
+`Tokenizer`
+
+- code: [Tokenizer.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java?),[Token.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Token.java?ref_type=heads)
+
+- feature: The user input will be converted to different kinds of Tokens, this will help Parser.
+
+- implementation: After we get the input from user, it will be converted into following Tokens; LOCATION, CATEGORY, NAME and IGNORE. The basic idea is to track the keyword, Every single type of token will have a checklist, after correct the typo of user input, if the key word is contained by one of the checklist, it will become that type of Token. If the key word doesn't contain by any of the checklist, it will become NAME.
+
+`Parser`
+
+- code: [Parser.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java)
+
+
+- feature: The search result will be provided, and it will be store in an `AVLtree`.
+
+
+- implementation: Once will have the user input, the Tokenizer will convert it into Tokens, then the Parser will use Tokens to clip the `AVLtree`. When we create a parser, it will 
+  generate three query base on the user input, the first time it will go through location query, then clip `AVLtree`, after that, it will go through the `Category query` and `Name query`. If the Token type is IGNORE, we will do nothing, just ignore it.
+
+
 
 <hr>
 
@@ -338,7 +360,7 @@ words.]*
 | 5          | Data-Deletion                                       | medium   |
 |            | **Firebase Integration**                            |          |
 | 1          | FB-Auth                                             | easy     |
-| 2          | FB-Persist-extension                               | medium   |
+| 2          | FB-Persist-extension                               | hard |
 |            | **Peer to Peer Messaging**                          |          |
 | 1          | P2P-DM                                              | hard     |
 |            | **User Interactivity**                              |          |
