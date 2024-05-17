@@ -1,18 +1,4 @@
-# [G0 - Team Name] Report
-
-The following is a report template to help your team successfully provide all the details necessary for your report in a structured and organised manner. Please give a straightforward and concise report that best demonstrates your project. Note that a good report will give a better impression of your project to the reviewers.
-
-Note that you should have removed ALL TEMPLATE/INSTRUCTION textes in your submission (like the current sentence), otherwise it hampers the professionality in your documentation.
-
-*Here are some tips to write a good report:*
-
-* `Bullet points` are allowed and strongly encouraged for this report. Try to summarise and list the highlights of your project (rather than give long paragraphs).*
-
-* *Try to create `diagrams` for parts that could greatly benefit from it.*
-
-* *Try to make your report `well structured`, which is easier for the reviewers to capture the necessary information.*
-
-*We give instructions enclosed in square brackets [...] and examples for each sections to demonstrate what are expected for your project report. Note that they only provide part of the skeleton and your description should be more content-rich. Quick references about markdown by [CommonMark](https://commonmark.org/help/)*
+# [G09 - Twice Treasured] Report
 
 ## Table of Contents
 
@@ -28,39 +14,37 @@ Note that you should have removed ALL TEMPLATE/INSTRUCTION textes in your submis
 10. [Conflict Resolution Protocol](#conflict-resolution-protocol)
 
 ## Administrative
-- Firebase Repository Link: <insert-link-to-firebase-repository>
+- Firebase Repository Link: [Second Hand Market-Twice Treasured](https://console.firebase.google.com/project/second-hand-market-affd5/overview)
+  
    - Confirm: I have already added comp21006442@gmail.com as a Developer to the Firebase project prior to due date.
+   
+     ![Check_Developer_to_the_Firebase_project](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\Check_Developer_to_the_Firebase_project.png)
 - Two user accounts for markers' access are usable on the app's APK (do not change the username and password unless there are exceptional circumstances. Note that they are not real e-mail addresses in use):
    - Username: comp2100@anu.edu.au	Password: comp2100
+   
    - Username: comp6442@anu.edu.au	Password: comp6442
+   
+     
+   
+     ![Check_Special_Account_comp2100](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\Check_Special_Account_comp2100.png)
+   
+     ![Check_Special_Account_comp6442](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\Check_Special_Account_comp6442.png)
+   
+   
 
 ## Team Members and Roles
 The key area(s) of responsibilities for each member
 
-| UID   |  Name  |   Role |
-|:------|:------:|-------:|
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
-| [uid] | [name] | [role] |
+| UID      |            Name             |                                    Role |
+| :------- | :-------------------------: | --------------------------------------: |
+| u7756873 |         Lingjie Qin         | Full stack developer, Tester, Supporter |
+| u7303997 | Scott Ferrageau de St Amand | Full stack developer, Tester, Supporter |
+| u7642453 |         Wanzhong Wu         | Full stack developer, Tester, Supporter |
+| u7706423 |           Wen Li            | Full stack developer, Tester, Supporter |
+| u7769944 |        Xiaojie Zhou         | Full stack developer, Tester, Supporter |
 
 
 ## Summary of Individual Contributions
-
-Specific details of individual contribution of each member to the project.
-
-Each team member is responsible for writing **their own subsection**.
-
-A generic summary will not be acceptable and may result in a significant lose of marks.
-
-*[Summarise the contributions made by each member to the project, e.g. code implementation, code design, UI design, report writing, etc.]*
-
-*[Code Implementation. Which features did you implement? Which classes or methods was each member involved in? Provide an approximate proportion in pecentage of the contribution of each member to the whole code implementation, e.g. 30%.]*
-
-*you should ALSO provide links to the specified classes and/or functions*
-Note that the core criteria of contribution is based on `code contribution` (the technical developing of the App).
-
-*Here is an example: (Note that you should remove the entire section (e.g. "others") if it is not applicable)*
 
 1. **UID1, Name1**  I have 30% contribution, as follows: <br>
   - **Code Contribution in the final App**
@@ -76,8 +60,67 @@ Note that the core criteria of contribution is based on `code contribution` (the
     - [Report Writing?] [Slides preparation?]*
     - [You are welcome to provide anything that you consider as a contribution to the project or team.] e.g., APK, setups, firebase* <br><br>
 
-2. **UID2, Name2**  I have xx% contribution, as follows: <br>
-  - ...
+<hr>
+
+1.**u7756873, Lingjie Qin**  I have <u>20.6%</u> contribution, as follows: <br>
+
+- **Code Contribution in the final App**
+  - 
+- **Code and App Design** 
+  - 
+- **Others**
+  - 
+
+2.**u7303997, Scott Ferrageau de St Amand** I have <u>16.8%</u> contribution, as follows: <br>
+
+- **Code Contribution in the final App**
+  - 1
+- **Code and App Design** 
+  - 1
+- **Others**
+  - 1
+
+3.**u7642453, Wanzhong Wu** I have 21.4% contribution, as follows: 
+
+- **Code Contribution in the final App**
+  - 1
+- **Code and App Design** 
+  - 1
+- **Others**
+  - 1
+
+4.**u7706423, Wen Li** I have <u>21.2%</u> contribution, as follows: <br>
+
+- **Code Contribution in the final App**
+  - Feature
+    - G2 Data-Profile - [UserDetailPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java)
+    - G3 Data-GPS  - [getLocation()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java?#L285-331)
+    - U4 Interact-Noti - [UserNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserNotice.java), [FavoriteNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/FavoriteNotice.java)
+  - Design Pattern
+    - Singleton - [Database.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Database.java)
+    - State - [UserState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserState.java), [UserLoggedInState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedInState.java), [UserLoggedOutState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedOutState.java)
+    - Factory Method - [Notice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Notice.java), [NoticeFactory.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/NoticeFactory.java) , [UserNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserNotice.java), [FavoriteNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/FavoriteNotice.java)
+  - Other
+    - [CommonHelper.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java): showAlertDialog(), refreshLoginUser(), getLastLocation()
+    - [GlobalVariables.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/GlobalVariables.java): Except isVisitorMode()
+    - Test: [CategoryAdapterTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/CategoryAdapterTest.java), [CategoryTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/CategoryTest.java), [CommonHelperTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/CommonHelperTest.java), [GlobalVariablesTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/GlobalVariablesTest.java),[NoticeFactoryTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/NoticeFactoryTest.java), [NotificationAdapterTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/NotificationAdapterTest.java), [NotificationTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/NotificationTest.java), [UserLoggedInStateTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/UserLoggedInStateTest.java),[UserLoggedOutStateTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/UserLoggedOutStateTest.java),[UserTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/UserTest.java)
+- **Code and App Design** 
+  - Design Pattern: Singleton, State, Factory Method
+  - UI Design
+    - Use `RelativeLayout` and `ScrollView `to keep the top and bottom bars fixed while allowing the content to be scrollable for a smooth user experience.
+    - Establish a custom `ViewHolder `and employ `CardView `to seamlessly display various layouts with different icons, encompassing `LinearLayout `and `GridLayout`.
+- **Others**
+  - Report Writing
+  - Bug-fixing process for APK packaging
+
+5.**u7769944, Xiaojie Zhou** I have <u>20%</u> contribution, as follows: <br>
+
+- **Code Contribution in the final App**
+  - 1
+- **Code and App Design** 
+  - 1
+- **Others**
+  - 1
 
 
 
@@ -169,25 +212,43 @@ Here is a partial (short) example for the subsection `Data Structures`:*
 <hr>
 
 ### Design Patterns
-*[What design patterns did your team utilise? Where and why?]*
+1.*Singleton*
 
-1. *Singleton Pattern*
-   * *Objective: used for storing the only one database connection instance for Firebase Integration feature.*
-   * Code Locations: defined in [Class Database, methods getDatabase()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Database.java?#L14-23) ; processed using [Homepage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L60) ,[CommonHelper.refreshLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java?#L53) 
-   * *Reasons:*
-      * Singleton ensures only one database connection is created, saving resources.
-      * Reusing the same connection reduces system overhead, making things faster.
-      * Singleton ensures safe access to the connection, even in a multi-threaded environment.
-      * All parts of the program use the same connection, ensuring data consistency.
-2. *Observer pattern*
-    * *Objective: Notify users about updates to their favorited items, such as price changes and item delistings.*
-    * Code Locations:defined in[Class FavoriteLog] (https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/FavoriteLog.java?ref_type=heads#L1-28),[Class Observer](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Observer.java?ref_type=heads#L1-9),[Class Subject](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Subject.java?ref_type=heads#L1-10)
-    * * Reasons:*
-      * *Ensures real-time notifications:* Users receive immediate updates on changes to their favorited items.*
-      * * Maintains consistency:* Keeps the favorite list consistent with item status changes.*
-      * * Decouples logic:* Observers and subjects can vary independently, making the system modular and scalable.*
-      * *Promotes engagement:* Encourages users to remain active and up-to-date on items they care about.* 
-      * *Enhances flexibility:* Multiple types of observers (e.g., chat interface, notifications) can be added without altering the core logic.*
+* Objective: used for storing **the only one database connection instance** for Firebase Integration feature.
+* Code Locations
+   * defined in [Database.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Database.java)
+   * processed using in [RecommendAdapter()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/RecommendAdapter.java#L39), [FavoritePage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/FavoritePage.java#L77-78), [HomePage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L75), [ProductPage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java#L53-54),[UserDetailPage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L98),[UserPage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserPage.java?#L67),...
+* Reasons
+   * Singleton ensures only one database connection is created, <u>saving resources</u>.
+   * <u>Reusing</u> the same connection reduces system <u>overhead</u>, making things faster.
+   * Singleton ensures <u>safe access</u> to the connection, even in a multi-threaded environment.
+   * All parts of the program use the same connection, <u>ensuring data consistency</u>.
+
+2.State
+
+* Objective:  used for retrieve the current user's login status from [GlobalVariables](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/GlobalVariables.java#L42-65) to dynamically control the visibility of UI elements and enforce corresponding functional restrictions. 
+
+* Code Locations
+
+  - defined in  [UserState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserState.java), [UserLoggedInState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedInState.java), [UserLoggedOutState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedOutState.java)
+  - processed using in [GlobalVariables.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/GlobalVariables.java#L42-65), [CommonHelper.refreshLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java?#L94-95), [HomePage.Logout](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L141-142), [HomePage.initLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L211-212), [UserDetailPage.updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L193-194)
+
+* Reasons
+
+  * <u>UI elements and functional restrictions can change dynamically</u> based on the user's login status, improving user experience and responsiveness.
+  * Easily <u>adapt to changes and new requirements</u> without affecting the entire codebase.
+
+3.Facotry Method
+
+* Objective: used for generating different notices and store them into different database reference in factory 
+* Code Locations
+  * defined in [Notice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Notice.java), [NoticeFactory.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/NoticeFactory.java) , [UserNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserNotice.java), [FavoriteNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/FavoriteNotice.java)
+  * processed using in [ProductPage.toggleFavoriteStatus()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java#L220-222), [UserDetailPage.updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L187-189)
+* Reasons
+  *  <u>Easy addition of new notice types</u> without modifying existing code. 
+  * <u>Relying on factory interfaces instead of concrete classes</u>, it fosters a modular and loosely coupled design, facilitating system maintenance and evolution.
+
+  
 
 <hr>
 
