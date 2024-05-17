@@ -18,7 +18,7 @@
   
    - Confirm: I have already added comp21006442@gmail.com as a Developer to the Firebase project prior to due date.
    
-     ![Check_Developer_to_the_Firebase_project](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\Check_Developer_to_the_Firebase_project.png)
+     ![Check_Developer_to_the_Firebase_project](media\report\Check_Developer_to_the_Firebase_project.png)
 - Two user accounts for markers' access are usable on the app's APK (do not change the username and password unless there are exceptional circumstances. Note that they are not real e-mail addresses in use):
    - Username: comp2100@anu.edu.au	Password: comp2100
    
@@ -26,9 +26,9 @@
    
      
    
-     ![Check_Special_Account_comp2100](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\Check_Special_Account_comp2100.png)
+     ![Check_Special_Account_comp2100](media\report\Check_Special_Account_comp2100.png)
    
-     ![Check_Special_Account_comp6442](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\Check_Special_Account_comp6442.png)
+     ![Check_Special_Account_comp6442](media\report\Check_Special_Account_comp6442.png)
    
    
 
@@ -117,13 +117,22 @@ The key area(s) of responsibilities for each member
 5.**u7769944, Xiaojie Zhou** I have <u>20%</u> contribution, as follows: <br>
 
 - **Code Contribution in the final App**
-  - 1
+  - Feature
+    - DataFiles 2,500 valid data instances in the firebase ,you can also see the src/main/assets to find them
+    - LoadShowData [Database.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/basicClass/Database.java#L48-75)
+    - AVLTree  finish basic methods. [AVLNode.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/common/AVLNode.java#L1-70)[AVLTree.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/common/AVLTree.java#L1-164)
+    - U1 Interact-Micro [ProductPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java?ref_type=heads#L161-229)
+    - U2 Interact-Follow [Favorite.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Favorite.java?ref_type=heads#L1-61) [FavoriteAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/FavoriteAdapter.java?ref_type=heads#L1-274)[FavoritePage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/FavoritePage.java?ref_type=heads#L1-347)[IntroPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Activities/IntroPage.java#L27-29)
+  - other
+    - [ProductPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java#L1-158)
+    - [ProductsManagePage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Activities/ProductsManagePage.java#L1-97) [ProductsManageAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Adapters/ProductsManageAdapter.java#L1-115)[ProductEditorPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Activities/ProductEditorPage.java#L1-191)
+    - [SearchItemAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Adapters/SearchItemAdapter.java#L1-103)
+    - Test:[AVLNodeTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/test/java/com/example/myapplication/AVLNodeTest.java#L1-106) [AVLTreeTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/test/java/com/example/myapplication/AVLTreeTest.java#L113-170)[FavoriteTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/test/java/com/example/myapplication/FavoriteTest.java#L1-76)
 - **Code and App Design** 
-  - 1
+  - UI design**: I completed the design and function implementation of the product details page, seller product management page, user collection list page, and UI design of the search results page.
 - **Others**
-  - 1
-
-
+  - Report Writing：Wen Li and I completed the writing of the entire report
+  - Write two meeting records
 
 ## Application Description
 
@@ -132,6 +141,30 @@ The key area(s) of responsibilities for each member
 *Here is a pet specific application example*
 
 *PetBook is a social media application specifically targetting pet owners... it provides... certified practitioners, such as veterians are indicated by a label next to their profile...*
+
+**Twice Treasured** is a platform designed for buying and selling new and second-hand items. With Twice Treasured, users can:
+
+- Browse and search for products of interest, and communicate with sellers anytime, anywhere.
+
+- "Like" products to follow updates such as price drops or item delistings, ensuring they don't miss out on great deals.
+
+- Upload and sell their own items, promoting the circulation of unused goods and supporting a sustainable second-hand market.
+
+  ![items/media/report/intropage.png](media\report\intropage.png)
+
+  
+
+  ![](media\report\homepage.png)
+  
+  ![](media\report\search.png)
+  
+  ![](media\report\chat.png)
+  
+  ![](media\report\favorite list.png)
+  
+  ![](media\report\post.png)
+  
+  **image:login,scan goods,search,chat,favorite,post(from top to bottom)**
 
 ### Application Use Cases and or Examples
 
@@ -344,11 +377,11 @@ words.]*
 **UI Design and Testing** 
 
  	1.	[UI-Layout]. Incorporate suitable layout adjustments in the UI components for portrait and landscape layout variants, as well as different screen sizes. <u>(easy)</u> 
-      
+            
       - Code: [HomePageLayout](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/res/layout/activity_home_page.xml)
       - Implementation: Arrange the layout with <u>a Top bar, Content, and Bottom bar</u> within a `RelativeLayout` . The Top bar's contents are set within a `ConstraintLayout `for precise alignment, while the Content resides in a `ScrollView`, enabling seamless scrolling. Lastly, the Bottom bar is nested within a `LinearLayout`, ensuring its placement at the absolute bottom using *layout_alignParentBottom*.
       
-      ![CustomerFeature_UILayout](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\CustomerFeature_UILayout.png)
+      ![CustomerFeature_UILayout](media\report\CustomerFeature_UILayout.png)
       
       
       
