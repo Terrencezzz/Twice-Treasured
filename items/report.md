@@ -209,15 +209,13 @@ The key area(s) of responsibilities for each member
 
 ## Code Design and Decisions
 
-This is an important section of your report and should include all technical decisions made. Well-written justifications will increase your marks for both the report as well as for the relevant parts (e.g., data structure). This includes, for example,
-
 - Details about the parser (describe the formal grammar and language used)
 
 - Decisions made (e.g., explain why you chose one or another data structure, why you used a specific data model, etc.)
 
 - Details about the design patterns used (where in the code, justification of the choice, etc)
 
-*Please give clear and concise descriptions for each subsections of this part. It would be better to list all the concrete items for each subsection and give no more than `5` concise, crucial reasons of your design.
+
 
 <hr>
 
@@ -225,13 +223,14 @@ This is an important section of your report and should include all technical dec
 
 *I used the following data structures in my project:*
 
-2. *AVLTree*
-    * The Parser class uses AVLTree to handle the filtering of product information, based on location, category and name tags.
-    * Code Locations: defined in [Class AVLTree](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/AVLTree.java?ref_type=heads#L6-348) ; processed using [Class Parser](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java?ref_type=heads#L15-113)
-    * Reasons:
-        * *Searching product information by using an AVLTree is much more efficient than using a LinkedList. If there are N elements in the LinkedList, the worst case requires traversing the entire LinkedList, and the time complexity is O(n). But in AVLTree, the height of the tree is kept at O(log n) and the search operation can be very fast.*
-        * *Complex query logic can be implemented efficiently by dynamically building and updating AVLTree in different parsing stages.*
-        * *AVLTree naturally maintains the order of elements during their operations, which makes range queries and minimum/maximum query operations very efficient.*
+1. **AVLTree**
+
+* The Parser class uses AVLTree to handle the filtering of product information, based on location, category and name tags.
+* Code Locations: defined in [Class AVLTree](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/AVLTree.java?ref_type=heads#L6-348) ; processed using [Class Parser](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java?ref_type=heads#L15-113)
+* Reasons:
+    * *Searching product information by using an AVLTree is much more efficient than using a LinkedList. If there are N elements in the LinkedList, the worst case requires traversing the entire LinkedList, and the time complexity is O(n). But in AVLTree, the height of the tree is kept at O(log n) and the search operation can be very fast.*
+    * *Complex query logic can be implemented efficiently by dynamically building and updating AVLTree in different parsing stages.*
+    * *AVLTree naturally maintains the order of elements during their operations, which makes range queries and minimum/maximum query operations very efficient.*
 
 
 <hr>
@@ -312,15 +311,6 @@ Production Rules:
 - implementation: Once will have the user input, the Tokenizer will convert it into Tokens, then the Parser will use Tokens to clip the `AVLtree`. When we create a parser, it will 
   generate three query base on the user input, the first time it will go through location query, then clip `AVLtree`, after that, it will go through the `Category query` and `Name query`. If the Token type is IGNORE, we will do nothing, just ignore it.
 
-
-
-<hr>
-
-### Others
-
-*[What other design decisions have you made which you feel are relevant? Feel free to separate these into their own subheadings.]*
-
-<br>
 <hr>
 
 ## Implemented Features
@@ -478,7 +468,6 @@ see some profiles or contents that are set to Public or after request being acce
 **Bugs**
 
 1. *Bug 1:* Due to <u>asynchronous database data retrieval</u>, if a user navigates to the `HomePage ` and clicks on the bottom navigation bar before `initLoginUser() `finishes, the system might incorrectly assume they are not logged in.<u>(fixed by add a loading overlay or dialog to wait for `initLoginUser ` to finish.)</u>
-2. Bug2: 
 
 **Errors**
 
@@ -487,22 +476,43 @@ see some profiles or contents that are set to Public or after request being acce
 
 ## Testing Summary
 
-*[What features have you tested? What is your testing coverage?]*
-*Please provide some screenshots of your testing summary, showing the achieved testing coverage. Feel free to provide further details on your tests.*
+ **Overall Coverage Summary**
 
-*Here is an example:*
+![UnitTestofOverallCoverageSummary](media/report/UnitTestofOverallCoverageSummary.png)
 
-1. Tests for Search
-   - Code: [TokenizerTest Class, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java) for the [Tokenizer Class, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43)
-   - *Number of test cases: ...*
-   - *Code coverage: ...*
-   - *Types of tests created and descriptions: ...*
+Although the data in the graph shows that the test coverage has not reached the minimum requirement of 70%, the actual unit test coverage is 100% when excluding special cases such as UI interaction classes and database interaction classes. See the introduction below for details.
 
-2. xxx
+The unit tests mainly cover the basic class and common packages, with details as follows:
 
-...
+**Package: basic class**
 
-<br> <hr>
+![UnitTestofbasicclass](media/report/UnitTestofbasicclass.png)
+
+- Unit tests cover 18 out of 21 classes in the basic class package.
+- The remaining 3 classes interact with the Firebase database, making them unsuitable for unit tests, resulting in a class test coverage of 0% for these classes.
+- Excluding these three exceptional cases, the actual class-level unit test coverage for the basic class package is 100%.
+
+
+
+**Package: common**
+
+![](media/report/Unittestofcommon.png)
+
+- This package includes 3 classes.
+
+- Due to the interaction with the Firebase database in the `CommonHelper` class, the unit tests did not cover all of its code.
+
+- Excluding the special case of this class, the actual unit test coverage for the `common` package is 100%.
+
+**Package: Activities, Adapters**
+
+![UnitTestofActivitiesandAdapter](media/report/UnitTestofActivitiesandAdapter.png)
+
+- Both packages involve UI interactions and are not suitable for unit testing.
+
+- Therefore, only 4 out of 9 classes in the Adapters package were teste
+
+  
 
 
 ## Team Management
