@@ -23,27 +23,37 @@ declaration: >-
   own work, with the following exceptions:
   
 
-# add as many "name+comment" entries as necessary
-# (or remove it altogether if you haven't collaborated with anyone outside your group)
-collaboration:
-  - name:
-    comment: >-
-  
-
 # add as many "url+licence+comment" entries as necessary
 # (or remove it altogether if you haven't used any external code)
 code:
-  - comment:
-    url:
-    licence:
+  - comment: Android, finish() closes application insead of activity
+    url: https://stackoverflow.com/questions/19449755/android-finish-closes-application-insead-of-activity
+    licence: public
+
+
+  - comment: recycler view showing single-item
+    url: https://stackoverflow.com/questions/36576442/recycler-view-showing-single-item/60797275#60797275
+    licence: public
+
+  - comment: how-to-update-recyclerview-adapter-data
+    url: https://stackoverflow.com/questions/31367599/how-to-update-recyclerview-adapter-data
+    licence: public   
+
+  - comment: How do I update a RecyclerView on sorting the data?
+    url: https://stackoverflow.com/questions/54562130/how-do-i-update-a-recyclerview-on-sorting-the-data
+    licence: public   
 
 
 # add as many "url+licence+comment" entries as necessary
 # (or remove it altogether if you haven't used any external assets)
 assets:
   # NOTE: "Bliss" is just here as an example, you SHOULD REMOVE IT
-  - comment: "_Bliss_ by Charles O'Rear"
-    url: https://en.wikipedia.org/wiki/Bliss_(image)
+  - comment: "second hand icons"
+    url: https://www.flaticon.com/free-icons/second-hand
+    licence: fair use
+
+  - comment: "all icons"
+    url: https://www.iconfont.cn/
     licence: fair use
 
 
