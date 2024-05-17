@@ -64,11 +64,23 @@ The key area(s) of responsibilities for each member
 2.**u7303997, Scott Ferrageau de St Amand** I have <u>16.8%</u> contribution, as follows: 
 
 - **Code Contribution in the final App**
-  - 1
+  - Feature
+    -  [P2P-DM] – [PrivateChat.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/PrivateChat.java), [MessageAdapter.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/MessageAdapter.java), [PrivateMenuActivity.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/PrivateMenuActivity.java), [ChatMenuAdapter.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/ChatMenuAdapter.java), [MesageBuble.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/MessageBuble.java), [MessageEnvironment.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/MessageEnvironment.java)
+    - [FB-Persist-Extension] – [PrivateChat.java: lines 164-177, ValueEventListener() and addValue EventListener]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/PrivateChat.java#L164-177). [PrivateMenuActivity.java: lines 118-174, ValueEventListener() and addValueEventListener]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/PrivateMenuActivity.java#L118-177).
+  - Other
+    - [Commonhelper.java: getCurrentTimestamp()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java#L163-172)
+    -  [ProductPage.java: chatWithSellerBtn.setOnClickListener()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java#L67-81)
+    - [User.java: addMessageId()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/User.java#L81-84)
+    - Test: [ChatMenuAdapterTest.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/ChatMenuAdapterTest.java), [MessageAdapterTest.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/MessageAdapterTest.java), [MessageBubbleTest.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/MessageBubbleTest.java), [MessageEnvironmentTest.java]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/MessageEnvironmentTest.java)
 - **Code and App Design** 
-  - 1
+  - UI Design
+    - Used [RecyclerView]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/res/layout/chat_menu_recycler.xml) to display messages and menu items.
+    - Created two separate ViewHolders to display the messages in the private chat. The view holder displayed by the recycler changes depending on if the message is received or sent. See [message_recycler_send.xml]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/res/layout/message_recycler_send.xml) and [message_recycler_received.xml]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/res/layout/messsage_recycler_receive.xml).
+    - Used relative layout for [activity_private_chat.xml]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/res/layout/activity_private_chat.xml) and [activity_private_menu.xml](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/res/layout/activity_private_menu.xml) to have the activities compatible on multiple device sizes.
+    - Added colours to [colors.xml]( https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/res/values/colors.xml) to help with theme consistency across the app.
 - **Others**
-  - 1
+  - Report Writing: Authored [P2P-DM] and [FB-Persist-extension] sections.
+  - Meeting-0506: Lead and scribe.
 
 3.**u7642453, Wanzhong Wu** I have 21.4% contribution, as follows: 
 
@@ -83,6 +95,7 @@ The key area(s) of responsibilities for each member
   - Create report slide
   - Setup environment, connect firebase
   - Design database
+  - Meeting-0415,0429: Lead and scribe.
 
 4.**u7706423, Wen Li** I have <u>21.2%</u> contribution, as follows: 
 
@@ -131,13 +144,17 @@ The key area(s) of responsibilities for each member
 
 ## Application Description
 
-**Twice Treasured** is a platform designed for buying and selling new and second-hand items. With Twice Treasured, users can:
+**Twice Treasured** is a platform designed for buying and selling new and second-hand items. 
+
+With Twice Treasured, users can:
 
 - Browse and search for products of interest, and communicate with sellers anytime, anywhere.
 
 - "Like" products to follow updates such as price drops or item delistings, ensuring they don't miss out on great deals.
 
 - Upload and sell their own items, promoting the circulation of unused goods and supporting a sustainable second-hand market.
+
+- Update their basic information.
 
   ![intropage](media/report/intropage.png)
 
@@ -153,7 +170,7 @@ The key area(s) of responsibilities for each member
   
   ![post](media/report/post.png)
   
-  **image:login,scan goods,search,chat,favorite,post(from top to bottom)**
+  *image:login,scan goods,search,chat,favorite,post(from top to bottom)*
 
 ### Application Use Cases and or Examples
 
@@ -161,7 +178,7 @@ The key area(s) of responsibilities for each member
 
 ![search](media/report/search.png)
 
-- Lily wants to buy a new dress, so she opens Twice Treasured and searches for second-hand branded dresses.
+- Lily wants to buy a new dress, so she opens Twice Treasured and **searches for** second-hand branded dresses.
 
 **Communicating with Sellers and Favoriting Items**
 
@@ -169,8 +186,8 @@ The key area(s) of responsibilities for each member
 
 ![product_detail_page](media/report/product_detail_page.png)
 
-- Lily finds a dress she likes and clicks the product link to view the details. She thinks it’s great and uses the “Chat with Seller” feature in the bottom right corner to negotiate the price. 
-- If Lily likes the item but wants to compare it with others, she can click the heart icon in the bottom left corner to favorite the item and easily find it later in her favorites list.
+- Lily finds a dress she **likes** and clicks the product link to view the details. She thinks it’s great and uses the `Chat with Seller` feature in the bottom right corner to negotiate the price. 
+- If Lily likes the item but wants to compare it with others, she can **click the heart icon** in the bottom left corner to favorite the item and easily find it later in her favorites list.
 
 **Post Items for Sale**
 
@@ -182,7 +199,7 @@ The key area(s) of responsibilities for each member
 
 ![notification](media/report/notification.png)
 
-- Within a day, Lily receives a notification from the system that two users are interested in her item and have favorited it.
+- Within a day, Lily receives a **notification** from the system that two users are interested in her item and have favorited it.
 
  **Managing and Modifying Items**
 
@@ -194,7 +211,7 @@ The key area(s) of responsibilities for each member
 
 ![](media/report/userdetail.png)
 
-- After moving to a new place, Lily edits her profile and changes her location, avatar, nickname and other information.
+- After moving to a new place, Lily edits her profile and changes her **location, avatar, nickname** and other information.
 
 <hr> 
 
@@ -209,28 +226,64 @@ The key area(s) of responsibilities for each member
 
 ## Code Design and Decisions
 
-- Details about the parser (describe the formal grammar and language used)
+- **Details about the parser**
 
-- Decisions made (e.g., explain why you chose one or another data structure, why you used a specific data model, etc.)
+  Essentially, grammar functions by tracking` keywords `within user input. It's constructed from a combination of various filters working together. 
 
-- Details about the design patterns used (where in the code, justification of the choice, etc)
+  This approach offers several benefits: it facilitates easier modifications in the future for enhancing the grammar, and it's both highly potent and straightforward to implement.
 
+  ```
+  <query> ::= <location-filter> <category-filter> <name-filter>
+  <location-filter> ::= 'LOCATION' <string> | ε
+  <category-filter> ::= 'CATEGORY' <string> | ε
+  <name-filter> ::= 'NAME' <string> | ε
+  <string> ::= [a-zA-Z0-9]+
+  ```
 
+- **Decisions made about data structure**
+
+  utilizing the **AVLtree** data structure to compare products based on price, as it offers `efficiency ` for filtering. Each time a user initiates a search, the application will insert the product into the `AVLtree`, subsequently utilizing a parser to extract relevant data. This approach enables users to apply filters to display products in a `specific sequence` without the need to reload the database, thus greatly enhancing efficiency.
+
+- **Details about the design patterns used** 
+
+  - *Singleton*
+
+    Singleton guarantees the creation of **only one database connection**, thus conserving resources effectively. By reusing this single connection, `system overhead is minimized`, resulting in faster operations. Moreover, Singleton ensures secure access to the connection, even in multi-threaded environments. This unified connection usage across all program components further guarantees `data consistency` throughout the application.
+
+  - *State*
+
+    User interface elements and functional restrictions can dynamically adapt `according to the user's login status`, thereby enhancing user experience and responsiveness. This **flexibility** allows for easy accommodation of changes and new requirements without disrupting the entire codebase.
+
+  - *Factory Method*
+
+    **New notice types can be added easily** without modifying existing code. By using factory interfaces instead of concrete classes, the design remains modular and loosely coupled, which facilitates system maintenance and evolution.
 
 <hr>
 
 ### Data Structures
 
-*I used the following data structures in my project:*
+​	**1.AVLTree**
 
-1. **AVLTree**
+- The Parser class uses AVLTree to handle the filtering of product information, based on location, category and name tags.
 
-* The Parser class uses AVLTree to handle the filtering of product information, based on location, category and name tags.
 * Code Locations: defined in [Class AVLTree](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/AVLTree.java?ref_type=heads#L6-348) ; processed using [Class Parser](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java?ref_type=heads#L15-113)
+
 * Reasons:
-    * *Searching product information by using an AVLTree is much more efficient than using a LinkedList. If there are N elements in the LinkedList, the worst case requires traversing the entire LinkedList, and the time complexity is O(n). But in AVLTree, the height of the tree is kept at O(log n) and the search operation can be very fast.*
-    * *Complex query logic can be implemented efficiently by dynamically building and updating AVLTree in different parsing stages.*
-    * *AVLTree naturally maintains the order of elements during their operations, which makes range queries and minimum/maximum query operations very efficient.*
+    * Searching product information by using an AVLTree is much more efficient than using a LinkedList. If there are N elements in the LinkedList, the worst case requires traversing the entire LinkedList, and the time complexity is O(n). But in AVLTree, the height of the tree is kept at O(log n) and the search operation can be very fast.
+    * Complex query logic can be implemented efficiently by dynamically building and updating AVLTree in different parsing stages.
+    * AVLTree naturally maintains the order of elements during their operations, which makes range queries and minimum/maximum query operations very efficient.
+    
+    **2.ArrayList**
+    
+    - `ArrayList` serves as a dynamic array that automatically adjusts its size, maintains insertion order, and allows efficient random access. It offers convenient methods for adding, removing, and searching elements, and automatically expands its capacity when needed. As it implements the `List` interface, it ensures compatibility with other collection framework classes and interfaces.
+    - Code Location: processed using [UserDetail.users](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java?ref_type=heads#L83), [NotificationAdapter.`notifications`](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/NotificationAdapter.java?ref_type=heads#L25-27),...
+    
+    **3.HashMap**
+    
+    -  `HashMap` stores key-value pairs, enabling efficient retrieval, insertion, and deletion based on keys. It offers constant-time performance for these operations, allows null keys and values, and handles large datasets well, making it ideal for quick data access and management.
+    - Code Location: processed using [RegisterActivity](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/RegisterActivity.java?ref_type=heads#L97)
+    
+    
 
 
 <hr>
@@ -240,13 +293,16 @@ The key area(s) of responsibilities for each member
 
 * *Objective*: used for storing **the only one database connection instance** for Firebase Integration feature.
 * *Code Locations*
+  
    * defined in [Database.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Database.java)
    * processed using in [RecommendAdapter()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/RecommendAdapter.java#L39), [FavoritePage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/FavoritePage.java#L77-78), [HomePage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L75), [ProductPage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java#L53-54),[UserDetailPage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L98),[UserPage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserPage.java?#L67),...
 * *Reasons*
-   * Singleton ensures only one database connection is created, <u>saving resources</u>.
-   * <u>Reusing</u> the same connection reduces system <u>overhead</u>, making things faster.
-   * Singleton ensures <u>safe access</u> to the connection, even in a multi-threaded environment.
-   * All parts of the program use the same connection, <u>ensuring data consistency</u>.
+   * Singleton ensures only one database connection is created, <u>**saving resources**</u>.
+   * <u>**Reusing**</u> the same connection reduces system <u>**overhead**</u>, making things faster.
+   * Singleton ensures <u>**safe access**</u> to the connection, even in a multi-threaded environment.
+   * All parts of the program use the same connection, <u>**ensuring data consistency**</u>.
+   
+   ![designpattern_singleton](media/report/designpattern_singleton.png)
 
 **2.State**
 
@@ -257,9 +313,11 @@ The key area(s) of responsibilities for each member
   * processed using in [GlobalVariables.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/GlobalVariables.java#L42-65), [CommonHelper.refreshLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java?#L94-95), [HomePage.Logout](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L141-142), [HomePage.initLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L211-212), [UserDetailPage.updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L193-194)
 * *Reasons*
   * <u>UI elements and functional restrictions can change dynamically</u> based on the user's login status, improving user experience and responsiveness.
-  * Easily <u>adapt to changes and new requirements</u> without affecting the entire codebase.
+  * Easily <u>**adapt to changes and new requirements**</u> without affecting the entire codebase.
+  
+  ![designpattern_state](media/report/designpattern_state.png)
 
-**3.Facotry Method**
+**3.Factory Method**
 
 * *Objective*: used for **generating different notices** and store them into different database reference in factory 
 * *Code Locations*
@@ -271,16 +329,16 @@ The key area(s) of responsibilities for each member
   *  <u>Easy addition of new notice types</u> without modifying existing code. 
   *  <u>Relying on factory interfaces instead of concrete classes</u>, it fosters a modular and loosely coupled design, facilitating system maintenance and evolution.
   
-  
+  ![designpattern_factory](media/report/designpattern_factory.png)
 
 <hr>
 
 ### Parser
 
 ### <u>Grammar(s)</u>
-*Basically my grammar is for tracking key words of the user input, it's made of different filters combine with each other.
-The advantage of doing this is this way is easier to modify in the future if we want to improve the grammar, and also it's
-very powerful and easy to implement.*
+Basically my grammar is for tracking `keywords` of the user input, it's made of different filters combine with each other.
+The **advantage** of doing this is this way is easier to modify in the future if we want to improve the grammar, and also it's
+very powerful and easy to implement.
 
 Production Rules:
 
@@ -298,7 +356,7 @@ Production Rules:
 
 - feature: The user input will be converted to different kinds of Tokens, this will help Parser.
 
-- implementation: After we get the input from user, it will be converted into following Tokens; LOCATION, CATEGORY, NAME and IGNORE. The basic idea is to track the keyword, Every single type of token will have a checklist, after correct the typo of user input, if the key word is contained by one of the checklist, it will become that type of Token. If the key word doesn't contain by any of the checklist, it will become NAME.
+- implementation: After we get the input from user, it will be converted into following Tokens; **LOCATION, CATEGORY, NAME and IGNORE**. The basic idea is to track the keyword, Every single type of token will have a checklist, after correct the typo of user input, if the key word is contained by one of the checklist, it will become that type of Token. If the key word doesn't contain by any of the checklist, it will become NAME.
 
 `Parser`
 
@@ -420,8 +478,13 @@ a purpose within your application. <u>(medium)</u>
 
 1.[P2P-DM] Provide users with the ability to message each other directly in private. <u>(hard)</u> 
 
-- Code
-- Implementation
+- Code: [PrivateChat.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/PrivateChat.java?ref_type=heads), [MessageAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/MessageAdapter.java?ref_type=heads), [PrivateMenuActivity.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/PrivateMenuActivity.java?ref_type=heads), [ChatMenuAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/ChatMenuAdapter.java?ref_type=heads), [MesageBuble.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/MessageBuble.java?ref_type=heads), [MessageEnvironment.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/MessageEnvironment.java?ref_type=heads). [ProductPage: lines 67-81,chatWithSellerBtn.setOnClickListener()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java?#L67-L81)
+
+- Implementation: A user can start a `PrivateChat ` Activity via the `chatWithSellerBtn.setOnClickListener() ` in the `ProductPage ` Activity. On creating the activity, `openNewOrExistingEnvironment()` pulls a message environment from Firebase if one exists for the two users, or creates a new message environment. A recycler is used to display the messages between the two users. `buttonSend.setOnClickListener() ` allows the user to send a message to Firebase. If it is the first message sent in the environment, the environment id is added to each user in Firebase using `addMessageIdToUsers()`.` environmentRef.addValueEventListener()` is used to update the `messageEnvironment `and recycler to synchronously as the Firebase reference is updated and allows users to see messages instantly.
+
+  
+
+  `PrivateMenuActivity ` users a recycler to display who the user has been chatting with and allows the user to open up the corresponding `PrivateChat ` Activity. A `ValueEventListener ` is used to update the recycler when a message id is added to the user in Firebase. This means the user can instantly see when a new `messageEnvironment ` is assigned to them.
 
 **User Interactivity**
 
@@ -458,10 +521,150 @@ see some profiles or contents that are set to Public or after request being acce
 
 ### Surprise Features
 
-- If implemented, explain how your solution addresses the task (any detail requirements will be released with the surprise feature specifications).
-- State that "Suprised feature is not implemented" otherwise.
+**1.Database Connection Instance**
 
-<br> <hr>
+***Description***
+
+| Commits                                                      | files     | line number | Publish Date   |
+| ------------------------------------------------------------ | --------- | ----------- | -------------- |
+| [Code Smell](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/f69db3f401c8202624973dfd2310c74589b4f51c/src/app/src/main/java/com/example/myapplication/Activities/Page.java#L17-19) | Page.java | L17-19      | April 22, 2024 |
+
+```
+FirebaseDatabase database = FirebaseDatabase.getInstance();
+```
+
+Create a database instance in abstract Page class, all class who extends it can use the database instance,  to store and retrieve data directly.
+
+***Reasons to remove it***
+
+- Classes only extends Page class can access database instance, **limit the reusability**.
+- Page class is responsible not only for displaying and interacting with UI, but also for managing the database instance, the burden is too heavy, **reducing code maintainability**.
+- Tight coupling between classes can result in unexpected problems, for example, if there is a need to modify or replace the database instance, it will affect Page class and its all subclasses, **reducing the flexibility**.
+
+***Implementation Description***
+
+| Commits                                                      | files         | line number | Publish Date |
+| ------------------------------------------------------------ | ------------- | ----------- | ------------ |
+| [Singleton Database Instance](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/add8ef59cdd6ad5e755540cf858772472603a139/src/app/src/main/java/com/example/myapplication/basicClass/Database.java#L5-22) | Database.java | L5-22       | May 3, 2024  |
+
+```java
+private static FirebaseDatabase database = null;
+    private Database() {
+
+    }
+    public static FirebaseDatabase getDatabase(){
+        if(database == null){
+            database = FirebaseDatabase.getInstance();
+        }else{
+            System.out.println("Database instance has been created yet.");
+        }
+
+        return database;
+    }
+```
+
+Create a Databse.java, and create only one database instance throughout the lifecycle using the **singleton pattern**.
+
+***Reason to use it***
+
+- Using the Singleton Pattern ensures there is **only one database instance** throughout the application lifecycle, thereby conserving resources and enhancing code performance due to reduced overhead associated with creating and destroying duplicate database instances.
+- All activities accessing the database through this single instance, **reliability and consistency** are ensured, while the risk of data synchronization and management issues is mitigated.
+- Separating the database instance into its own class reduces coupling between classes. This separation allows for easier modifications to the database implementation without affecting other parts of the application.
+
+
+
+**2.Bottoom Navigation Bar**
+
+***Description***
+
+| Commits                                                      | files                  | line number | Publish Date   |
+| ------------------------------------------------------------ | ---------------------- | ----------- | -------------- |
+| [Code Smell](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/d7fe72c6a317fe1253d70bbaa54119ca03e7be4c/src/app/src/main/res/layout/activity_home_page.xml#L204-241) | activity_home_page.xml | L204-241    | April 21, 2024 |
+
+Four TextViews are arranged side by side at the bottom of the ConstraintLayout, with each TextView constrained to the left and right of the others, creating a Navigation Bar.
+
+***Reasons to remove it***
+
+- When adjusting the screen size on a mobile device, the Bottom Navigation **fails to remain fixed at the bottom**, thus preventing content from adapting automatically.
+- The bottom navigation's visual design appears rough, and there's a lack of clear indication when switching tabs, resulting in a **subpar user experience**.
+
+***Implementation Description***
+
+| Commits                                                      | files                  | line number | Publish Date |
+| ------------------------------------------------------------ | ---------------------- | ----------- | ------------ |
+| [Fix Navigation Bar](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/3800a353c4e665822ccb4bc1f55cedfcd7228e92/src/app/src/main/res/layout/activity_home_page.xml#L297-357) | activity_home_page.xml | L297-357    | May 1, 2024  |
+| [Button Clicked change appearance](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/e9c0bd0258863f9dd21d6f7038fa977576930f84/src/app/src/main/res/layout/activity_home_page.xml#L336-448) | activity_home_page.xml | L336-448    | May 3, 2024  |
+
+- Using a **RelativeLayout** instead of a ConstraintLayout. Within the RelativeLayout, place four TextViews in a **LinearLayout**, setting the LinearLayout's attribute **android:layout_alignParentBottom="true"** to ensure it remains at the bottom of the layout. 
+- Button Icon image changes when buttons in the bottom navigation bar are clicked or unclicked. 
+
+***Reason to use it***
+
+- Guarantee that both the bottom and top bars **maintain their correct positions** regardless of any changes in screen size.
+- Ensures that customers can easily discern between clicked and unclicked buttons, **improving the overall user experience**.
+
+
+
+**3.Product Constructor**
+
+***Description***
+
+| Commits                                                      | files           | line number | Publish Date |
+| ------------------------------------------------------------ | --------------- | ----------- | ------------ |
+| [Code Smell](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/commit/0bb5a6e5180cba7e97d25bfbdd0f348c9b5c7ff2) | Production.java | L3-25       |              |
+
+***Reasons to improve it***
+
+- This production constructor did have the variable it needs, but it can't be put into the AVLtree because the `AVLtree ` doesn't know how to compare between Product.
+- In our logic, we will check if two Product are the same to avoid duplicate result, but this constructor can't do that.
+
+***Implementation Description***
+
+| Commits                                                      | files        | line number   | Publish Date |
+| ------------------------------------------------------------ | ------------ | ------------- | ------------ |
+| [Make the product comparable](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/commit/7ece647a07536bbc9546bd8d71a7124d47999037) | Product.java | L4, L117-L120 | May 2, 2024  |
+| [Rewrite the hashcode for product, avoid duplicate with name checking.](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/commit/16ed68a179ca535356118ad60e2184856d9ff7ce) | Product.java | L143-149      | May 13, 2024 |
+
+- Make Product comparable, compare by price.
+- Rewrite the `hashcode `for Product based on its ID. 
+
+***Reason to use it***
+
+- We need to put Product in to the `AVLTree`, but we need to rewrite the compare to the `AVLTree `knows how to compare it.
+- We have somewhere to check duplicate for search result, we need to write the `hashcode ` for this.
+
+
+
+**4.Product PostPage**
+
+***Description***
+
+| Commits                                                      | files              | line number | Publish Date   |
+| ------------------------------------------------------------ | ------------------ | ----------- | -------------- |
+| [Code Smell](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/commit/ea0ced846c4a489fa9ed988ff6a158e590fb40e2) | TradePlatform.java | L38-45      | April 23, 2024 |
+
+***Reasons to improve it***
+
+- When users post a new product, they should not use `EditText ` to manually enter the category or condition of the product, but there should be a drop-down selection bar for the user to choose directly.
+- The user uses the drop-down selection bar to enter the category of the product, which is helpful for later implementing the category-based product search function.
+
+***Implementation Description***
+
+| Commits                                                      | files     | line number    | Publish Date |
+| ------------------------------------------------------------ | --------- | -------------- | ------------ |
+| [Change the input method of Category in Post to drop-down selection](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/commit/bbb625e17ad77fe900c409d154861d6e60afb309) | Post.java | L58-66         | May 1, 2024  |
+| [Add Product Condition drop-down selection to PostPage.](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/commit/786461ffb69e5e24598e7305546c78493c32fd23) | Post.java | L51-52,L68-101 | May 1, 2024  |
+
+Allow users to use the selection drop-down bar to enter the category and condition of the product.
+
+
+
+***Reason to use it***
+
+- When users post new products, select the following categories: Electronics, Clothing, Furniture, Books, Sports, Toys, Beauty, Others. After uploading, users can select the icon corresponding to the category in `HomePage `to search for products.
+- When the user uploads, the condition of the product is selected as New or Used. Users can then filter New or Used in the Search-Filter function.
+
+
 
 ## Summary of Known Errors and Bugs
 
@@ -535,10 +738,8 @@ The unit tests mainly cover the basic class and common packages, with details as
 <hr>
 
 ### Conflict Resolution Protocol
-*[Write a well defined protocol your team can use to handle conflicts. That is, if your group has problems, what is the procedure for reaching consensus or solving a problem?
-(If you choose to make this an external document, link to it here)]*
-
-This shall include an agreed procedure for situations including (but not limited to):
-- e.g., if a member fails to meet the initial plan and/or deadlines
-- e.g., if your group has issues, how will your group reach consensus or solve the problem?
-- e.g., if a member gets sick, what is the solution? Alternatively, what is your plan to mitigate the impact of unforeseen incidents for this 6-to-8-week project? 
+- If a member fails to meet the initial plan and/or deadlines, <u>others may need support. We should adjust the plan or allocate resources accordingly, and communicate with the team member to find a solution.</u>
+- Our group would address issues through <u>open communication, active listening, collaboration, and consensus-building.</u>
+- If a member gets sick, we'll <u>ensure they receive support</u> and may <u>redistribute tasks among the team or seek temporary assistance.</u> 
+- If the problem is unclear, then we <u>will work together to define it,</u> focusing on specific issues rather than generalizations.
+- If the conflict is resolved, then we will <u>schedule a follow-up meeting</u> to assess the outcome and ensure ongoing collaboration.
