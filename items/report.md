@@ -158,40 +158,49 @@ The key area(s) of responsibilities for each member
 
 ### Application Use Cases and or Examples
 
-*[Provide use cases and examples of people using your application. Who are the target users of your application? How do the users use your application?]*
+**Browsing and Searching for Items**
 
-*Here is a pet training application example*
+![](media/report/search.png)
 
-*Molly wants to inquiry about her cat, McPurr's recent troublesome behaviour*
-1. *Molly notices that McPurr has been hostile since...*
-2. *She makes a post about... with the tag...*
-3. *Lachlan, a vet, writes a reply to Molly's post...*
-4. ...
-5. *Molly gives Lachlan's reply a 'tick' response*
+- Lily wants to buy a new dress, so she opens Twice Treasured and searches for second-hand branded dresses.
 
-*Here is a map navigation application example*
+**Communicating with Sellers and Favoriting Items**
 
-*Targets Users: Drivers*
+![](media/report/chat01.png)
 
-* *Users can use it to navigate in order to reach the destinations.*
-* *Users can learn the traffic conditions*
-* ...
+![](media/report/product_detail_page.png)
 
-*Target Users: Those who want to find some good restaurants*
+- Lily finds a dress she likes and clicks the product link to view the details. She thinks it’s great and uses the “Chat with Seller” feature in the bottom right corner to negotiate the price. 
+- If Lily likes the item but wants to compare it with others, she can click the heart icon in the bottom left corner to favorite the item and easily find it later in her favorites list.
 
-* *Users can find nearby restaurants and the application can give recommendations*
-* ...
+**Post Items for Sale**
 
-*List all the use cases in text descriptions or create use case diagrams. Please refer to https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/ for use case diagram.*
+![](media\report\post.png)
+
+- While preparing to move  home, Lily finds the TV she seldom use. She decides to list the TV for sale on Twice Treasured. 
+
+**Notifications**
+
+![](media/report/notification.png)
+
+- Within a day, Lily receives a notification from the system that two users are interested in her item and have favorited it.
+
+ **Managing and Modifying Items**
+
+![](media/report/user%20page.png)
+
+![](media/report/manage%20product.png)
+
+- A week passes and Lily’s dress hasn’t sold. She decides to lower the price to see if she can sell it more quickly.
 
 <hr> 
 
 ### Application UML
 
-![ClassDiagramExample](media/_examples/ClassDiagramExample.png) <br>
-*[Replace the above with a class diagram. You can look at how we have linked an image here as an example of how you can do it too.]*
+![](media\report\UML.png)
 
 <hr>
+#### **go to media\report\UML.png to see the clearer picture**
 
 ## Code Design and Decisions
 
