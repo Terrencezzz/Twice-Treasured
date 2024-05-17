@@ -688,7 +688,8 @@ Allow users to use the selection drop-down bar to enter the category and conditi
 
 **Bugs**
 
-1. *Bug 1:* Due to <u>asynchronous database data retrieval</u>, if a user navigates to the `HomePage ` and clicks on the bottom navigation bar before `initLoginUser() `finishes, the system might incorrectly assume they are not logged in.<u>(fixed by add a loading overlay or dialog to wait for `initLoginUser ` to finish.)</u>
+1. Bug 1: Due to <u>asynchronous database data retrieval</u>, if a user navigates to the `HomePage ` and clicks on the bottom navigation bar before `initLoginUser() `finishes, the system might incorrectly assume they are not logged in.<u>(fixed by add a loading overlay or dialog to wait for `initLoginUser ` to finish.)</u>
+2. Bug 2: Due to the concurrency problem, when two users are chatting online, one's message will override the other's, this is because when two people are chatting at the same time, if there exist 3 messages in the database, they will all write to 4th messages.
 
 **Errors**
 
