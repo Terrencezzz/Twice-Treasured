@@ -426,14 +426,14 @@ a purpose within your application. <u>(medium)</u>
 1.[Interact-Micro] The ability to micro-interact with items/users (e.g. like, block, connect to another 
 user, etc.) [stored in-memory]. <u>(easy)</u> 
 
-- Code
-- Implementation
+- Code: [ProductPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java?ref_type=heads#L161-229)
+- Implementation:In `ProductPage.java`, the favorite feature is implemented using `checkFavoriteStatus` and `toggleFavoriteStatus`. `checkFavoriteStatus` checks if the user has favorited the product and updates the button state. When the button is clicked, `toggleFavoriteStatus` adds or removes the favorite and updates the button state accordingly.
 
 2.[Interact-Follow] The ability to ‘follow’ items. There must be a section that presents all the items 
 followed by a user, grouped, and ordered. [stored in-memory] <u>(medium)</u> 
 
-- Code
-- Implementation
+- Code:[Favorite.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Favorite.java?ref_type=heads#L1-61) [FavoriteAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/FavoriteAdapter.java?ref_type=heads#L1-274)[FavoritePage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/FavoritePage.java?ref_type=heads#L1-347)[IntroPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Activities/IntroPage.java#L27-29)
+- Implementation:The products collected by users are all displayed on the favorite page, and the products can be viewed in categories and sorted in ascending or descending order according to price.
 
 4.[Interact-Noti] The ability to send notifications for interactions (e.g., follow request, product viewed, 
 etc.). A notification must be sent only after a predetermined number of interactions are set [e.g., 
