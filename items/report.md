@@ -18,7 +18,7 @@
   
    - Confirm: I have already added comp21006442@gmail.com as a Developer to the Firebase project prior to due date.
    
-     ![Check_Developer_to_the_Firebase_project](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\Check_Developer_to_the_Firebase_project.png)
+     ![Check_Developer_to_the_Firebase_project](media\report\Check_Developer_to_the_Firebase_project.png)
 - Two user accounts for markers' access are usable on the app's APK (do not change the username and password unless there are exceptional circumstances. Note that they are not real e-mail addresses in use):
    - Username: comp2100@anu.edu.au	Password: comp2100
    
@@ -26,9 +26,9 @@
    
      
    
-     ![Check_Special_Account_comp2100](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\Check_Special_Account_comp2100.png)
+     ![Check_Special_Account_comp2100](media\report\Check_Special_Account_comp2100.png)
    
-     ![Check_Special_Account_comp6442](D:\A_Study\2024S1-COMP6442\Assignment\GroupProject\gp-24s1\items\media\report\Check_Special_Account_comp6442.png)
+     ![Check_Special_Account_comp6442](media\report\Check_Special_Account_comp6442.png)
    
    
 
@@ -46,32 +46,22 @@ The key area(s) of responsibilities for each member
 
 ## Summary of Individual Contributions
 
-1. **UID1, Name1**  I have 30% contribution, as follows: <br>
-  - **Code Contribution in the final App**
-    - Feature A1, A2, A3 - class Dummy: [Dummy.java](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java)
-    - XYZ Design Pattern -  class AnotherClass: [functionOne()](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43), [function2()](the-URL)
-    - ... (any other contribution in the code, including UI and data files) ... [Student class](../src/path/to/class/Student.java), ..., etc.*, [LanguageTranslator class](../src/path/to/class/LanguageTranslator.java): function1(), function2(), ... <br><br>
-
-  - **Code and App Design** 
-    - [What design patterns, data structures, did the involved member propose?]*
-    - [UI Design. Specify what design did the involved member propose? What tools were used for the design?]* <br><br>
-
-  - **Others**: (only if significant and significantly different from an "average contribution") 
-    - [Report Writing?] [Slides preparation?]*
-    - [You are welcome to provide anything that you consider as a contribution to the project or team.] e.g., APK, setups, firebase* <br><br>
-
-<hr>
-
-1.**u7756873, Lingjie Qin**  I have <u>20.6%</u> contribution, as follows: <br>
+1.**u7756873, Lingjie Qin**  I have <u>20.6%</u> contribution, as follows: 
 
 - **Code Contribution in the final App**
-  - 
+  - Feature
+    - Basic Features 4 [DataStream] - [Post.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/Post.java)
+    - Basic Features 5 [Search] - [SearchService.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java)
+    - S2 Search-Filter - [SearchResultPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchResultPage.java)
 - **Code and App Design** 
-  - 
+  - Data Structure
+    - AVLTree - [inOrderTraversalAscending, inOrderTraversalDescending](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/AVLTree.java#L216-234)
 - **Others**
-  - 
+  - APP display video
+  - Test: [TokenTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/TokenTest.java), [AVLTreeTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/test/java/com/example/myapplication/AVLTreeTest.java)
+  - Meeting-0416 Lead and scribe
 
-2.**u7303997, Scott Ferrageau de St Amand** I have <u>16.8%</u> contribution, as follows: <br>
+2.**u7303997, Scott Ferrageau de St Amand** I have <u>16.8%</u> contribution, as follows: 
 
 - **Code Contribution in the final App**
   - 1
@@ -89,7 +79,7 @@ The key area(s) of responsibilities for each member
 - **Others**
   - 1
 
-4.**u7706423, Wen Li** I have <u>21.2%</u> contribution, as follows: <br>
+4.**u7706423, Wen Li** I have <u>21.2%</u> contribution, as follows: 
 
 - **Code Contribution in the final App**
   - Feature
@@ -112,17 +102,27 @@ The key area(s) of responsibilities for each member
 - **Others**
   - Report Writing
   - Bug-fixing process for APK packaging
+  - Meeting-0423 Lead and scribe
 
 5.**u7769944, Xiaojie Zhou** I have <u>20%</u> contribution, as follows: <br>
 
 - **Code Contribution in the final App**
-  - 1
+  - Feature
+    - DataFiles 2,500 valid data instances in the firebase ,you can also see the src/main/assets to find them
+    - LoadShowData [Database.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/basicClass/Database.java#L48-75)
+    - AVLTree  finish basic methods. [AVLNode.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/common/AVLNode.java#L1-70)[AVLTree.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/common/AVLTree.java#L1-164)
+    - U1 Interact-Micro [ProductPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java?ref_type=heads#L161-229)
+    - U2 Interact-Follow [Favorite.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Favorite.java?ref_type=heads#L1-61) [FavoriteAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/FavoriteAdapter.java?ref_type=heads#L1-274)[FavoritePage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/FavoritePage.java?ref_type=heads#L1-347)[IntroPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Activities/IntroPage.java#L27-29)
+  - other
+    - [ProductPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java#L1-158)
+    - [ProductsManagePage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Activities/ProductsManagePage.java#L1-97) [ProductsManageAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Adapters/ProductsManageAdapter.java#L1-115)[ProductEditorPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Activities/ProductEditorPage.java#L1-191)
+    - [SearchItemAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Adapters/SearchItemAdapter.java#L1-103)
+    - Test:[AVLNodeTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/test/java/com/example/myapplication/AVLNodeTest.java#L1-106) [AVLTreeTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/test/java/com/example/myapplication/AVLTreeTest.java#L113-170)[FavoriteTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/test/java/com/example/myapplication/FavoriteTest.java#L1-76)
 - **Code and App Design** 
-  - 1
+  - UI design**: I completed the design and function implementation of the product details page, seller product management page, user collection list page, and UI design of the search results page.
 - **Others**
-  - 1
-
-
+  - Report Writing：Wen Li and I completed the writing of the entire report
+  - Write two meeting records
 
 ## Application Description
 
@@ -131,6 +131,30 @@ The key area(s) of responsibilities for each member
 *Here is a pet specific application example*
 
 *PetBook is a social media application specifically targetting pet owners... it provides... certified practitioners, such as veterians are indicated by a label next to their profile...*
+
+**Twice Treasured** is a platform designed for buying and selling new and second-hand items. With Twice Treasured, users can:
+
+- Browse and search for products of interest, and communicate with sellers anytime, anywhere.
+
+- "Like" products to follow updates such as price drops or item delistings, ensuring they don't miss out on great deals.
+
+- Upload and sell their own items, promoting the circulation of unused goods and supporting a sustainable second-hand market.
+
+  ![items/media/report/intropage.png](media\report\intropage.png)
+
+  
+
+  ![](media\report\homepage.png)
+  
+  ![](media\report\search.png)
+  
+  ![](media\report\chat.png)
+  
+  ![](media\report\favorite list.png)
+  
+  ![](media\report\post.png)
+  
+  **image:login,scan goods,search,chat,favorite,post(from top to bottom)**
 
 ### Application Use Cases and or Examples
 
@@ -212,42 +236,41 @@ Here is a partial (short) example for the subsection `Data Structures`:*
 <hr>
 
 ### Design Patterns
-1.*Singleton*
+**1.Singleton**
 
-* Objective: used for storing **the only one database connection instance** for Firebase Integration feature.
-* Code Locations
+* *Objective*: used for storing **the only one database connection instance** for Firebase Integration feature.
+* *Code Locations*
    * defined in [Database.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Database.java)
    * processed using in [RecommendAdapter()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Adapters/RecommendAdapter.java#L39), [FavoritePage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/FavoritePage.java#L77-78), [HomePage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L75), [ProductPage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java#L53-54),[UserDetailPage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L98),[UserPage.onCreate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserPage.java?#L67),...
-* Reasons
+* *Reasons*
    * Singleton ensures only one database connection is created, <u>saving resources</u>.
    * <u>Reusing</u> the same connection reduces system <u>overhead</u>, making things faster.
    * Singleton ensures <u>safe access</u> to the connection, even in a multi-threaded environment.
    * All parts of the program use the same connection, <u>ensuring data consistency</u>.
 
-2.State
+**2.State**
 
-* Objective:  used for retrieve the current user's login status from [GlobalVariables](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/GlobalVariables.java#L42-65) to dynamically control the visibility of UI elements and enforce corresponding functional restrictions. 
+* *Objective*:  used for **retrieve the current user's login status** from [GlobalVariables](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/GlobalVariables.java#L42-65) to dynamically control the visibility of UI elements and enforce corresponding functional restrictions. 
 
-* Code Locations
-
-  - defined in  [UserState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserState.java), [UserLoggedInState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedInState.java), [UserLoggedOutState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedOutState.java)
-  - processed using in [GlobalVariables.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/GlobalVariables.java#L42-65), [CommonHelper.refreshLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java?#L94-95), [HomePage.Logout](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L141-142), [HomePage.initLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L211-212), [UserDetailPage.updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L193-194)
-
-* Reasons
-
+* *Code Locations*
+  * defined in  [UserState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserState.java), [UserLoggedInState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedInState.java), [UserLoggedOutState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedOutState.java)
+  * processed using in [GlobalVariables.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/GlobalVariables.java#L42-65), [CommonHelper.refreshLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java?#L94-95), [HomePage.Logout](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L141-142), [HomePage.initLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L211-212), [UserDetailPage.updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L193-194)
+* *Reasons*
   * <u>UI elements and functional restrictions can change dynamically</u> based on the user's login status, improving user experience and responsiveness.
   * Easily <u>adapt to changes and new requirements</u> without affecting the entire codebase.
 
-3.Facotry Method
+**3.Facotry Method**
 
-* Objective: used for generating different notices and store them into different database reference in factory 
-* Code Locations
+* *Objective*: used for **generating different notices** and store them into different database reference in factory 
+* *Code Locations*
+  
   * defined in [Notice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Notice.java), [NoticeFactory.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/NoticeFactory.java) , [UserNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserNotice.java), [FavoriteNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/FavoriteNotice.java)
   * processed using in [ProductPage.toggleFavoriteStatus()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/ProductPage.java#L220-222), [UserDetailPage.updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L187-189)
-* Reasons
+* *Reasons*
+  
   *  <u>Easy addition of new notice types</u> without modifying existing code. 
-  * <u>Relying on factory interfaces instead of concrete classes</u>, it fosters a modular and loosely coupled design, facilitating system maintenance and evolution.
-
+  *  <u>Relying on factory interfaces instead of concrete classes</u>, it fosters a modular and loosely coupled design, facilitating system maintenance and evolution.
+  
   
 
 <hr>
@@ -284,38 +307,141 @@ words.]*
 <hr>
 
 ## Implemented Features
-*[What features have you implemented? where, how, and why?]* <br>
-*List all features you have completed in their separate categories with their featureId. THe features must be one of the basic/custom features, or an approved feature from Voice Four Feature.*
-
 ### Basic Features
-1. [LogIn]. Description of the feature ... (easy)
-   * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-   * Description of feature: ... <br>
-   * Description of your implementation: ... <br>
-
-2. [DataFiles]. Description  ... ... (...)
-   * Code to the Data File [users_interaction.json](link-to-file), [search-queries.xml](link-to-file), ...
-   * Link to the Firebase repo: ...
-
-3. ...
-   <br>
+1. [LogIn] Users must be able to log in (not necessarily sign up). (easy)
+   * Code: [LoginPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/LoginPage.java)
+   * Feature: Users need to <u>input their email and password for authentication</u>. If the credentials are correct, they will be directed to the `HomePage`.
+   * Implementation: On the login screen, <u>enter your email address and password</u>, then call `FirebaseAuth.signInWithEmailAndPassword` to <u>authenticate the user</u>. If authentication is successful, you will be <u>redirected</u> to the `HomePage`; if it fails, a login failure message will be displayed.
+2. [DataFiles] Create a dataset with at least 2,500 valid data instances, each representing a meaningful piece of information in your app. The data should be represented and stored in a structured format taught in the course. (easy)
+   * Code to the Data File [user_data_0513.json](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/assets/user_data_0513.json), [product_data.json](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/assets/product_data.json)
+   * Link to the Firebase repo: [Second Hand Market-Twice Treasured](https://console.firebase.google.com/project/second-hand-market-affd5/overview)
+3. [LoadShowData] Load and display data instances from your dataset. Choose an appropriate format to present the different types of data. (easy) 
+   - Code:[initLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/HomePage.java?#L189-229)
+   - Feature: Load and display current User Information
+   - Implementation:  Base on user's email, query and retrieve data from firebase, update `GlobalVariables.LoginUser` and textView value accordingly.
+4. [DataStream] Create data instances to simulate users’ actions and interactions, which are then used to feed the app so that when a user is logged in, these data are loaded at regular time intervals and visualized on the app. (medium)
+   - Code: [updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L176-205)
+   - Feature: Update current User information
+   - Implementation: Retrieve user data reference from firebase, call `setValue` to change value. If password changes, call `FirebaseAuth.updatePassword` change user authentication identification.
+5. **[Search] Users must be able to search for information on your app. (medium)** 
+   - Code: [findProduct()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java?ref_type=heads), [Parser.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java), [Tokenizer.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java?ref_type=heads), [Token.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Token.java?ref_type=heads)
+   - Feature: Track user's input, then display the result from the database.
+   - Implementation: Use `findProduct()` to track user's input, then deal with the input with parser, the parser, the Tokenizer and Tokens will help parser to provide an `AVLtree `which contains the result.
 
 ### Custom Features
-Feature Category: Privacy <br>
-1. [Privacy-Request]. Description of the feature  (easy)
-   * Code: [Class X, methods Z, Y](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-   * Description of your implementation: ... <br>
-     <br>
 
-2. [Privacy-Block]. Description ... ... (medium)
-   ... ...
-   <br><br>
+| Feature ID | Feature                                             | Criteria |
+| :--------: | --------------------------------------------------- | -------- |
+|                                      | **Search-related features** ||
+| 1          | Search-Invalid                                      | medium   |
+| 2          | Search-Filter                                       | easy     |
+|            | **UI Design and Testing**                           |          |
+| 1          | UI-Layout                                           | easy     |
+|            | **Greater Data Usage, Handling and Sophistication** |          |
+| 2          | Data-Profile                                        | easy     |
+| 3          | Data-GPS                                            | easy     |
+| 5          | Data-Deletion                                       | medium   |
+|            | **Firebase Integration**                            |          |
+| 1          | FB-Auth                                             | easy     |
+| 2          | FB-Persist                                          | medium   |
+|            | **Peer to Peer Messaging**                          |          |
+| 1          | P2P-DM                                              | hard     |
+|            | **User Interactivity**                              |          |
+| 1 | Interact-Micro | easy |
+| 2          | Interact-Follow                                     | medium   |
+| 4          | Interact-Noti                                       | medium   |
+|            | **Privacy**                                         |          |
+| 2          | Privacy-Visibility                                  | easy     |
 
-Feature Category: Firebase Integration <br>
-3. [FB-Auth] Description of the feature (easy)
-   * Code: [Class X, entire file](https://gitlab.cecs.anu.edu.au/comp2100/group-project/ga-23s2/-/blob/main/items/media/_examples/Dummy.java#L22-43) and Class Y, ...
-   * [Class B](../src/path/to/class/file.java#L30-85): methods A, B, C, lines of code: 30 to 85
-   * Description of your implementation: ... <br>
+**Search-related features** 
+
+1. [Search-Invalid] On top of giving search results from valid inputs, search functionality can process and 	correctly handle partially invalid search queries and give meaningful results. <u>(medium)</u> 
+   - Code
+   - Implementation
+2. [Search-Filter] Sort and filter a list of items returned from searches, with the use of suitable UI 
+   components. <u>(easy)</u> 
+   - Code
+   - Implementation
+
+**UI Design and Testing** 
+
+​	1.[UI-Layout]. Incorporate suitable layout adjustments in the UI components for portrait and landscape 	layout variants, as well as different screen sizes. <u>(easy)</u> 
+- Code: [HomePageLayout](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/res/layout/activity_home_page.xml)
+- Implementation: Arrange the layout with <u>a Top bar, Content, and Bottom bar</u> within a `RelativeLayout` . The Top bar's contents are set within a `ConstraintLayout `for precise alignment, while the Content resides in a `ScrollView`, enabling seamless scrolling. Lastly, the Bottom bar is nested within a `LinearLayout`, ensuring its placement at the absolute bottom using *layout_alignParentBottom*.
+
+![CustomerFeature_UILayout](media\report\CustomerFeature_UILayout.png)
+
+
+
+*Note: majority of pages adhere to this framework; here, we're simply using the homepage layout as an illustrative example.*
+
+**Greater Data Usage, Handling and Sophistication** 
+
+2.[Data-Profile]. Create a Profile Page for Users or any Entities, which contains a media file.<u>(easy)</u>
+
+- Code: [UserDetailPage.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java)
+- Implementation: Transition from `UserPage `to Profile, then to `UserPageDetailPage`. On the `UserPageDetailPage`, seamlessly load all details of the logged-in user. Users can effortlessly modify their <u>avatar, name, location, and password</u>, then *double-check alert shows*, after user confirms, system will store new data into database. After successfully changing the password, <u>prompt the user to log in again for security.</u>
+
+3.[Data-GPS] Use GPS information based on location data in your App. <u>(easy)</u> 
+
+- Code: [getLocation()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java?#L285-331)
+- Implementation: Add location permission to `AndroidManifest.xml`. Upon user approval, create a location service client to <u>fetch last known location</u>. Convert the location to a city name and display it in a TextView.
+
+5.[Data-Deletion] Implement Deletion for your chosen tree data structure, and the deletion must serve 
+a purpose within your application. <u>(medium)</u> 
+
+- Code
+- Implementation
+
+**Firebase Integration**
+
+1.[FB-Auth] Use Firebase to implement User Authentication/Authorisation. <u>(easy)</u> 
+
+- Code: [loginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/LoginPage.java?#L86-104), [registerUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/RegisterActivity.java?#L85-118), [updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java?#L183)
+- Implementation: Use `FirebaseAuth.createUserWithEmailAndPassword` to <u>create a user</u>, `FirebaseAuth.signInWithEmailAndPassword` to <u>authenticate the user</u>, and `FirebaseAuth.updatePassword` to <u>change the user's password</u>.
+
+2.[FB-Persist] Use Firebase to persist all data used in your app. <u>(medium)</u> 
+
+- Code: [Database.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Database.java)
+- Implementation: Establish a <u>unique database connection</u> by using <u>Singleton</u>, retrieve data with `database.getReference()`, and update specific data using `setValue`.
+
+**Peer to Peer Messaging**
+
+1.[P2P-DM] Provide users with the ability to message each other directly in private. <u>(hard)</u> 
+
+- Code
+- Implementation
+
+**User Interactivity**
+
+1.[Interact-Micro] The ability to micro-interact with items/users (e.g. like, block, connect to another 
+user, etc.) [stored in-memory]. <u>(easy)</u> 
+
+- Code
+- Implementation
+
+2.[Interact-Follow] The ability to ‘follow’ items. There must be a section that presents all the items 
+followed by a user, grouped, and ordered. [stored in-memory] <u>(medium)</u> 
+
+- Code
+- Implementation
+
+4.[Interact-Noti] The ability to send notifications for interactions (e.g., follow request, product viewed, 
+etc.). A notification must be sent only after a predetermined number of interactions are set [e.g., 
+when ≥2 requests have been received or 2 follow requests have been received). <u>(medium)</u> 
+
+- Code: [Notice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Notice.java), [NoticeFactory.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/NoticeFactory.java) , [UserNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserNotice.java), [FavoriteNotice.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/FavoriteNotice.java)
+- Implementation:  <u>Generate different notices</u> and store them into different database reference by using <u>Factory Method</u>. The `UserNotice `used for password changing, `FavoriteNotice `used for user's product favorites number >=2.
+
+**Privacy**
+
+2.[Privacy-Visibility] Given there are at least two types of visibility (public, private, ...), users can only 
+see some profiles or contents that are set to Public or after request being accepted <u>(easy)</u>. 
+
+- Code:  [UserState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserState.java), [UserLoggedInState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedInState.java), [UserLoggedOutState.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/UserLoggedOutState.java)
+- Implementation: <u>Using State</u>, create different user states to control access to the application. Based on the current state, users who log in successfully will <u>have access to all features and the complete UI</u>. Visitors who choose to skip login will <u>have limited access</u>, allowing them only to use the search features and the login function.
+
+
 
 <hr>
 
@@ -328,19 +454,14 @@ Feature Category: Firebase Integration <br>
 
 ## Summary of Known Errors and Bugs
 
-*[Where are the known errors and bugs? What consequences might they lead to?]*
-*List all the known errors and bugs here. If we find bugs/errors that your team does not know of, it shows that your testing is not thorough.*
+**Bugs**
 
-*Here is an example:*
+1. *Bug 1:* Due to <u>asynchronous database data retrieval</u>, if a user navigates to the `HomePage ` and clicks on the bottom navigation bar before `initLoginUser() `finishes, the system might incorrectly assume they are not logged in.<u>(fixed by add a loading overlay or dialog to wait for `initLoginUser ` to finish.)</u>
+2. Bug2: 
 
-1. *Bug 1:*
-   - *A space bar (' ') in the sign in email will crash the application.*
-   - ...
+**Errors**
 
-2. *Bug 2:*
-3. ...
-
-<br> <hr>
+1. Error 1: In case of <u>slow internet connection</u>, <u>timeout errors</u> may occur while retrieving GPS coordinates, preventing the current location from being obtained.
 
 
 ## Testing Summary
@@ -366,16 +487,19 @@ Feature Category: Firebase Integration <br>
 ## Team Management
 
 ### Meetings Records
-* Link to the minutes of your meetings like above. There must be at least 4 team meetings.
-  (each commited within 2 days aftre the meeting)
-* Your meetings should also have a reasonable date spanning across Week 6 to 11.*
-
-
-- *[Team Meeting 1](meeting-template.md)*
-- ...
-- ...
-- [Team Meeting 4](link_to_md_file.md)
-- ... (Add any descriptions if needed) ...
+* [Meeting-0415](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/items/meeting-0415.md?ref_type=heads)
+  
+* [Meeting-0416](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/items/meeting-0416.md?ref_type=heads)
+  
+* [Meeting-0423](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/items/meeting-0423.md?ref_type=heads)
+  
+* [Meeting-0429](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/items/meeting-0429.md?ref_type=heads)
+  
+* [Meeting-0506](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/items/meeting-0506.md?ref_type=heads)
+  
+* [Meeting-0514](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/items/meeting-0514.md?ref_type=heads)
+  
+  
 
 <hr>
 
