@@ -427,7 +427,7 @@ Production Rules:
    components. <u>(easy)</u> 
    - Code: 
      - [FindNewProduct()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java#L51-57)
-     - [FindUsedProduct()]((https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java#L59-65))
+     - [FindUsedProduct()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java#L59-65)
      - [FindProductsAscendingOrder()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java#L108-115)
      - [FindProductsDescendingOrde()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java#L117-124)
    - Implementation: Use `AVLTree's inOrderTraversalAscending` and `inOrderTraversalDescending ` to sort the prices of items in ascending/descending order. For condition filtering, the product is added to the AVL tree only when the product instance is not null and the product's condition is New/Used.
