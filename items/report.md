@@ -18,7 +18,7 @@
   
    - Confirm: I have already added comp21006442@gmail.com as a Developer to the Firebase project prior to due date.
    
-     ![Check_Developer_to_the_Firebase_project](media\report\Check_Developer_to_the_Firebase_project.png)
+     ![Check_Developer_to_the_Firebase_project](media/report/Check_Developer_to_the_Firebase_project.png)
 - Two user accounts for markers' access are usable on the app's APK (do not change the username and password unless there are exceptional circumstances. Note that they are not real e-mail addresses in use):
    - Username: comp2100@anu.edu.au	Password: comp2100
    
@@ -26,9 +26,9 @@
    
      
    
-     ![Check_Special_Account_comp2100](media\report\Check_Special_Account_comp2100.png)
+     ![Check_Special_Account_comp2100](media/report/Check_Special_Account_comp2100.png)
    
-     ![Check_Special_Account_comp6442](media\report\Check_Special_Account_comp6442.png)
+     ![Check_Special_Account_comp6442](media/report/Check_Special_Account_comp6442.png)
    
    
 
@@ -119,7 +119,7 @@ The key area(s) of responsibilities for each member
     - [SearchItemAdapter.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/main/java/com/example/myapplication/Adapters/SearchItemAdapter.java#L1-103)
     - Test:[AVLNodeTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/test/java/com/example/myapplication/AVLNodeTest.java#L1-106) [AVLTreeTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/test/java/com/example/myapplication/AVLTreeTest.java#L113-170)[FavoriteTest.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/426017bae89d609e9e99b822e2c032ee09310a88/src/app/src/test/java/com/example/myapplication/FavoriteTest.java#L1-76)
 - **Code and App Design** 
-  - UI design**: I completed the design and function implementation of the product details page, seller product management page, user collection list page, and UI design of the search results page.
+  - UI design: I completed the design and function implementation of the product details page, seller product management page, user collection list page, and UI design of the search results page.
 - **Others**
   - Report Writing：Wen Li and I completed the writing of the entire report
   - Write two meeting records
@@ -140,19 +140,19 @@ The key area(s) of responsibilities for each member
 
 - Upload and sell their own items, promoting the circulation of unused goods and supporting a sustainable second-hand market.
 
-  ![items/media/report/intropage.png](media\report\intropage.png)
+  ![intropage](media/report/intropage.png)
 
   
 
-  ![](media\report\homepage.png)
+  ![homepage](media/report/homepage.png)
   
-  ![](media\report\search.png)
+  ![search](media/report/search.png)
   
-  ![](media\report\chat.png)
+  ![chat](media/report/chat.png)
   
-  ![](media\report\favorite list.png)
+  ![favorite list](media/report/favorite list.png)
   
-  ![](media\report\post.png)
+  ![post](media/report/post.png)
   
   **image:login,scan goods,search,chat,favorite,post(from top to bottom)**
 
@@ -323,7 +323,7 @@ words.]*
    - Code: [updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L176-205)
    - Feature: Update current User information
    - Implementation: Retrieve user data reference from firebase, call `setValue` to change value. If password changes, call `FirebaseAuth.updatePassword` change user authentication identification.
-5. **[Search] Users must be able to search for information on your app. (medium)** 
+5. [Search] Users must be able to search for information on your app. (medium) 
    - Code: [findProduct()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/SearchService.java?ref_type=heads), [Parser.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java), [Tokenizer.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java?ref_type=heads), [Token.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Token.java?ref_type=heads)
    - Feature: Track user's input, then display the result from the database.
    - Implementation: Use `findProduct()` to track user's input, then deal with the input with parser, the parser, the Tokenizer and Tokens will help parser to provide an `AVLtree `which contains the result.
@@ -343,7 +343,7 @@ words.]*
 | 5          | Data-Deletion                                       | medium   |
 |            | **Firebase Integration**                            |          |
 | 1          | FB-Auth                                             | easy     |
-| 2          | FB-Persist                                          | medium   |
+| 2          | FB-Persist-extension                               | medium   |
 |            | **Peer to Peer Messaging**                          |          |
 | 1          | P2P-DM                                              | hard     |
 |            | **User Interactivity**                              |          |
@@ -356,8 +356,8 @@ words.]*
 **Search-related features** 
 
 1. [Search-Invalid] On top of giving search results from valid inputs, search functionality can process and 	correctly handle partially invalid search queries and give meaningful results. <u>(medium)</u> 
-   - Code
-   - Implementation
+   - Code: [checkNameTypo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Parser.java?ref_type=heads), [checkTypo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java?ref_type=heads), [checkMiss()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java?ref_type=heads), [checkTypoWithMiss()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java?ref_type=heads), [checkDuplicate()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Tokenizer.java?ref_type=heads),
+   - Implementation: Once we get the user input, we will track key words and transfer them to each different type of token. During the processing, these functions will check if it's a typo or not, then it will correct it.
 2. [Search-Filter] Sort and filter a list of items returned from searches, with the use of suitable UI 
    components. <u>(easy)</u> 
    - Code
@@ -369,7 +369,7 @@ words.]*
 - Code: [HomePageLayout](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/res/layout/activity_home_page.xml)
 - Implementation: Arrange the layout with <u>a Top bar, Content, and Bottom bar</u> within a `RelativeLayout` . The Top bar's contents are set within a `ConstraintLayout `for precise alignment, while the Content resides in a `ScrollView`, enabling seamless scrolling. Lastly, the Bottom bar is nested within a `LinearLayout`, ensuring its placement at the absolute bottom using *layout_alignParentBottom*.
 
-![CustomerFeature_UILayout](media\report\CustomerFeature_UILayout.png)
+![CustomerFeature_UILayout](media/report/CustomerFeature_UILayout.png)
 
 
 
@@ -400,10 +400,10 @@ a purpose within your application. <u>(medium)</u>
 - Code: [loginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/LoginPage.java?#L86-104), [registerUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/RegisterActivity.java?#L85-118), [updateUserInfo()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java?#L183)
 - Implementation: Use `FirebaseAuth.createUserWithEmailAndPassword` to <u>create a user</u>, `FirebaseAuth.signInWithEmailAndPassword` to <u>authenticate the user</u>, and `FirebaseAuth.updatePassword` to <u>change the user's password</u>.
 
-2.[FB-Persist] Use Firebase to persist all data used in your app. <u>(medium)</u> 
+2.[FB-Persist-extension]] Use Firebase to persist all data used in your app. <u>(medium)</u> 
 
-- Code: [Database.java](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/basicClass/Database.java)
-- Implementation: Establish a <u>unique database connection</u> by using <u>Singleton</u>, retrieve data with `database.getReference()`, and update specific data using `setValue`.
+- Code: [refreshLoginUser()](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/common/CommonHelper.java?#L94-95),[updateUserInfo](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/blob/main/src/app/src/main/java/com/example/myapplication/Activities/UserDetailPage.java#L187-189)
+- Implementation: Implement a listener that triggers subsequent actions once data updates are completed.
 
 **Peer to Peer Messaging**
 
