@@ -666,6 +666,24 @@ Allow users to use the selection drop-down bar to enter the category and conditi
 
 
 
+**5.Product Constructor**
+
+***Description***
+
+| Commits                                                      | files           | line number | Publish Date   |
+| ------------------------------------------------------------ | --------------- | ----------- | -------------- |
+| [Code Smell](https://gitlab.cecs.anu.edu.au/u7706423/gp-24s1/-/commit/0bb5a6e5180cba7e97d25bfbdd0f348c9b5c7ff2) | Production.java | L3-25       | April 22, 2024 |
+
+***The reason for smelly***
+
+- In Product constructor we have `categoryID`, but we never use it.
+
+***Why we haven't remove it***
+
+- We already set up our database and put 2500 pieces of data in it before we found this smelly code, and also there were too many code relate to this constructor, so we can't change it.
+
+
+
 ## Summary of Known Errors and Bugs
 
 **Bugs**
