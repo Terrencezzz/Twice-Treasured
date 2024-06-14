@@ -98,7 +98,7 @@ public class Parser {
             }
         }
 
-        if (locationCheck && !categoryCheck) {
+        if (locationCheck && !categoryCheck && !nameCheck) {
             return avlTree;
         }
 
